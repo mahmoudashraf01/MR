@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { TbBrandFacebook } from 'react-icons/tb';
 import { FaInstagram } from 'react-icons/fa';
 import { TbBrandLinkedin } from 'react-icons/tb';
-import Logo from '../assets/Logo2.svg';
+import Logo from '../assets/logo2.svg';
 import { NavLink } from 'react-router-dom';
 
 const Footer = () => {
