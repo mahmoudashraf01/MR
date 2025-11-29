@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import HeroImg from '../../assets/hero1.jpg'
 import Landing from '../../assets/landing.jpg'
-import About from '../../assets/About.png'
+import About from '../../assets/about.png'
 import HeavyMachine2 from '../../assets/machine7.jpeg'
 import PrimaryButton from '../buttons/PrimaryButton';
 
