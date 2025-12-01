@@ -13,21 +13,21 @@ const AboutHero = () => {
             className="absolute top-0 left-0 w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-[#0A2540B2]/70"></div>
-        <div className=' flex flex-col justify-center items-center relative'>
-            <div className='text-center flex flex-col justify-center items-center relative text-primary text-[50px] font-bold drop-shadow-lg max-sm:text-2xl my-10 leading-relaxed'>
-                <h1>
+        <div className='flex flex-col justify-center items-center relative px-4'>
+            <div className='text-center flex flex-col justify-center items-center relative text-primary text-[50px] font-bold drop-shadow-2xl max-sm:text-3xl my-8 leading-tight space-y-2'>
+                <h1 className='tracking-tight'>
                     Building Trust Through Reliable
                 </h1>
-                <h1 className='text-secondary'> Machine Rentals.</h1>
+                <h1 className='text-secondary tracking-tight'>Machine Rentals.</h1>
             </div>
-            <div className='w-full flex justify-center items-center '>
-                <p className=' text-center text-primary text-base text-[20px] leading-relaxed'>We connect construction companies with the equipment they need — safely, quickly, and efficiently..</p>
+            <div className='w-full max-w-3xl flex justify-center items-center px-4 mt-4'>
+                <p className='text-center text-primary text-base md:text-[20px] leading-relaxed font-normal'>We connect construction companies with the equipment they need — safely, quickly, and efficiently.</p>
             </div>
-            <div className='flex lex gap-2.5 my-6'>
-                <button className='bg-primaryBtn p-2.5 md:w-[260px] sm:w-40 md:h-[46px] sm:h-[20] rounded-md'>
+            <div className='flex flex-wrap justify-center gap-4 my-8'>
+                <button className='bg-primaryBtn px-6 py-3 md:w-[260px] sm:w-auto md:h-[46px] rounded-lg text-primary font-medium shadow-md hover:shadow-lg transition-all duration-200 hover:opacity-90'>
                     Find Equipment
                 </button>
-                <button className='bg-secondary p-2.5 md:w-[260px] sm:w-40 md:h-[46px] sm:h-[20] rounded-md'>
+                <button className='bg-secondary px-6 py-3 md:w-[260px] sm:w-auto md:h-[46px] rounded-lg text-gray-900 font-medium shadow-md hover:shadow-lg transition-all duration-200 hover:opacity-90'>
                     List Your Machines
                 </button>
             </div>
