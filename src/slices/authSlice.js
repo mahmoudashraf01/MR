@@ -11,6 +11,7 @@ export const registerUser = createAsyncThunk(
             // Create full_name
             //   const full_name = `${formData.first_name} ${formData.last_name}`;
             const fullName = formData.full_name;
+            const baseURL = import.meta.env.VITE_BASE_URL;
 
 
             // Extract needed fields only
@@ -24,7 +25,7 @@ export const registerUser = createAsyncThunk(
             };
 
             const response = await axios.post(
-                "https://darkgray-bee-896770.hostingersite.com/api/register",
+                `${baseURL}/register`,
                 body,
                 {
                     headers: {
