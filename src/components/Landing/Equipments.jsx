@@ -11,7 +11,7 @@ const Equipments = () => {
                 <h1 className='leading-tight text-center text-[40px] font-bold max-sm:text-[30px] text-gray-900'>Popular Heavy Equipment</h1>
                 <p className='leading-relaxed text-center text-[20px] text-gray-600 max-w-2xl'>Verified listings from trusted suppliers. Find the perfect machine for your project.</p>
             </div>
-            <div className='grid md:grid-cols-2 mx-auto lg:grid-cols-3 sm:grid-cols-1 gap-8 px-4 max-w-7xl w-full'>
+            <div className='grid md:grid-cols-2 mx-auto max-xs:mx-6 lg:grid-cols-3 sm:grid-cols-1 gap-8 px-4 max-w-7xl w-full'>
                 <MachineCard />
                 <MachineCard />
                 <MachineCard />

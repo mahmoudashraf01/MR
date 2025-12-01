@@ -1,5 +1,7 @@
 import { memo } from "react";
-import { FaSearch, FaMapMarkerAlt, FaBox, FaCalendarAlt } from "react-icons/fa";
+import { FaSearch, FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
+import EquipmentCategory from '../../assets/category_search.svg';
+import EquipmentName from '../../assets/equipmentSearch.svg';
 
 const SearchContainer = () => {
     return (
@@ -10,7 +12,7 @@ const SearchContainer = () => {
                     {/* Equipment Name */}
                     <div className="flex flex-col gap-2 w-full group">
                         <label className="font-semibold text-gray-800 flex items-center gap-2 text-sm">
-                            <FaBox className='text-primaryBtn text-base' /> Equipment Name
+                            <img src={EquipmentName} alt="" /> Equipment Name
                         </label>
                         <div className="relative">
                             <input
@@ -25,7 +27,7 @@ const SearchContainer = () => {
                     {/* Category */}
                     <div className="flex flex-col gap-2 w-full group">
                         <label className="font-semibold text-gray-800 flex items-center gap-2 text-sm">
-                            <FaBox className='text-primaryBtn text-base' /> Category
+                            <img src={EquipmentCategory} alt="" /> Category
                         </label>
                         <div className="relative">
                             <select
@@ -86,11 +88,11 @@ const SearchContainer = () => {
 
                 {/* Search Button */}
                 <div className="flex justify-end mt-2">
-                    <button 
+                    <button
                         className="bg-primaryBtn text-white px-8 py-3.5 rounded-lg flex items-center gap-2 hover:opacity-90 transition-all duration-300 shadow-md hover:shadow-xl hover:scale-105 active:scale-95 font-semibold"
                         aria-label="Search for equipment"
                     >
-                        <FaSearch className="text-base" /> 
+                        <FaSearch className="text-base" />
                         <span>Search</span>
                     </button>
                 </div>
