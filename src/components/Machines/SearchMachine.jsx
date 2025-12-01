@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import Search from '../../assets/search.svg'
-import SearchBTN from '../../assets/SearchBTN.svg'
+import SearchBTN from '../../assets/searchBtn.svg'
 import Location from '../../assets/location2.svg'
 
 const SearchMachine = () => {

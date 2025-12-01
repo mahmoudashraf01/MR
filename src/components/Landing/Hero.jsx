@@ -1,6 +1,7 @@
 import { memo } from 'react';
+ 
 import SearchContainer from './SearchContainer';
-import HeavyMachine2 from '../../assets/machine6.jpeg'
+ import HeavyMachine2 from '../../assets/machine6.jpeg'
 
 const Hero = () => {
     return (

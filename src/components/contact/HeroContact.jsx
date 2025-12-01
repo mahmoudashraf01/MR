@@ -1,6 +1,4 @@
 import { memo } from 'react';
-import HeroImg from '../../assets/hero1.jpg'
-import Landing from '../../assets/Landing.jpg'
 import Contact from '../../assets/contact.jpeg'
 
 const HeroContact = () => {

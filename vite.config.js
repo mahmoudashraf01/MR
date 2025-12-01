@@ -7,5 +7,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: '/', 
+  base: '/',   // موقعك على Vercel في الروت
 })
