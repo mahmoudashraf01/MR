@@ -1,6 +1,4 @@
 import { memo } from 'react';
-import HeroImg from '../../assets/hero1.jpg'
-import Landing from '../../assets/landing.jpg'
 import Contact from '../../assets/contact.jpeg'
 import SearchMachine from './SearchMachine';
 

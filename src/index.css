@@ -17,6 +17,10 @@
   --color-navColor: #0A2540;
   --color-equipmentBg: rgba(244, 245, 247, 1)
 
+  /* Breakpoints Screens */
+  --breakpoint-sm : 48rem; /* 768px */
+  --breakpoint-xs : 30rem; /* 480px */
+
   /* Animation */
   --animate-fade-in: fade-in 0.7s ease-out forwards;
   --animate-fade-in-delay-1: fade-in 0.7s ease-out 0.2s forwards;

@@ -1,11 +1,11 @@
 import { memo } from 'react';
- 
+
 import SearchContainer from './SearchContainer';
- import HeavyMachine2 from '../../assets/machine6.jpeg'
+import HeavyMachine2 from '../../assets/machine6.jpeg'
 
 const Hero = () => {
     return (
-        <div className="relative h-[800px] w-full flex items-center justify-center overflow-hidden">
+        <div className="relative lg:h-[800px] h-[1000px] w-full flex items-center justify-center overflow-hidden">
             <img
                 src={HeavyMachine2}
                 alt="hero"
