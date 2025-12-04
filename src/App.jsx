@@ -26,7 +26,7 @@ function App() {
         { path: 'machines', element: <Machines /> },
         { path: 'contact', element: <Contact /> },
         { path: 'about', element: <About /> },
-        { path: 'viewDetails', element: <ViewDetails /> },
+        { path: 'viewDetails/:id', element: <ViewDetails /> },
         { path: 'technicalSpecifications', element: <TechnicalSpecifications /> },
         { path: '*', element: <Landing /> },
       ],
