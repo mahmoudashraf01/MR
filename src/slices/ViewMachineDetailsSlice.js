@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { baseURL } from '../Helpers/const/const';
 
 // =====================================================
 // 1) Thunk Function — Get Machine Details by ID
@@ -8,16 +9,13 @@ export const getMachineDetailsThunk = createAsyncThunk(
     "machineDetails/getMachineDetails",
     async (id, { rejectWithValue }) => {
         try {
-            const BASE_URL = import.meta.env.VITE_BASE_URL;
-            const TOKEN = import.meta.env.VITE_AUTH_TOKEN_KEY;
 
-            const response = await axios.get(`${BASE_URL}/machines/public/${id}`, {
+            const response = await axios.get(`${baseURL}/machines/public/${id}`, {
                 headers: {
-                    Authorization: `Bearer ${TOKEN}`,
+                    "Content-Type": "application/json",
                 },
             });
-
-            return response.data.data; // داتا الماشين
+            return response.data.data;
         } catch (error) {
             return rejectWithValue(
                 error.response?.data?.message || "Failed to fetch machine details"
@@ -63,4 +61,4 @@ const machineDetailsSlice = createSlice({
     },
 });
 
-export default machineDetailsSlice.reducer;
+export const machineBookingDetailsReducer = machineDetailsSlice.reducer;

@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { use, useState } from 'react'
 import Landing from './pages/Landing'
-import { useRoutes } from "react-router-dom";
+import { useParams, useRoutes } from "react-router-dom";
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import NavbarLayout from './layouts/Layout'

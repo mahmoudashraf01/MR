@@ -9,8 +9,6 @@ const Equipments = () => {
 
     const dispatch = useDispatch();
     const { machines, loading } = useSelector((state) => state.machines);
-        const baseURL = import.meta.env.VITE_BASE_URL;
-
 
     useEffect(() => {
         dispatch(getAllMachinesThunk());

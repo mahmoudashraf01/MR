@@ -2,6 +2,7 @@ import { memo } from 'react';
 import machineImg from '../../assets/machine_item.png'
 import { BiMap } from 'react-icons/bi';
 import { BsShieldCheck } from 'react-icons/bs';
+import { Link, NavLink } from 'react-router-dom';
 
 const MachineCard = ({ machine }) => {
 
@@ -14,6 +15,7 @@ const MachineCard = ({ machine }) => {
     } = machine;
 
     const imageSrc = images && images.length > 0 ? images[0] : machineImg;
+    console.log('dfgdfg', machine);
 
 
     return (
@@ -62,10 +64,14 @@ const MachineCard = ({ machine }) => {
                     </h1>
                     <p className='text-gray-500 text-xs mt-0.5'>per day</p>
                 </div>
+                {/* View details Button */}
 
-                <button className='w-32 h-9 border-2 border-primaryBtn rounded-lg font-medium text-primaryBtn hover:bg-primaryBtn hover:text-primary transition-all duration-200 shadow-sm'>
-                    View Details
-                </button>
+                <Link to={`/viewDetails/${machine.id}`}>
+
+                    <button className='w-32 h-9 border-2 border-primaryBtn rounded-lg font-medium text-primaryBtn hover:bg-primaryBtn hover:text-primary transition-all duration-200 shadow-sm'>
+                        View Details
+                    </button>
+                </Link>
             </div>
         </div>
     );
