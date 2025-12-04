@@ -126,7 +126,7 @@ const MachineBookingDetails = ({ id }) => {
                     {/* Title + Verified */}
                     <div className="flex gap-3 items-center">
                         <h1 className="text-2xl lg:text-[36px] font-bold text-gray-900">
-                            {machine?.title}
+                            {machine.title || 'No title for this machine' }
                         </h1>
 
                         {machine?.company?.verified && (
@@ -156,7 +156,7 @@ const MachineBookingDetails = ({ id }) => {
                         <div className="flex items-center gap-1.5">
                             <img src={Location} alt="loc" className="w-5 h-5" />
                             <span className="text-gray-600">
-                                {machine?.company?.city}, {machine?.company?.region}
+                                {machine?.location_city}
                             </span>
                         </div>
                     </div>
