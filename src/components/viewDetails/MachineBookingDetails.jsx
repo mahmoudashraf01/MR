@@ -2,6 +2,9 @@ import { memo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaArrowRight } from 'react-icons/fa';
 import MachineImg from '../../assets/machineImg.png'
+import machine1 from '../../assets/machine2.jpeg'
+import machine2 from '../../assets/machine3.jpeg'
+import machine3 from '../../assets/machine4.jpeg'
 import FilledStar from '../../assets/filledStar.svg'
 import EmptyStar from '../../assets/emptyStar.svg'
 import Verified from '../../assets/verifyVector.svg'
@@ -25,7 +28,8 @@ const MachineBookingDetails = ({ id }) => {
     // ================================
     // IMAGES LOGIC
     // ================================
-    const imagesArray = machine?.images?.length > 0 ? machine.images : [MachineImg];
+    const imagesArray = machine?.images?.length > 0 ? machine.images : [MachineImg, machine2, machine3];
+    const fakeImg = [machine1, machine2, machine3];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
 
@@ -92,7 +96,7 @@ const MachineBookingDetails = ({ id }) => {
                         )}
 
                         {/* Counter */}
-                        {machine?.images?.length > 0 && (
+                        {machine?.images?.length > 0 || imagesArray && (
                             <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-sm font-medium">
                                 {currentImageIndex + 1} / {imagesArray.length}
                             </div>
@@ -126,7 +130,7 @@ const MachineBookingDetails = ({ id }) => {
                     {/* Title + Verified */}
                     <div className="flex gap-3 items-center">
                         <h1 className="text-2xl lg:text-[36px] font-bold text-gray-900">
-                            {machine.title || 'No title for this machine' }
+                            {machine.title || 'No title for this machine'}
                         </h1>
 
                         {machine?.company?.verified && (
@@ -174,7 +178,7 @@ const MachineBookingDetails = ({ id }) => {
 
                         {/* Example discount - static for now */}
                         <span className="bg-red-100 rounded-full text-red-600 px-4 py-1.5 text-xs font-semibold">
-                            -20%
+                            {Math.floor(Number(machine?.daily_rate) / Number(machine?.daily_rate + 50) * 100)}% OFF
                         </span>
                     </div>
 
