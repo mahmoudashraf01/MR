@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../slices/authSlice"; // لو مسار مختلف عدّله
+import { registerUser } from "../../../slices/authSlice"; // لو مسار مختلف عدّله
 import { FaUser, FaBuilding, FaEnvelope, FaLock } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
@@ -107,20 +107,18 @@ const Register = () => {
         <form className="space-y-5" onSubmit={handleSubmit}>
           {/* Full Name */}
           <div className="relative group">
-            <FaUser className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-200 ${
-              validation.full_name ? "text-red-500" : "text-gray-400 group-focus-within:text-primaryBtn"
-            }`} />
+            <FaUser className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-200 ${validation.full_name ? "text-red-500" : "text-gray-400 group-focus-within:text-primaryBtn"
+              }`} />
             <input
               name="full_name"
               type="text"
               placeholder="Enter your name"
               value={formData.full_name}
               onChange={handleChange}
-              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition-all duration-200 placeholder-gray-400 ${
-                validation.full_name 
-                  ? "border-red-500 focus:ring-4 focus:ring-red-500/10" 
-                  : "border-gray-200 focus:border-primaryBtn focus:ring-4 focus:ring-primaryBtn/10"
-              } focus:outline-none`}
+              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition-all duration-200 placeholder-gray-400 ${validation.full_name
+                ? "border-red-500 focus:ring-4 focus:ring-red-500/10"
+                : "border-gray-200 focus:border-primaryBtn focus:ring-4 focus:ring-primaryBtn/10"
+                } focus:outline-none`}
               aria-label="Full name"
               aria-invalid={!!validation.full_name}
               aria-describedby={validation.full_name ? "full_name-error" : undefined}
@@ -134,20 +132,18 @@ const Register = () => {
 
           {/* Company */}
           <div className="relative group">
-            <FaBuilding className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-200 ${
-              validation.company_name ? "text-red-500" : "text-gray-400 group-focus-within:text-primaryBtn"
-            }`} />
+            <FaBuilding className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-200 ${validation.company_name ? "text-red-500" : "text-gray-400 group-focus-within:text-primaryBtn"
+              }`} />
             <input
               name="company_name"
               type="text"
               placeholder="Enter your company"
               value={formData.company_name}
               onChange={handleChange}
-              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition-all duration-200 placeholder-gray-400 ${
-                validation.company_name 
-                  ? "border-red-500 focus:ring-4 focus:ring-red-500/10" 
-                  : "border-gray-200 focus:border-primaryBtn focus:ring-4 focus:ring-primaryBtn/10"
-              } focus:outline-none`}
+              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition-all duration-200 placeholder-gray-400 ${validation.company_name
+                ? "border-red-500 focus:ring-4 focus:ring-red-500/10"
+                : "border-gray-200 focus:border-primaryBtn focus:ring-4 focus:ring-primaryBtn/10"
+                } focus:outline-none`}
               aria-label="Company name"
               aria-invalid={!!validation.company_name}
             />
@@ -160,20 +156,18 @@ const Register = () => {
 
           {/* Email */}
           <div className="relative group">
-            <FaEnvelope className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-200 ${
-              validation.email ? "text-red-500" : "text-gray-400 group-focus-within:text-primaryBtn"
-            }`} />
+            <FaEnvelope className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-200 ${validation.email ? "text-red-500" : "text-gray-400 group-focus-within:text-primaryBtn"
+              }`} />
             <input
               name="email"
               type="email"
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition-all duration-200 placeholder-gray-400 ${
-                validation.email 
-                  ? "border-red-500 focus:ring-4 focus:ring-red-500/10" 
-                  : "border-gray-200 focus:border-primaryBtn focus:ring-4 focus:ring-primaryBtn/10"
-              } focus:outline-none`}
+              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition-all duration-200 placeholder-gray-400 ${validation.email
+                ? "border-red-500 focus:ring-4 focus:ring-red-500/10"
+                : "border-gray-200 focus:border-primaryBtn focus:ring-4 focus:ring-primaryBtn/10"
+                } focus:outline-none`}
               aria-label="Email address"
               aria-invalid={!!validation.email}
             />
@@ -186,20 +180,18 @@ const Register = () => {
 
           {/* Password */}
           <div className="relative group">
-            <FaLock className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-200 ${
-              validation.password ? "text-red-500" : "text-gray-400 group-focus-within:text-primaryBtn"
-            }`} />
+            <FaLock className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-200 ${validation.password ? "text-red-500" : "text-gray-400 group-focus-within:text-primaryBtn"
+              }`} />
             <input
               name="password"
               type="password"
               placeholder="Enter your password"
               value={formData.password}
               onChange={handleChange}
-              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition-all duration-200 placeholder-gray-400 ${
-                validation.password 
-                  ? "border-red-500 focus:ring-4 focus:ring-red-500/10" 
-                  : "border-gray-200 focus:border-primaryBtn focus:ring-4 focus:ring-primaryBtn/10"
-              } focus:outline-none`}
+              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition-all duration-200 placeholder-gray-400 ${validation.password
+                ? "border-red-500 focus:ring-4 focus:ring-red-500/10"
+                : "border-gray-200 focus:border-primaryBtn focus:ring-4 focus:ring-primaryBtn/10"
+                } focus:outline-none`}
               aria-label="Password"
               aria-invalid={!!validation.password}
             />
@@ -212,20 +204,18 @@ const Register = () => {
 
           {/* Confirm Password */}
           <div className="relative group">
-            <FaLock className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-200 ${
-              validation.password_confirmation ? "text-red-500" : "text-gray-400 group-focus-within:text-primaryBtn"
-            }`} />
+            <FaLock className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-200 ${validation.password_confirmation ? "text-red-500" : "text-gray-400 group-focus-within:text-primaryBtn"
+              }`} />
             <input
               name="password_confirmation"
               type="password"
               placeholder="Re-enter your password"
               value={formData.password_confirmation}
               onChange={handleChange}
-              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition-all duration-200 placeholder-gray-400 ${
-                validation.password_confirmation 
-                  ? "border-red-500 focus:ring-4 focus:ring-red-500/10" 
-                  : "border-gray-200 focus:border-primaryBtn focus:ring-4 focus:ring-primaryBtn/10"
-              } focus:outline-none`}
+              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition-all duration-200 placeholder-gray-400 ${validation.password_confirmation
+                ? "border-red-500 focus:ring-4 focus:ring-red-500/10"
+                : "border-gray-200 focus:border-primaryBtn focus:ring-4 focus:ring-primaryBtn/10"
+                } focus:outline-none`}
               aria-label="Confirm password"
               aria-invalid={!!validation.password_confirmation}
             />
@@ -237,20 +227,23 @@ const Register = () => {
           </div>
 
           {/* Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-primaryBtn text-white py-3.5 rounded-xl hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-          >
-            {loading ? (
-              <span className="flex items-center justify-center gap-2">
-                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                Registering…
-              </span>
-            ) : (
-              "Create Account"
-            )}
-          </button>
+          <div className="flex justify-between items-center gap-5">
+            <button className="text-primaryBtn w-full bg-white py-3.5 rounded-xl flex items-center justify-center hover:bg-[#bad6ff]  hover:underline-offset-0  font-semibold cursor-pointer underline transition-all duration-200">Back</button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-primaryBtn text-white py-3.5 rounded-xl hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            >
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                  Registering…
+                </span>
+              ) : (
+                "Create Account"
+              )}
+            </button>
+          </div>
         </form>
 
         {error && (

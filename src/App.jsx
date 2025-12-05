@@ -1,8 +1,8 @@
 import { use, useState } from 'react'
 import Landing from './pages/Landing'
 import { useParams, useRoutes } from "react-router-dom";
-import Login from './components/Auth/Login';
-import Register from './components/Auth/Register';
+import Login from './components/Auth/login/Login';
+import Register from './components/Auth/register/Register';
 import NavbarLayout from './layouts/Layout'
 import Contact from './pages/contact';
 import Machines from './pages/MAchines';
@@ -20,9 +20,11 @@ function App() {
       path: '/',
       element: <NavbarLayout />,
       children: [
-        { index: true, element: <Landing /> },
+        // { index: true, element: <Landing /> },
+        { path: 'landing', element: <Landing /> },
+        { index: true, element: <Register /> },
         { path: 'login', element: <Login /> },
-        { path: 'register', element: <Register /> },
+        // { path: 'register', element: <Register /> },
         { path: 'machines', element: <Machines /> },
         { path: 'contact', element: <Contact /> },
         { path: 'about', element: <About /> },

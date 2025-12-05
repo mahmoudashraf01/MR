@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { NavLink } from 'react-router-dom';
 
 const Login = () => {
     return (
@@ -11,7 +12,9 @@ const Login = () => {
                     <button className="text-primaryBtn font-semibold border-b-2 border-primaryBtn pb-1 transition-all duration-200">
                         Login
                     </button>
-                    <button className="hover:text-primaryBtn transition-colors duration-200">Register</button>
+                    <NavLink to="/">
+                        <button className="hover:text-primaryBtn transition-colors duration-200">Register</button>
+                    </NavLink>
                 </div>
 
                 {/* Welcome Text */}
@@ -51,13 +54,13 @@ const Login = () => {
                     {/* Remember me & Forgot password */}
                     <div className="flex items-center justify-between text-sm">
                         <label className="flex items-center space-x-2 cursor-pointer group">
-                            <input 
-                                type="checkbox" 
-                                className="accent-primaryBtn w-4 h-4 cursor-pointer rounded border-gray-300 focus:ring-2 focus:ring-primaryBtn/20" 
+                            <input
+                                type="checkbox"
+                                className="accent-primaryBtn w-4 h-4 cursor-pointer rounded border-gray-300 focus:ring-2 focus:ring-primaryBtn/20"
                             />
                             <span className="text-gray-600 group-hover:text-gray-900 transition-colors">Remember me</span>
                         </label>
-                        <button 
+                        <button
                             type="button"
                             className="text-primaryBtn hover:text-primaryBtn/80 hover:underline transition-all duration-200 font-medium"
                         >
@@ -93,7 +96,7 @@ const Login = () => {
                 {/* Footer */}
                 <p className="text-center text-sm text-gray-600 mt-8">
                     Don't have an account?{" "}
-                    <a href="/register" className="text-primaryBtn hover:text-primaryBtn/80 hover:underline font-semibold transition-all duration-200">
+                    <a href="/" className="text-primaryBtn hover:text-primaryBtn/80 hover:underline font-semibold transition-all duration-200">
                         Sign up
                     </a>
                 </p>
