@@ -1,87 +1,104 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { baseURL } from "../Helpers/const/const";
 
 // ==========================
-// Register Thunk
+// Thunk: Register Company
 // ==========================
-export const registerUser = createAsyncThunk(
-    "auth/registerUser",
+export const registerCompany = createAsyncThunk(
+    "auth/registerCompany",
     async (formData, { rejectWithValue }) => {
         try {
-            // Create full_name
-            //   const full_name = `${formData.first_name} ${formData.last_name}`;
-            const fullName = formData.full_name;
-            const baseURL = import.meta.env.VITE_BASE_URL;
+            // استخراج البيانات من الـ formData
+            const {
+                fullName,
+                email,
+                password,
+                confirmPassword,
+                phone,
+                city,
+                region,
+                address,
+                postalcode,
+                houseNumber,
+                companyName,
+                contactPerson,
+                taxId,
+            } = formData;
 
+            // Split full name
+            const [first_name, last_name] = fullName.split(" ");
 
-            // Extract needed fields only
+            // body المطلوب + role ثابت = "company"
             const body = {
-                first_name: fullName,
-                last_name: fullName,
-                company_name: formData.company_name,
-                email: formData.email,
-                password: formData.password,
-                password_confirmation: formData.password_confirmation,
+                first_name: first_name || "",
+                last_name: last_name || "",
+                email,
+                password,
+                password_confirmation: confirmPassword,
+                role: "company",
+                phone,
+                city,
+                region,
+                address,
+                postalcode,
+                house_number: houseNumber,
+                company_name: companyName,
+                contact_person: contactPerson,
+                tax_id: taxId,
             };
 
-            const response = await axios.post(
-                `${baseURL}/register`,
-                body,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            console.log("🚀 Register Body Sent → ", body);
+
+            const response = await axios.post(baseURL, body, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            console.log("✅ API Success Response → ", response.data);
 
             return response.data;
-
-        } catch (error) {
-            return rejectWithValue(error.response?.data || "Error");
+        } catch (err) {
+            console.log("❌ API Error → ", err.response?.data || err.message);
+            return rejectWithValue(err.response?.data || err.message);
         }
     }
 );
 
 // ==========================
-// Slice
+//Register Company Slice
 // ==========================
-const authSlice = createSlice({
-    name: "auth",
+const registerCompanySlice = createSlice({
+    name: "registerCompany",
     initialState: {
         loading: false,
-        user: null,
-        token: null,
+        data: null,
         error: null,
     },
     reducers: {},
     extraReducers: (builder) => {
         builder
             // Pending
-            .addCase(registerUser.pending, (state) => {
+            .addCase(registerCompany.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
 
             // Fulfilled
-            .addCase(registerUser.fulfilled, (state, action) => {
+            .addCase(registerCompany.fulfilled, (state, action) => {
                 state.loading = false;
-
-                // user Data
-                state.user = action.payload.data.user;
-
-                // token
-                state.token = action.payload.data.token;
-
-                // save token
-                localStorage.setItem("token", action.payload.data.token);
+                state.data = action.payload;
+                state.error = null;
             })
 
             // Rejected
-            .addCase(registerUser.rejected, (state, action) => {
+            .addCase(registerCompany.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });
     },
 });
 
-export default authSlice.reducer;
+export default registerCompanySlice.reducer;
+

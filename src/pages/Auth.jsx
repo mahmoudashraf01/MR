@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import AuthImg from '../assets/auth.png'
 import Login from '../components/Auth/login/Login';
-import Register from '../components/Auth/register/Register';
+import Register from '../components/Auth/register/Company/RegisterCompany/RegisterCompany/RegisterCompany';
 
 const Auth = () => {
     return (
