@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import AuthImg from '../assets/auth.png'
-import ChooseAcount from '../components/Auth/register/ChooseAcount';
 import CompnyRegisterLayout from '../layouts/CompnyRegisterLayout';
+import Logo from '../assets/logo2.svg'
 
 const Auth = () => {
     return (
@@ -14,16 +14,11 @@ const Auth = () => {
                     className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-[#0A25408C]/50"></div>
-                <div className="absolute text-white px-10 text-center">
-                    <div className="flex items-center justify-center mb-4">
-                        <div className="flex justify-center items-center bg-secondary w-[50px] h-[50px] text-primary font-bold text-sm rounded-md px-2 py-1 mr-2">
-                            logo
-                        </div>
-                        <h1 className="text-3xl text-center font-semibold">
-                            Machine<span className="text-secondary">Rentals</span>
-                        </h1>
+                <div className="absolute flex flex-col gap-5 text-white px-10 text-center">
+                    <div className='flex justify-end'>
+                        <img src={Logo} alt="Logo" className="flex w-100 justify-center items-center" />
                     </div>
-                    <p className="max-w-md text-gray-200 text-sm leading-relaxed">
+                    <p className="max-w-md text-gray-200 text-md font-medium leading-relaxed">
                         Your trusted platform for heavy machinery rentals. Connecting equipment
                         owners with construction professionals.
                     </p>
