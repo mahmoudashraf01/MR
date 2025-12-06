@@ -2,7 +2,6 @@ import { useRoutes } from 'react-router-dom'
 import Landing from './pages/Landing'
 import Login from './components/Auth/login/Login'
 import NavbarLayout from './layouts/Layout'
-import CompnyRegisterLayout from './layouts/CompnyRegisterLayout'
 import Contact from './pages/contact'
 import Machines from './pages/MAchines'
 import About from './pages/About'
@@ -11,6 +10,8 @@ import TechnicalSpecifications from './components/viewDetails/TechnicalSpecifica
 import CompanyDataForm1 from './components/Auth/register/Company/components/CompanyDataForm1'
 import ChooseAcount from './components/Auth/register/ChooseAcount'
 import Auth from './pages/Auth'
+import CompanyDataForm2 from './components/Auth/register/Company/components/CompanyDataForm2'
+// import CompanyDataForm2 from './components/Auth/register/Company/components/CompanyDataForm2'
 
 
 
@@ -25,6 +26,7 @@ function App() {
         { index: true, element: <ChooseAcount /> },
         { path: 'login', element: <Login /> },
         { path: 'companyForm1', element: <CompanyDataForm1 /> },
+        { path: 'companyForm2', element: <CompanyDataForm2 /> },
       ],
     },
 
