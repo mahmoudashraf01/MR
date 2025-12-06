@@ -1,6 +1,10 @@
 import { memo } from "react";
 import { useForm } from "react-hook-form";
-import { FaUser, FaBuilding, FaEnvelope, FaLock } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import UserIcon from '../../../../../assets/userIcon.svg';
+import EmailIcon from '../../../../../assets/emailIcon.svg';
+import phoneIcon from '../../../../../assets/phoneIcon.svg';
+import LockIcon from '../../../../../assets/lockIcon.svg';
 import { useNavigate } from "react-router-dom";
 
 const CompanyDataForm1 = ({ data, setData, nextStep }) => {
@@ -12,8 +16,8 @@ const CompanyDataForm1 = ({ data, setData, nextStep }) => {
   } = useForm({
     defaultValues: {
       full_name: data?.full_name || "",
-      company_name: data?.company_name || "",
       email: data?.email || "",
+      phone: data?.phone || "",
       password: data?.password || "",
       password_confirmation: data?.password_confirmation || "",
     },
@@ -51,7 +55,7 @@ const CompanyDataForm1 = ({ data, setData, nextStep }) => {
       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
         {/* Full Name */}
         <div className="relative group">
-          <FaUser
+          <img src={UserIcon} alt="user icon"
             className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors ${errors.full_name ? "text-red-500" : "text-gray-400"
               } group-focus-within:text-primaryBtn`}
           />
@@ -74,32 +78,9 @@ const CompanyDataForm1 = ({ data, setData, nextStep }) => {
           )}
         </div>
 
-        {/* Company */}
-        <div className="relative group">
-          <FaBuilding
-            className={`absolute left-4 top-1/2 -translate-y-1/2 transition ${errors.company_name ? "text-red-500" : "text-gray-400"
-              } group-focus-within:text-primaryBtn`}
-          />
-          <input
-            {...register("company_name", {
-              required: "Company name is required",
-            })}
-            placeholder="Enter your company"
-            className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition ${errors.company_name
-              ? "border-red-500"
-              : "border-gray-200 focus:border-primaryBtn"
-              }`}
-          />
-          {errors.company_name && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.company_name.message}
-            </p>
-          )}
-        </div>
-
         {/* Email */}
         <div className="relative group">
-          <FaEnvelope
+          <img src={EmailIcon} alt="email icon"
             className={`absolute left-4 top-1/2 -translate-y-1/2 transition ${errors.email ? "text-red-500" : "text-gray-400"
               } group-focus-within:text-primaryBtn`}
           />
@@ -121,10 +102,34 @@ const CompanyDataForm1 = ({ data, setData, nextStep }) => {
             <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
           )}
         </div>
+        {/* Phone */}
+        <div className="relative group">
+          <img src={phoneIcon} alt="phone icon"
+            className={`absolute left-4 top-1/2 -translate-y-1/2 transition ${errors.email ? "text-red-500" : "text-gray-400"
+              } group-focus-within:text-primaryBtn`}
+          />
+          <input
+            {...register("phone", {
+              required: "Phone is required",
+              // pattern: {
+              //   value: /\S+@\S+\.\S+/,
+              //   message: "Invalid email format",
+              // },
+            })}
+            placeholder="Enter your phone number"
+            className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition ${errors.phone
+              ? "border-red-500"
+              : "border-gray-200 focus:border-primaryBtn"
+              }`}
+          />
+          {errors.phone && (
+            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+          )}
+        </div>
 
         {/* Password */}
         <div className="relative group">
-          <FaLock
+          <img src={LockIcon} alt="lock icon"
             className={`absolute left-4 top-1/2 -translate-y-1/2 transition ${errors.password ? "text-red-500" : "text-gray-400"
               } group-focus-within:text-primaryBtn`}
           />
@@ -150,7 +155,7 @@ const CompanyDataForm1 = ({ data, setData, nextStep }) => {
 
         {/* Confirm Password */}
         <div className="relative group">
-          <FaLock
+          <img src={LockIcon} alt="lock icon"
             className={`absolute left-4 top-1/2 -translate-y-1/2 transition ${errors.password_confirmation ? "text-red-500" : "text-gray-400"
               } group-focus-within:text-primaryBtn`}
           />

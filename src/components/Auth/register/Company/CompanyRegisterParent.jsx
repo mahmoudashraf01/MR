@@ -8,8 +8,8 @@ const CompanyRegisterParent = () => {
 
   const [formData, setFormData] = useState({
     full_name: "",
-    company_name: "",
     email: "",
+    phone: "",
     password: "",
     password_confirmation: "",
     // باقي البيانات بتاعة Step2 و Step3 هتضاف هنا لما تبعتهالي
