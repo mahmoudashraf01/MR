@@ -188,14 +188,12 @@ const CompanyDataForm1 = ({ data, setData, nextStep }) => {
             Back
           </button>
 
-          <Link to="/companyForm2" className="w-full">
-            <button
-              type="submit"
-              className="w-full bg-primaryBtn text-white py-3.5 rounded-xl hover:opacity-90 transition shadow-lg"
-            >
-              Next
-            </button>
-          </Link>
+          <button
+            type="submit"
+            className="w-full bg-primaryBtn text-white py-3.5 rounded-xl hover:opacity-90 transition shadow-lg"
+          >
+            Next
+          </button>
         </div>
       </form>
     </div>
