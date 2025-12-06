@@ -5,17 +5,17 @@ import phoneIcon from '../../../../../assets/phoneIcon.svg';
 import LockIcon from '../../../../../assets/lockIcon.svg';
 import { useNavigate } from "react-router-dom";
 
-const CompanyDataForm2 = ({ data, setData, nextStep }) => {
+const CompanyDataForm2 = () => {
     const navigate = useNavigate();
 
     return (
         <div className="w-full animate-[fadeIn_0.5s_ease-out]">
             <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                    Create Your Account
+                    Add Your Address Details
                 </h2>
                 <p className="text-gray-600">
-                    Join the trusted marketplace for heavy machinery.
+                    We need your location information to complete your profile.
                 </p>
             </div>
 

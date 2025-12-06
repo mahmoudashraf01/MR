@@ -53,129 +53,147 @@ const CompanyDataForm1 = ({ data, setData, nextStep }) => {
 
       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
         {/* Full Name */}
-        <div className="relative group">
-          <img src={UserIcon} alt="user icon"
-            className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors ${errors.full_name ? "text-red-500" : "text-gray-400"
-              } group-focus-within:text-primaryBtn`}
-          />
-          <input
-            {...register("full_name", {
-              required: "Full name is required",
-              minLength: {
-                value: 3,
-                message: "Name is too short",
-              },
-            })}
-            placeholder="Enter your name"
-            className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition ${errors.full_name
-              ? "border-red-500"
-              : "border-gray-200 focus:border-primaryBtn"
-              }`}
-          />
-          {errors.full_name && (
-            <p className="text-red-500 text-sm mt-1">{errors.full_name.message}</p>
-          )}
+        <div className=" flex flex-col gap-2 font-medium">
+          <h1>Name</h1>
+          <div className="relative group">
+            <img src={UserIcon} alt="user icon"
+              className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors ${errors.full_name ? "text-red-500" : "text-gray-400"
+                } group-focus-within:text-primaryBtn`}
+            />
+            <input
+              {...register("full_name", {
+                required: "Full name is required",
+                minLength: {
+                  value: 3,
+                  message: "Name is too short",
+                },
+              })}
+              placeholder="Enter your name"
+              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition ${errors.full_name
+                ? "border-red-500"
+                : "border-gray-200 focus:border-primaryBtn"
+                }`}
+            />
+            {errors.full_name && (
+              <p className="text-red-500 text-sm mt-1">{errors.full_name.message}</p>
+            )}
+          </div>
         </div>
 
+
         {/* Email */}
-        <div className="relative group">
-          <img src={EmailIcon} alt="email icon"
-            className={`absolute left-4 top-1/2 -translate-y-1/2 transition ${errors.email ? "text-red-500" : "text-gray-400"
-              } group-focus-within:text-primaryBtn`}
-          />
-          <input
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: "Invalid email format",
-              },
-            })}
-            placeholder="Enter your email"
-            className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition ${errors.email
-              ? "border-red-500"
-              : "border-gray-200 focus:border-primaryBtn"
-              }`}
-          />
-          {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-          )}
+        <div className=" flex flex-col gap-2 font-medium">
+          <h1>Email Address</h1>
+          <div className="relative group">
+            <img src={EmailIcon} alt="email icon"
+              className={`absolute left-4 top-1/2 -translate-y-1/2 transition ${errors.email ? "text-red-500" : "text-gray-400"
+                } group-focus-within:text-primaryBtn`}
+            />
+            <input
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: "Invalid email format",
+                },
+              })}
+              placeholder="Enter your email"
+              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition ${errors.email
+                ? "border-red-500"
+                : "border-gray-200 focus:border-primaryBtn"
+                }`}
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+            )}
+          </div>
         </div>
+
         {/* Phone */}
-        <div className="relative group">
-          <img src={phoneIcon} alt="phone icon"
-            className={`absolute left-4 top-1/2 -translate-y-1/2 transition ${errors.email ? "text-red-500" : "text-gray-400"
-              } group-focus-within:text-primaryBtn`}
-          />
-          <input
-            {...register("phone", {
-              required: "Phone is required",
-              // pattern: {
-              //   value: /\S+@\S+\.\S+/,
-              //   message: "Invalid email format",
-              // },
-            })}
-            placeholder="Enter your phone number"
-            className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition ${errors.phone
-              ? "border-red-500"
-              : "border-gray-200 focus:border-primaryBtn"
-              }`}
-          />
-          {errors.phone && (
-            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
-          )}
+        <div className=" flex flex-col gap-2 font-medium">
+          <h1>Phone Number</h1>
+          <div className="relative group">
+            <img src={phoneIcon} alt="phone icon"
+              className={`absolute left-4 top-1/2 -translate-y-1/2 transition ${errors.email ? "text-red-500" : "text-gray-400"
+                } group-focus-within:text-primaryBtn`}
+            />
+            <input
+              {...register("phone", {
+                required: "Phone is required",
+                // pattern: {
+                //   value: /\S+@\S+\.\S+/,
+                //   message: "Invalid email format",
+                // },
+              })}
+              placeholder="Enter your phone number"
+              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition ${errors.phone
+                ? "border-red-500"
+                : "border-gray-200 focus:border-primaryBtn"
+                }`}
+            />
+            {errors.phone && (
+              <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+            )}
+          </div>
         </div>
 
         {/* Password */}
-        <div className="relative group">
-          <img src={LockIcon} alt="lock icon"
-            className={`absolute left-4 top-1/2 -translate-y-1/2 transition ${errors.password ? "text-red-500" : "text-gray-400"
-              } group-focus-within:text-primaryBtn`}
-          />
-          <input
-            {...register("password", {
-              required: "Password is required",
-              minLength: {
-                value: 6,
-                message: "Password must be at least 6 characters",
-              },
-            })}
-            type="password"
-            placeholder="Enter your password"
-            className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition ${errors.password
-              ? "border-red-500"
-              : "border-gray-200 focus:border-primaryBtn"
-              }`}
-          />
-          {errors.password && (
-            <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
-          )}
+        <div className=" flex flex-col gap-2 font-medium">
+          <h1>Passowrd</h1>
+          <div className="relative group">
+            <img src={LockIcon} alt="lock icon"
+              className={`absolute left-4 top-1/2 -translate-y-1/2 transition ${errors.password ? "text-red-500" : "text-gray-400"
+                } group-focus-within:text-primaryBtn`}
+            />
+            <input
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
+              })}
+              type="password"
+              placeholder="Enter your password"
+              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition ${errors.password
+                ? "border-red-500"
+                : "border-gray-200 focus:border-primaryBtn"
+                }`}
+            />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+            )}
+          </div>
         </div>
 
+
         {/* Confirm Password */}
-        <div className="relative group">
-          <img src={LockIcon} alt="lock icon"
-            className={`absolute left-4 top-1/2 -translate-y-1/2 transition ${errors.password_confirmation ? "text-red-500" : "text-gray-400"
-              } group-focus-within:text-primaryBtn`}
-          />
-          <input
-            {...register("password_confirmation", {
-              required: "Please confirm the password",
-              validate: (value) =>
-                value === password || "Passwords do not match",
-            })}
-            type="password"
-            placeholder="Re-enter your password"
-            className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition ${errors.password_confirmation
-              ? "border-red-500"
-              : "border-gray-200 focus:border-primaryBtn"
-              }`}
-          />
-          {errors.password_confirmation && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.password_confirmation.message}
-            </p>
-          )}
+        <div className=" flex flex-col gap-2 font-medium">
+          <h1>Consfirm Password</h1>
+          <div className="relative group">
+            <img src={LockIcon} alt="lock icon"
+              className={`absolute left-4 top-1/2 -translate-y-1/2 transition ${errors.password_confirmation ? "text-red-500" : "text-gray-400"
+                } group-focus-within:text-primaryBtn`}
+            />
+            <input
+              {...register("password_confirmation", {
+                required: "Please confirm the password",
+                validate: (value) =>
+                  value === password || "Passwords do not match",
+              })}
+              type="password"
+              placeholder="Re-enter your password"
+              className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition ${errors.password_confirmation
+                ? "border-red-500"
+                : "border-gray-200 focus:border-primaryBtn"
+                }`}
+            />
+            {errors.password_confirmation && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password_confirmation.message}
+              </p>
+            )}
+          </div>
         </div>
 
         {/* Buttons */}
@@ -188,12 +206,14 @@ const CompanyDataForm1 = ({ data, setData, nextStep }) => {
             Back
           </button>
 
-          <button
-            type="submit"
-            className="w-full bg-primaryBtn text-white py-3.5 rounded-xl hover:opacity-90 transition shadow-lg"
-          >
-            Next
-          </button>
+          <Link to="/companyForm2" className="w-full">
+            <button
+              type="submit"
+              className="w-full bg-primaryBtn text-white py-3.5 rounded-xl hover:opacity-90 transition shadow-lg"
+            >
+              Next
+            </button>
+          </Link>
         </div>
       </form>
     </div>
