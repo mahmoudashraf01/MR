@@ -166,7 +166,6 @@ const CompanyDataForm1 = ({ data, setData, nextStep }) => {
           </div>
         </div>
 
-
         {/* Confirm Password */}
         <div className=" flex flex-col gap-2 font-medium">
           <h1>Consfirm Password</h1>

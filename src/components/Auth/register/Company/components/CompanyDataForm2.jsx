@@ -1,9 +1,5 @@
 import { memo } from "react";
-import UserIcon from '../../../../../assets/userIcon.svg';
-import EmailIcon from '../../../../../assets/emailIcon.svg';
-import phoneIcon from '../../../../../assets/phoneIcon.svg';
-import LockIcon from '../../../../../assets/lockIcon.svg';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CompanyDataForm2 = () => {
     const navigate = useNavigate();
@@ -67,12 +63,14 @@ const CompanyDataForm2 = () => {
                     >
                         Back
                     </button>
-                    <button
-                        type="submit"
-                        className="w-full bg-primaryBtn text-white py-3.5 rounded-xl hover:opacity-90 transition shadow-lg"
-                    >
-                        Next
-                    </button>
+                    <Link to="/companyForm3" className="w-full">
+                        <button
+                            type="submit"
+                            className="w-full bg-primaryBtn text-white py-3.5 rounded-xl hover:opacity-90 transition shadow-lg"
+                        >
+                            Next
+                        </button>
+                    </Link>
                 </div>
             </form>
         </div>

@@ -11,7 +11,7 @@ import CompanyDataForm1 from './components/Auth/register/Company/components/Comp
 import ChooseAcount from './components/Auth/register/ChooseAcount'
 import Auth from './pages/Auth'
 import CompanyDataForm2 from './components/Auth/register/Company/components/CompanyDataForm2'
-// import CompanyDataForm2 from './components/Auth/register/Company/components/CompanyDataForm2'
+import CompanyDataForm3 from './components/Auth/register/Company/components/CompanyDataForm3'
 
 
 
@@ -27,6 +27,7 @@ function App() {
         { path: 'login', element: <Login /> },
         { path: 'companyForm1', element: <CompanyDataForm1 /> },
         { path: 'companyForm2', element: <CompanyDataForm2 /> },
+        { path: 'companyForm3', element: <CompanyDataForm3 /> },
       ],
     },
 
