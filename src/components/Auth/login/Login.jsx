@@ -5,18 +5,8 @@ import { NavLink } from 'react-router-dom';
 
 const Login = () => {
     return (
-        <div className="flex items-center justify-center min-h-[calc(100vh-6rem)] bg-equipmentBg p-6">
-            <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 animate-[fadeIn_0.5s_ease-out]">
-                {/* Tabs (Login / Register) */}
-                <div className="flex justify-center mb-8 space-x-6 text-gray-500">
-                    <button className="text-primaryBtn font-semibold border-b-2 border-primaryBtn pb-1 transition-all duration-200">
-                        Login
-                    </button>
-                    <NavLink to="/">
-                        <button className="hover:text-primaryBtn transition-colors duration-200">Register</button>
-                    </NavLink>
-                </div>
-
+        <div className="flex items-center justify-center ">
+            <div className="w-full animate-[fadeIn_0.5s_ease-out]">
                 {/* Welcome Text */}
                 <div className="text-center mb-8">
                     <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back!</h2>

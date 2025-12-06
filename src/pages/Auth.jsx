@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import AuthImg from '../assets/auth.png'
-import Login from '../components/Auth/login/Login';
-import Register from '../components/Auth/register/Company/RegisterCompany/RegisterCompany/RegisterCompany';
+import ChooseAcount from '../components/Auth/register/ChooseAcount';
+import CompnyRegisterLayout from '../layouts/CompnyRegisterLayout';
 
 const Auth = () => {
     return (
@@ -30,7 +30,7 @@ const Auth = () => {
                 </div>
             </div>
             {/* <Login /> */}
-            <Register/>
+            <CompnyRegisterLayout />
         </div>
     );
 };

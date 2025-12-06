@@ -9,55 +9,40 @@ export const registerCompany = createAsyncThunk(
     "auth/registerCompany",
     async (formData, { rejectWithValue }) => {
         try {
-            // استخراج البيانات من الـ formData
-            const {
-                fullName,
-                email,
-                password,
-                confirmPassword,
-                phone,
-                city,
-                region,
-                address,
-                postalcode,
-                houseNumber,
-                companyName,
-                contactPerson,
-                taxId,
-            } = formData;
+            // formData expected to have snake_case keys from parent:
+            // full_name, company_name, email, password, password_confirmation, phone, city, region, address, postalcode, house_number, contact_person, tax_id
 
-            // Split full name
-            const [first_name, last_name] = fullName.split(" ");
+            // Split full_name to first_name + last_name
+            const full = (formData.full_name || "").trim();
+            const parts = full.split(/\s+/);
+            const first_name = parts[0] || "";
+            const last_name = parts.slice(1).join(" ") || "";
 
-            // body المطلوب + role ثابت = "company"
             const body = {
-                first_name: first_name || "",
-                last_name: last_name || "",
-                email,
-                password,
-                password_confirmation: confirmPassword,
-                role: "company",
-                phone,
-                city,
-                region,
-                address,
-                postalcode,
-                house_number: houseNumber,
-                company_name: companyName,
-                contact_person: contactPerson,
-                tax_id: taxId,
+                first_name,
+                last_name,
+                email: formData.email,
+                password: formData.password,
+                password_confirmation: formData.password_confirmation,
+                role: "company", // ثابت
+                phone: formData.phone || "",
+                city: formData.city || "",
+                region: formData.region || "",
+                address: formData.address || "",
+                postalcode: formData.postalcode || "",
+                house_number: formData.house_number || formData.houseNumber || "",
+                company_name: formData.company_name,
+                contact_person: formData.contact_person || formData.contactPerson || "",
+                tax_id: formData.tax_id || formData.taxId || "",
             };
 
             console.log("🚀 Register Body Sent → ", body);
 
             const response = await axios.post(baseURL, body, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
             });
 
             console.log("✅ API Success Response → ", response.data);
-
             return response.data;
         } catch (err) {
             console.log("❌ API Error → ", err.response?.data || err.message);

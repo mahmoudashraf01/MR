@@ -1,12 +1,12 @@
 import { memo } from 'react';
-import CompanyAccount from '../../assets/companyAccount.svg'
-import RenterAccount from '../../assets/renterAccount.svg'
+import CompanyAccount from '../../../assets/companyAccount.svg'
+import RenterAccount from '../../../assets/renterAccount.svg'
 import { useNavigate } from 'react-router-dom';
 
 const ChooseAcount = () => {
-   const navigate = useNavigate();
+    const navigate = useNavigate();
     return (
-        <div className="w-full max-w-xl ">
+        <div className="w-full fadeIn animate-[fadeIn_0.5s_ease-out]">
 
             {/* Title */}
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 text-center">
@@ -22,7 +22,7 @@ const ChooseAcount = () => {
 
                 {/* Company Account */}
                 <div
-                    onClick={() => navigate("/companyLaout/companyForm1")}
+                    onClick={() => navigate("/companyForm1")}
                     className="
               cursor-pointer border border-primaryBtn rounded-2xl p-5 flex items-center gap-4
               hover:bg-blue-50 transition group
