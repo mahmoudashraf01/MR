@@ -1,7 +1,6 @@
 import { memo } from "react";
 
-const CompanyDataForm3 = ({ data, setData, prevStep, handleSubmit }) => {
-
+const CompanyDataForm3 = ({ data, setData, prevStep, handleSubmit, loading }) => {
     return (
         <div className="w-full animate-[fadeIn_0.5s_ease-out]">
             <div className="text-center mb-8">
@@ -19,7 +18,7 @@ const CompanyDataForm3 = ({ data, setData, prevStep, handleSubmit }) => {
                 <div className="flex flex-col gap-2 font-medium">
                     <h1>Company Name</h1>
                     <input
-                        value={data.company_name || ""}
+                        value={data.company_name}
                         onChange={(e) =>
                             setData((prev) => ({ ...prev, company_name: e.target.value }))
                         }
@@ -32,7 +31,7 @@ const CompanyDataForm3 = ({ data, setData, prevStep, handleSubmit }) => {
                 <div className="flex flex-col gap-2 font-medium">
                     <h1>Contact Person</h1>
                     <input
-                        value={data.contact_person || ""}
+                        value={data.contact_person}
                         onChange={(e) =>
                             setData((prev) => ({ ...prev, contact_person: e.target.value }))
                         }
@@ -45,7 +44,7 @@ const CompanyDataForm3 = ({ data, setData, prevStep, handleSubmit }) => {
                 <div className="flex flex-col gap-2 font-medium">
                     <h1>Tax ID</h1>
                     <input
-                        value={data.tax_id || ""}
+                        value={data.tax_id}
                         onChange={(e) =>
                             setData((prev) => ({ ...prev, tax_id: e.target.value }))
                         }
@@ -66,9 +65,11 @@ const CompanyDataForm3 = ({ data, setData, prevStep, handleSubmit }) => {
 
                     <button
                         type="submit"
-                        className="w-full bg-primaryBtn text-white py-3.5 rounded-xl hover:opacity-90 transition shadow-lg"
+                        disabled={loading}
+                        className={`w-full bg-primaryBtn text-white py-3.5 rounded-xl transition shadow-lg ${loading ? "opacity-60 cursor-not-allowed" : "hover:opacity-90"
+                            }`}
                     >
-                        Create Account
+                        {loading ? "Creating account..." : "Create Account"}
                     </button>
                 </div>
             </form>

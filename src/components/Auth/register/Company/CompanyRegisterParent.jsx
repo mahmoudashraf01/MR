@@ -1,11 +1,17 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { registerCompany } from "../../../../slices/RegisterCompanySlice";
+
 import CompanyDataForm1 from "./components/CompanyDataForm1";
 import CompanyDataForm2 from "./components/CompanyDataForm2";
 import CompanyDataForm3 from "./components/CompanyDataForm3";
-// import CompanyDataForm2 from "./CompanyDataForm2";  // هتضيفه بعد ما تبعته
-// import CompanyDataForm3 from "./CompanyDataForm3";
 
 const CompanyRegisterParent = () => {
+    const dispatch = useDispatch();
+
+    // Redux state
+    const { loading, data, error } = useSelector((state) => state.registerCompany);
+
     const [currentStep, setCurrentStep] = useState(1);
 
     const [formData, setFormData] = useState({
@@ -19,22 +25,30 @@ const CompanyRegisterParent = () => {
         address: "",
         postalcode: "",
         house_number: "",
-        country: "",
         company_name: "",
         contact_person: "",
         tax_id: "",
     });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("FINAL FORM DATA: ", formData);
-        // هنا تعمل بقى request لل backend
-    };
-
     const nextStep = () => setCurrentStep((prev) => prev + 1);
     const prevStep = () => setCurrentStep((prev) => prev - 1);
 
-    // --- Switch Steps ---
+    // -------- Handle Final Submit -----------------
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const result = await dispatch(registerCompany(formData));
+
+        if (registerCompany.fulfilled.match(result)) {
+            alert("🎉 Company registered successfully!");
+        }
+
+        if (registerCompany.rejected.match(result)) {
+            alert("❌ Registration failed. Please try again.");
+        }
+    };
+    // ------------------------------------------------
+
     const renderStep = () => {
         switch (currentStep) {
             case 1:
@@ -43,7 +57,6 @@ const CompanyRegisterParent = () => {
                         data={formData}
                         setData={setFormData}
                         nextStep={nextStep}
-                        prevStep={prevStep}
                     />
                 );
 
@@ -64,6 +77,7 @@ const CompanyRegisterParent = () => {
                         setData={setFormData}
                         prevStep={prevStep}
                         handleSubmit={handleSubmit}
+                        loading={loading}   // 👈 مهم جدًا
                     />
                 );
 
@@ -72,7 +86,7 @@ const CompanyRegisterParent = () => {
         }
     };
 
-    return (renderStep());
+    return renderStep();
 };
 
 export default CompanyRegisterParent;

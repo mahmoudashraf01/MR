@@ -38,7 +38,7 @@ export const registerCompany = createAsyncThunk(
 
             console.log("🚀 Register Body Sent → ", body);
 
-            const response = await axios.post(baseURL, body, {
+            const response = await axios.post(`${baseURL}/register`, body, {
                 headers: { "Content-Type": "application/json" },
             });
 
@@ -85,5 +85,5 @@ const registerCompanySlice = createSlice({
     },
 });
 
-export default registerCompanySlice.reducer;
+export const registerCompnayReducer = registerCompanySlice.reducer;
 
