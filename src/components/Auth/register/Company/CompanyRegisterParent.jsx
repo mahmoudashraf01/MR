@@ -14,8 +14,22 @@ const CompanyRegisterParent = () => {
         phone: "",
         password: "",
         password_confirmation: "",
-        // باقي البيانات بتاعة Step2 و Step3 هتضاف هنا لما تبعتهالي
+        city: "",
+        region: "",
+        address: "",
+        postalcode: "",
+        house_number: "",
+        country: "",
+        company_name: "",
+        contact_person: "",
+        tax_id: "",
     });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("FINAL FORM DATA: ", formData);
+        // هنا تعمل بقى request لل backend
+    };
 
     const nextStep = () => setCurrentStep((prev) => prev + 1);
     const prevStep = () => setCurrentStep((prev) => prev - 1);
@@ -49,6 +63,7 @@ const CompanyRegisterParent = () => {
                         data={formData}
                         setData={setFormData}
                         prevStep={prevStep}
+                        handleSubmit={handleSubmit}
                     />
                 );
 
