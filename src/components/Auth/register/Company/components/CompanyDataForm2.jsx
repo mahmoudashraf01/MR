@@ -12,7 +12,6 @@ const countries = [
     "Belgium", "Sweden", "Norway", "Finland", "Switzerland", "India",
     "China", "Japan", "South Korea", "Indonesia", "Malaysia", "Australia",
     "New Zealand", "South Africa", "Nigeria", "Kenya",
-    // ... لو عايز أبعتهالك كاملة (195 دولة) ابعتلي وقول عايزهم كلهم
 ];
 
 const CompanyDataForm2 = ({ data, setData, nextStep, prevStep }) => {

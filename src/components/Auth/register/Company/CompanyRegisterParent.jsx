@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CompanyDataForm1 from "./components/CompanyDataForm1";
 import CompanyDataForm2 from "./components/CompanyDataForm2";
+import CompanyDataForm3 from "./components/CompanyDataForm3";
 // import CompanyDataForm2 from "./CompanyDataForm2";  // هتضيفه بعد ما تبعته
 // import CompanyDataForm3 from "./CompanyDataForm3";
 
@@ -42,14 +43,14 @@ const CompanyRegisterParent = () => {
                     />
                 );
 
-            // case 3:
-            //   return (
-            //     <CompanyDataForm3
-            //       data={formData}
-            //       setData={setFormData}
-            //       prevStep={prevStep}
-            //     />
-            //   );
+            case 3:
+                return (
+                    <CompanyDataForm3
+                        data={formData}
+                        setData={setFormData}
+                        prevStep={prevStep}
+                    />
+                );
 
             default:
                 return <p>Step not found</p>;
