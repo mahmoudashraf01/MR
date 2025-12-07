@@ -24,7 +24,6 @@ const Auth = () => {
                     </p>
                 </div>
             </div>
-            {/* <Login /> */}
             <CompnyRegisterLayout />
         </div>
     );

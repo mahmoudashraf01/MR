@@ -14,6 +14,7 @@ import CompanyDataForm2 from './components/Auth/register/Company/components/Comp
 import CompanyDataForm3 from './components/Auth/register/Company/components/CompanyDataForm3'
 import RenterDataForm1 from './components/Auth/register/Renter/components/RenterDataForm1'
 import RenterDataForm2 from './components/Auth/register/Renter/components/RenterDataForm2'
+import CompanyRegisterParent from './components/Auth/register/Company/CompanyRegisterParent'
 
 
 
@@ -26,10 +27,18 @@ function App() {
       element: <Auth />,
       children: [
         { index: true, element: <ChooseAcount /> },
+
+        {
+          path: 'registerCompany',
+          element: <CompanyRegisterParent />,
+          children: [
+            { index: true, element: <CompanyDataForm1 /> },
+            { path: 'step2', element: <CompanyDataForm2 /> },
+            { path: 'step3', element: <CompanyDataForm3 /> },
+          ],
+        },
+
         { path: 'login', element: <Login /> },
-        { path: 'companyForm1', element: <CompanyDataForm1 /> },
-        { path: 'companyForm2', element: <CompanyDataForm2 /> },
-        { path: 'companyForm3', element: <CompanyDataForm3 /> },
         { path: 'renterForm1', element: <RenterDataForm1 /> },
         { path: 'renterForm2', element: <RenterDataForm2 /> },
       ],

@@ -22,7 +22,7 @@ const ChooseAcount = () => {
 
                 {/* Company Account */}
                 <div
-                    onClick={() => navigate("/companyForm1")}
+                    onClick={() => navigate("/registerCompany")}
                     className="
               cursor-pointer border border-primaryBtn rounded-2xl p-5 flex items-center gap-4
               hover:bg-blue-50 transition group
