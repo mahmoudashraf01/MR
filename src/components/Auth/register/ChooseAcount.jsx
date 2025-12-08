@@ -53,7 +53,7 @@ const ChooseAcount = () => {
 
                 {/* Renter Account */}
                 <div
-                    onClick={() => navigate("/renterForm1")}
+                    onClick={() => navigate("/registerRenter")}
                     className="
               cursor-pointer border border-primaryBtn rounded-2xl p-5 flex items-center gap-4
               hover:bg-[#2563EB33] transition

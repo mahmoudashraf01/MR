@@ -31,19 +31,19 @@ const CompanyDataForm1 = ({ data, setData, nextStep }) => {
   const navigate = useNavigate();
 
   const onSubmit = (values) => {
-  const nameParts = values.full_name.trim().split(" ");
-  const firstName = nameParts[0] || "";
-  const lastName = nameParts.slice(1).join(" ") || "";
+    const nameParts = values.full_name.trim().split(" ");
+    const firstName = nameParts[0] || "";
+    const lastName = nameParts.slice(1).join(" ") || "";
 
-  setData((prev) => ({
-    ...prev,
-    ...values,
-    first_name: firstName,
-    last_name: lastName,
-  }));
+    setData((prev) => ({
+      ...prev,
+      ...values,
+      first_name: firstName,
+      last_name: lastName,
+    }));
 
-  nextStep(); // فقط
-};
+    nextStep(); // فقط
+  };
 
   return (
     <div className="w-full animate-[fadeIn_0.5s_ease-out]">

@@ -52,6 +52,14 @@ const RenterForm2 = () => {
           />
         </div>
 
+        <div className="flex flex-col gap-2 font-medium">
+          <h1>Tax ID</h1>
+          <input
+            placeholder="Enter Your Tax ID"
+            className='w-full pl-4 pr-4 py-3.5 border-2 rounded-xl transition border-gray-200 focus:border-primaryBtn'
+          />
+        </div>
+
         {/* Buttons */}
         <div className="flex justify-between items-center gap-5">
           <button

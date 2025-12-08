@@ -15,6 +15,7 @@ import CompanyDataForm3 from './components/Auth/register/Company/components/Comp
 import RenterDataForm1 from './components/Auth/register/Renter/components/RenterDataForm1'
 import RenterDataForm2 from './components/Auth/register/Renter/components/RenterDataForm2'
 import CompanyRegisterParent from './components/Auth/register/Company/CompanyRegisterParent'
+import RenterRegisterParent from './components/Auth/register/Renter/RenterRegisterParent'
 
 
 
@@ -27,7 +28,9 @@ function App() {
       element: <Auth />,
       children: [
         { index: true, element: <ChooseAcount /> },
+        { path: 'login', element: <Login /> },
 
+        // Company Registration Steps as nested routes
         {
           path: 'registerCompany',
           element: <CompanyRegisterParent />,
@@ -38,9 +41,15 @@ function App() {
           ],
         },
 
-        { path: 'login', element: <Login /> },
-        { path: 'renterForm1', element: <RenterDataForm1 /> },
-        { path: 'renterForm2', element: <RenterDataForm2 /> },
+        //Renter Registration Steps as nested routes
+        {
+          path: 'registerRenter',
+          element: <RenterRegisterParent />,
+          children: [
+            { index: true, element: <RenterDataForm1 /> },
+            { path: 'step2', element: <RenterDataForm2 /> },
+          ],
+        },
       ],
     },
 
