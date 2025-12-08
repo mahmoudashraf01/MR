@@ -17,7 +17,6 @@ export const loginUser = createAsyncThunk(
                 password,
             });
 
-            // كل الداتا الراجعة
             return response.data.data;
         } catch (error) {
             return rejectWithValue(
@@ -77,4 +76,4 @@ const loginSlice = createSlice({
 
 export const { logout } = loginSlice.actions;
 
-export default loginSlice.reducer;
+export const loginReducer = loginSlice.reducer;

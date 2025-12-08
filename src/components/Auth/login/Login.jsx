@@ -1,58 +1,128 @@
-import { memo } from 'react';
+import { memo, useState } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { NavLink } from 'react-router-dom';
+import EmailIcon from "../../../assets/emailIcon.svg";
+import LockIcon from "../../../assets/lockIcon.svg";
+
+import { IoEye, IoEyeOff } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { loginUser } from '../../../slices/LoginSlice'
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const { loading } = useSelector((state) => state.login);
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    // Handle Submit
+    const onSubmit = async (data) => {
+        const result = await dispatch(loginUser(data));
+
+        if (result.meta.requestStatus === "fulfilled") {
+            alert("🎉 Login Successful!");
+            console.log("LOGIN RESPONSE:", result.payload);
+        } else {
+            alert("❌ Invalid email or password");
+        }
+    };
+
     return (
-        <div className="flex items-center justify-center ">
+        <div className="flex items-center justify-center w-full">
             <div className="w-full animate-[fadeIn_0.5s_ease-out]">
-                {/* Welcome Text */}
+                {/* Header */}
                 <div className="text-center mb-8">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back!</h2>
+                    <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                        Welcome Back!
+                    </h2>
                     <p className="text-gray-600">
                         Sign in to manage your rentals and bookings.
                     </p>
                 </div>
 
                 {/* Form */}
-                <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-                    {/* Email */}
+                <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+
+                    {/* Email Field */}
                     <div className="relative group">
-                        <FaEnvelope className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-primaryBtn transition-colors duration-200" />
+                        <img src={EmailIcon} alt="email icon" className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+
                         <input
                             type="email"
                             placeholder="Enter your email"
-                            className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primaryBtn focus:ring-4 focus:ring-primaryBtn/10 transition-all duration-200 placeholder-gray-400"
-                            aria-label="Email address"
-                            required
+                            className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-xl transition-all duration-200 ${errors.email
+                                ? "border-red-500"
+                                : "border-gray-200 focus:border-primaryBtn focus:ring-primaryBtn/10"
+                                }`}
+                            {...register("email", {
+                                required: "Email is required",
+                                pattern: {
+                                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                    message: "Enter a valid email",
+                                },
+                            })}
                         />
+
+                        {errors.email && (
+                            <p className="text-red-500 text-sm mt-1">
+                                {errors.email.message}
+                            </p>
+                        )}
                     </div>
 
-                    {/* Password */}
+                    {/* Password Field */}
                     <div className="relative group">
-                        <FaLock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-primaryBtn transition-colors duration-200" />
+                        <img src={LockIcon} alt="lock icon" className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             placeholder="Enter your password"
-                            className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primaryBtn focus:ring-4 focus:ring-primaryBtn/10 transition-all duration-200 placeholder-gray-400"
-                            aria-label="Password"
-                            required
+                            className={`w-full pl-12 pr-12 py-3.5 border-2 rounded-xl transition-all duration-200 ${errors.password
+                                ? "border-red-500"
+                                : "border-gray-200 focus:border-primaryBtn focus:ring-primaryBtn/10"
+                                }`}
+                            {...register("password", {
+                                required: "Password is required",
+                                minLength: {
+                                    value: 6,
+                                    message: "Password must be at least 6 characters",
+                                },
+                            })}
                         />
+
+                        {/* eye icon */}
+                        <span
+                            className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                        >
+                            {showPassword ? <IoEyeOff className="text-[#2E3A4533]" size={22} /> : <IoEye className="text-[#2E3A4533]" size={22} />}
+                        </span>
+
+                        {errors.password && (
+                            <p className="text-red-500 text-sm mt-1">
+                                {errors.password.message}
+                            </p>
+                        )}
                     </div>
 
-                    {/* Remember me & Forgot password */}
+                    {/* Remember + Forgot */}
                     <div className="flex items-center justify-between text-sm">
-                        <label className="flex items-center space-x-2 cursor-pointer group">
+                        <label className="flex items-center space-x-2 cursor-pointer">
                             <input
                                 type="checkbox"
-                                className="accent-primaryBtn w-4 h-4 cursor-pointer rounded border-gray-300 focus:ring-2 focus:ring-primaryBtn/20"
+                                className="accent-primaryBtn w-4 h-4 cursor-pointer"
                             />
-                            <span className="text-gray-600 group-hover:text-gray-900 transition-colors">Remember me</span>
+                            <span className="text-gray-600">Remember me</span>
                         </label>
+
                         <button
                             type="button"
-                            className="text-primaryBtn hover:text-primaryBtn/80 hover:underline transition-all duration-200 font-medium"
+                            className="text-primaryBtn hover:underline"
                         >
                             Forgot password?
                         </button>
@@ -61,48 +131,32 @@ const Login = () => {
                     {/* Login Button */}
                     <button
                         type="submit"
-                        className="w-full bg-primaryBtn text-white py-3.5 rounded-xl hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] font-semibold"
+                        className="w-full bg-primaryBtn text-white py-3.5 rounded-xl shadow-lg hover:scale-[1.02] transition-all duration-300 font-semibold"
+                        disabled={loading}
                     >
-                        Login
-                    </button>
-
-                    {/* Divider */}
-                    <div className="flex items-center my-6">
-                        <div className="flex-1 h-px bg-gray-200" />
-                        <span className="px-4 text-sm text-gray-500 font-medium">or continue with</span>
-                        <div className="flex-1 h-px bg-gray-200" />
-                    </div>
-
-                    {/* Google Button */}
-                    <button
-                        type="button"
-                        className="w-full flex items-center justify-center gap-3 border-2 border-gray-200 rounded-xl py-3.5 hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 font-medium text-gray-700 hover:shadow-md"
-                    >
-                        <FcGoogle size={22} />
-                        <span>Continue with Google</span>
+                        {loading ? "Pending..." : "Login"}
                     </button>
                 </form>
 
                 {/* Footer */}
                 <p className="text-center text-sm text-gray-600 mt-8">
                     Don't have an account?{" "}
-                    <a href="/" className="text-primaryBtn hover:text-primaryBtn/80 hover:underline font-semibold transition-all duration-200">
+                    <a
+                        href="/"
+                        className="text-primaryBtn hover:underline font-semibold"
+                    >
                         Sign up
                     </a>
                 </p>
+
+                {/* Animation */}
+                <style>{`
+                    @keyframes fadeIn {
+                        from { opacity: 0; transform: translateY(20px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                `}</style>
             </div>
-            <style>{`
-                @keyframes fadeIn {
-                    from {
-                        opacity: 0;
-                        transform: translateY(20px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-                }
-            `}</style>
         </div>
     );
 };

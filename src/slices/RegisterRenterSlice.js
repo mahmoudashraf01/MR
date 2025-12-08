@@ -1,18 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { baseURL } from "../Helpers/const/const";
+import { setCredentials } from "./SaveTokenSlice";
+
 
 // ==========================
-// Thunk: Register Company
+// Thunk: Register Renter
 // ==========================
 export const registerRenter = createAsyncThunk(
     "auth/registerRenter",
-    async (formData, { rejectWithValue }) => {
+    async (formData, thunkAPI) => {
         try {
-            // formData expected to have snake_case keys from parent:
-            // full_name, company_name, email, password, password_confirmation, phone, city, region, address, postalcode, house_number, contact_person, tax_id
-
-            // Split full_name to first_name + last_name
             const full = (formData.full_name || "").trim();
             const parts = full.split(/\s+/);
             const first_name = parts[0] || "";
@@ -35,23 +33,31 @@ export const registerRenter = createAsyncThunk(
                 tax_id: formData.tax_id || formData.taxId || "",
             };
 
-            console.log("🚀 Register Body Sent → ", body);
-
             const response = await axios.post(`${baseURL}/register`, body, {
                 headers: { "Content-Type": "application/json" },
             });
 
-            console.log("✅ API Success Response → ", response.data);
-            return response.data;
+            const payload = response.data;
+
+            // Extract token & user
+            const token = payload?.data?.token;
+            const user = payload?.data?.user;
+
+            // Save into global auth state
+            if (token && user) {
+                thunkAPI.dispatch(setCredentials({ token, user, role: "renter" }));
+            }
+
+            return payload;
+
         } catch (err) {
-            console.log("❌ API Error → ", err.response?.data || err.message);
-            return rejectWithValue(err.response?.data || err.message);
+            return thunkAPI.rejectWithValue(err.response?.data || err.message);
         }
     }
 );
 
 // ==========================
-//Register Renter Slice
+// Register Renter Slice
 // ==========================
 const registerRenterSlice = createSlice({
     name: "registerRenter",
@@ -63,26 +69,19 @@ const registerRenterSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // Pending
             .addCase(registerRenter.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-
-            // Fulfilled
             .addCase(registerRenter.fulfilled, (state, action) => {
                 state.loading = false;
                 state.data = action.payload;
-                state.error = null;
             })
-
-            // Rejected
             .addCase(registerRenter.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });
     },
 });
-
 export const registerRenterReducer = registerRenterSlice.reducer;
 
