@@ -2,6 +2,7 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { setCredentials } from "./SaveTokenSlice";  // 👈 أهم إضافة
 
 const BASE_URL = "https://darkgray-bee-896770.hostingersite.com/api";
 
@@ -10,16 +11,28 @@ const BASE_URL = "https://darkgray-bee-896770.hostingersite.com/api";
 // ----------------------
 export const loginUser = createAsyncThunk(
     "auth/loginUser",
-    async ({ email, password }, { rejectWithValue }) => {
+    async ({ email, password }, thunkAPI) => {
         try {
             const response = await axios.post(`${BASE_URL}/login`, {
                 email,
                 password,
             });
 
-            return response.data.data;
+            const payload = response.data.data;
+
+            const token = payload?.token;
+            const user = payload?.user;
+            const role = payload?.user?.role || "unknown";
+
+            // 🔵 زي registerCompany: خزّن الـ token والـ user في الـ authSlice
+            if (token && user) {
+                thunkAPI.dispatch(setCredentials({ token, user, role }));
+            }
+
+            return payload;
+
         } catch (error) {
-            return rejectWithValue(
+            return thunkAPI.rejectWithValue(
                 error.response?.data?.message || "Login failed, try again"
             );
         }
@@ -30,27 +43,17 @@ export const loginUser = createAsyncThunk(
 //       Slice
 // ----------------------
 const loginSlice = createSlice({
-    name: "auth",
+    name: "login",
     initialState: {
         loading: false,
-        user: null,
-        token: null,
+        data: null,
         error: null,
     },
 
-    reducers: {
-        logout(state) {
-            state.user = null;
-            state.token = null;
-            state.error = null;
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-        },
-    },
+    reducers: {},
 
     extraReducers: (builder) => {
         builder
-
             .addCase(loginUser.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -58,13 +61,10 @@ const loginSlice = createSlice({
 
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false;
+                state.data = action.payload;
 
-                state.user = action.payload.user;
-                state.token = action.payload.token;
-
-                // Save in localStorage
-                localStorage.setItem("user", JSON.stringify(action.payload.user));
-                localStorage.setItem("token", action.payload.token);
+                // ❌ شيلنا التخزين هنا
+                // كله اتنقل للـ authSlice عبر setCredentials
             })
 
             .addCase(loginUser.rejected, (state, action) => {
@@ -73,7 +73,5 @@ const loginSlice = createSlice({
             });
     },
 });
-
-export const { logout } = loginSlice.actions;
 
 export const loginReducer = loginSlice.reducer;
