@@ -22,9 +22,26 @@ import RenterRegisterParent from './components/Auth/register/Renter/RenterRegist
 function App() {
 
   const routesArray = [
-    // Company registration layout (root) — index shows RegisterCompanyForm
+
+    // Main site layout with navbar for the rest of pages
     {
       path: '/',
+      element: <NavbarLayout />,
+      children: [
+        { index: true, element: <Landing /> },
+        { path: 'machines', element: <Machines /> },
+        { path: 'contact', element: <Contact /> },
+        { path: 'about', element: <About /> },
+        { path: 'viewDetails/:id', element: <ViewDetails /> },
+        { path: 'technicalSpecifications', element: <TechnicalSpecifications /> },
+        // fallback for unknown paths under navbar layout
+        { path: '*', element: <Landing /> },
+      ],
+    },
+
+    // Company registration layout (root) — index shows RegisterCompanyForm
+    {
+      path: 'auth',
       element: <Auth />,
       children: [
         { index: true, element: <ChooseAcount /> },
@@ -53,21 +70,7 @@ function App() {
       ],
     },
 
-    // Main site layout with navbar for the rest of pages
-    {
-      path: '/',
-      element: <NavbarLayout />,
-      children: [
-        { index: true, element: <Landing /> },
-        { path: 'machines', element: <Machines /> },
-        { path: 'contact', element: <Contact /> },
-        { path: 'about', element: <About /> },
-        { path: 'viewDetails/:id', element: <ViewDetails /> },
-        { path: 'technicalSpecifications', element: <TechnicalSpecifications /> },
-        // fallback for unknown paths under navbar layout
-        { path: '*', element: <Landing /> },
-      ],
-    },
+
   ];
 
   let routesElement = useRoutes(routesArray)

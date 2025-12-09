@@ -24,7 +24,6 @@ export const loginUser = createAsyncThunk(
             const user = payload?.user;
             const role = payload?.user?.role || "unknown";
 
-            // 🔵 زي registerCompany: خزّن الـ token والـ user في الـ authSlice
             if (token && user) {
                 thunkAPI.dispatch(setCredentials({ token, user, role }));
             }
@@ -63,8 +62,6 @@ const loginSlice = createSlice({
                 state.loading = false;
                 state.data = action.payload;
 
-                // ❌ شيلنا التخزين هنا
-                // كله اتنقل للـ authSlice عبر setCredentials
             })
 
             .addCase(loginUser.rejected, (state, action) => {

@@ -253,7 +253,7 @@ const RenterDataForm1 = ({ data, setData, nextStep }) => {
         <div className="flex justify-between items-center gap-5">
           <button
             type="button"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/auth")}
             className="text-primaryBtn w-full underline bg-white py-3.5 rounded-xl hover:bg-[#bad6ff] font-semibold"
           >
             Back

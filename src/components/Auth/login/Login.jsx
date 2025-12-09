@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, use, useState } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import EmailIcon from "../../../assets/emailIcon.svg";
 import LockIcon from "../../../assets/lockIcon.svg";
@@ -7,12 +7,14 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { loginUser } from '../../../slices/LoginSlice'
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const dispatch = useDispatch();
     const { loading } = useSelector((state) => state.login);
 
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
     const {
         register,
@@ -25,7 +27,7 @@ const Login = () => {
         const result = await dispatch(loginUser(data));
 
         if (result.meta.requestStatus === "fulfilled") {
-            alert("🎉 Login Successful!");
+            navigate("/");
             console.log("LOGIN RESPONSE:", result.payload);
         } else {
             alert("❌ Invalid email or password");
@@ -142,7 +144,7 @@ const Login = () => {
                 <p className="text-center text-sm text-gray-600 mt-8">
                     Don't have an account?{" "}
                     <a
-                        href="/"
+                        href="/auth"
                         className="text-primaryBtn hover:underline font-semibold"
                     >
                         Sign up

@@ -22,7 +22,7 @@ const ChooseAcount = () => {
 
                 {/* Company Account */}
                 <div
-                    onClick={() => navigate("/registerCompany")}
+                    onClick={() => navigate("/auth/registerCompany")}
                     className="
               cursor-pointer border border-primaryBtn rounded-2xl p-5 flex items-center gap-4
               hover:bg-blue-50 transition group
@@ -53,7 +53,7 @@ const ChooseAcount = () => {
 
                 {/* Renter Account */}
                 <div
-                    onClick={() => navigate("/registerRenter")}
+                    onClick={() => navigate("/auth/registerRenter")}
                     className="
               cursor-pointer border border-primaryBtn rounded-2xl p-5 flex items-center gap-4
               hover:bg-[#2563EB33] transition

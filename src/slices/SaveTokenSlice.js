@@ -13,13 +13,22 @@ const saveTokenSlice = createSlice({
     },
     reducers: {
         setCredentials: (state, action) => {
-            state.token = action.payload.token;
-            state.role = action.payload.role;
-            state.user = action.payload.user;
+            const { token, user, role } = action.payload;
 
-            localStorage.setItem("token", action.payload.token);
-            localStorage.setItem("role", action.payload.role);
-            localStorage.setItem("user", JSON.stringify(action.payload.user));
+            // احفظهم في الستور
+            state.token = token;
+            state.user = user;
+            state.role = role;
+
+            // احفظهم في localStorage لو بتعمل كدا
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("role", role);
+
+            // 🔥 اطبعهم هنا أول ما يتخزنوا
+            console.log("🔥 Stored Token →", token);
+            console.log("🔥 Stored Role →", role);
+            console.log("🔥 Stored User →", user);
         },
         logout: (state) => {
             state.token = null;

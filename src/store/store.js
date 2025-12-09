@@ -11,6 +11,7 @@ export const store = configureStore({
     registerCompany: registerCompnayReducer,
     registerRenter: registerRenterReducer,
     login: loginReducer,
+    saveToken: saveTokenReducer,
     machines: getAllMachinesReducer,
     machineBokkingDetails: machineBookingDetailsReducer,
   },
