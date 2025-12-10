@@ -1,23 +1,42 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useState, useRef } from 'react';
 import { FaArrowRight, FaSortAmountDown, FaTh, FaList } from 'react-icons/fa';
 import MachinesFilter from './MachinesFilter';
 import FilteredMachineCards from './FilteredMachineCards';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPublicMachines } from '../../slices/GetAllmachinesByPage';
+import FilteredMachineCardShimmer from './skeletons/FilteredMachineCardShimmer';
 
 const FilteredMachines = () => {
     const [viewMode, setViewMode] = useState('grid');
     const [sortBy, setSortBy] = useState('newest');
 
     const dispatch = useDispatch();
-    const { machines, totalPages, loading } = useSelector((state) => state.machinesByPage);
+    const { machines, totalMachines, totalPages, loading } = useSelector((state) => state.machinesByPage);
 
+    const [currentPage, setCurrentPage] = useState(1);
+
+    // Fetch machines whenever currentPage changes
     useEffect(() => {
-        dispatch(fetchPublicMachines(1));
-    }, []);
+        dispatch(fetchPublicMachines(currentPage));
+    }, [dispatch, currentPage]);
 
-    console.log("Machines by page:", machines);
-    console.log("Machines by page:", totalPages);
+    const topRef = useRef(null);
+
+    const scrollToTop = () => {
+        if (topRef.current) {
+            topRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    // Smooth-scroll to top when the page changes so user sees new results
+    useEffect(() => {
+        try {
+            scrollToTop();
+        } catch (e) {
+            // fallback for environments that don't support smooth behavior
+            window.scrollTo(0, 0);
+        }
+    }, [currentPage]);
 
     return (
         <div className='w-full bg-equipmentBg pb-16 pt-10'>
@@ -29,14 +48,14 @@ const FilteredMachines = () => {
                     </aside>
 
                     {/* Main Content */}
-                    <main className='flex-1 min-w-0'>
+                    <main ref={topRef} className='flex-1 min-w-0'>
                         <div className='flex flex-col gap-5'>
                             {/* Header with Sort and View Options */}
                             <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100'>
                                 <div className='flex items-baseline gap-3'>
                                     <h1 className='text-xl sm:text-2xl font-bold text-gray-900 leading-tight'>Available Machines</h1>
                                     <span className='text-xs font-semibold bg-primaryBtn/10 text-primaryBtn px-2.5 py-1 rounded-full border border-primaryBtn/20'>
-                                        {totalPages} results
+                                        {totalMachines} results
                                     </span>
                                 </div>
 
@@ -110,26 +129,85 @@ const FilteredMachines = () => {
                                 ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5'
                                 : 'grid-cols-1 gap-4'
                                 }`}>
-                                {machines.map((machine) => (
-                                    <FilteredMachineCards key={machine.id} machine={machine} />
-                                ))}
+                                {loading ? (
+                                    // show a few shimmers while loading
+                                    Array.from({ length: 6 }).map((_, i) => (
+                                        <FilteredMachineCardShimmer key={`shimmer-${i}`} />
+                                    ))
+                                ) : (
+                                    machines.map((machine) => (
+                                        <FilteredMachineCards key={machine.id} machine={machine} />
+                                    ))
+                                )}
                             </div>
 
                             {/* Pagination */}
                             <nav className='flex justify-center items-center gap-1.5 mt-8 bg-white p-3 rounded-xl shadow-sm border border-gray-100' aria-label="Pagination">
                                 <button
                                     className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed'
-                                    disabled
+                                    disabled={currentPage === 1}
                                     aria-label="Previous page"
+                                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                                 >
                                     Previous
                                 </button>
-                                <button className='px-3 py-2 bg-primaryBtn text-white rounded-lg text-xs font-bold shadow-sm hover:shadow-md transition-all duration-200' aria-label="Page 1" aria-current="page">1</button>
-                                <button className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 transition-all duration-200 font-semibold' aria-label="Page 2">2</button>
-                                <button className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 transition-all duration-200 font-semibold' aria-label="Page 3">3</button>
-                                <span className='px-2 text-xs text-gray-400 font-medium' aria-hidden="true">...</span>
-                                <button className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 transition-all duration-200 font-semibold' aria-label="Page 10">10</button>
-                                <button className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 transition-all duration-200 font-semibold flex items-center gap-1.5' aria-label="Next page">
+
+                                {/* Page number buttons */}
+                                {totalPages <= 3 ? (
+                                    // show all pages when totalPages is 3 or less
+                                    Array.from({ length: totalPages }).map((_, idx) => {
+                                        const pageNum = idx + 1;
+                                        const isActive = pageNum === currentPage;
+                                        return (
+                                            <button
+                                                key={`page-${pageNum}`}
+                                                onClick={() => setCurrentPage(pageNum)}
+                                                className={`px-3 py-2 rounded-lg text-xs font-semibold ${isActive ? 'bg-primaryBtn text-white shadow-sm' : 'border border-gray-200 text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
+                                                aria-label={`Page ${pageNum}`}
+                                                aria-current={isActive ? 'page' : undefined}
+                                            >
+                                                {pageNum}
+                                            </button>
+                                        );
+                                    })
+                                ) : (
+                                    // design: 1 2 3 ... last
+                                    <>
+                                        {[1, 2, 3].map((pageNum) => {
+                                            const isActive = pageNum === currentPage;
+                                            return (
+                                                <button
+                                                    key={`page-${pageNum}`}
+                                                    onClick={() => setCurrentPage(pageNum)}
+                                                    className={`px-3 py-2 rounded-lg text-xs font-semibold ${isActive ? 'bg-primaryBtn text-white shadow-sm' : 'border border-gray-200 text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
+                                                    aria-label={`Page ${pageNum}`}
+                                                    aria-current={isActive ? 'page' : undefined}
+                                                >
+                                                    {pageNum}
+                                                </button>
+                                            );
+                                        })}
+
+                                        <span className='px-2 text-xs text-gray-400 font-medium' aria-hidden="true">...</span>
+
+                                        <button
+                                            key={`page-${totalPages}`}
+                                            onClick={() => setCurrentPage(totalPages)}
+                                            className={`px-3 py-2 rounded-lg text-xs font-semibold ${totalPages === currentPage ? 'bg-primaryBtn text-white shadow-sm' : 'border border-gray-200 text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
+                                            aria-label={`Page ${totalPages}`}
+                                            aria-current={totalPages === currentPage ? 'page' : undefined}
+                                        >
+                                            {totalPages}
+                                        </button>
+                                    </>
+                                )}
+
+                                <button
+                                    className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 transition-all duration-200 font-semibold flex items-center gap-1.5'
+                                    aria-label="Next page"
+                                    disabled={currentPage === totalPages}
+                                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                                >
                                     Next
                                     <FaArrowRight className='text-xs' />
                                 </button>

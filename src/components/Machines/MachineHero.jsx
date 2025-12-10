@@ -4,7 +4,7 @@ import SearchMachine from './SearchMachine';
 
 const MachineHero = () => {
     return (
-        <div className="relative bg-gradient-to-br from-[#1F6FEB17] via-[#1F6FEB0D] to-[#1F6FEB17] min-h-[500px] w-full flex flex-col items-center justify-center overflow-hidden">
+        <div className="relative bg-linear-to-br from-[#1F6FEB17] via-[#1F6FEB0D] to-[#1F6FEB17] min-h-[500px] w-full flex flex-col items-center justify-center overflow-hidden">
             {/* Subtle Background Pattern */}
             <div className="absolute inset-0 opacity-[0.02]">
                 <div 

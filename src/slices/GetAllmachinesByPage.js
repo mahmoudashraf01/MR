@@ -32,6 +32,7 @@ const machinesSlice = createSlice({
     name: "machinesByPage",
     initialState: {
         machines: [],
+        totalMachines: 1,
         totalPages: 1,
         loading: false,
         error: null,
@@ -51,7 +52,8 @@ const machinesSlice = createSlice({
 
                 // API RESPONSE STRUCTURE
                 state.machines = action.payload.data || [];
-                state.totalPages = action.payload.meta.total  || 1;
+                state.totalMachines = action.payload.meta.total || 1;
+                state.totalPages = Math.ceil(action.payload.meta.total / 10) || 1;
             })
 
             .addCase(fetchPublicMachines.rejected, (state, action) => {
@@ -62,4 +64,4 @@ const machinesSlice = createSlice({
 });
 
 
-export const getPublicMachinesByPage =  machinesSlice.reducer;
+export const getPublicMachinesByPage = machinesSlice.reducer;
