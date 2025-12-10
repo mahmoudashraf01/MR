@@ -12,6 +12,7 @@ export const fetchPublicMachines = createAsyncThunk(
         try {
             const response = await axios.get(`${baseURL}/machines/public?page=${page}`);
 
+            console.log("Fetched machines by page:", response.data);
             return response.data;
             // الـ API بيرجع:
             // { machines: [...], total_pages: X, current_page: Y }
@@ -28,11 +29,10 @@ export const fetchPublicMachines = createAsyncThunk(
 // Slice
 // ------------------------
 const machinesSlice = createSlice({
-    name: "machines",
+    name: "machinesByPage",
     initialState: {
         machines: [],
         totalPages: 1,
-        currentPage: 1,
         loading: false,
         error: null,
     },
@@ -50,9 +50,8 @@ const machinesSlice = createSlice({
                 state.loading = false;
 
                 // API RESPONSE STRUCTURE
-                state.machines = action.payload.machines || [];
-                state.totalPages = action.payload.total_pages || 1;
-                state.currentPage = action.payload.current_page || 1;
+                state.machines = action.payload.data || [];
+                state.totalPages = action.payload.meta.total  || 1;
             })
 
             .addCase(fetchPublicMachines.rejected, (state, action) => {
@@ -63,4 +62,4 @@ const machinesSlice = createSlice({
 });
 
 
-export default machinesSlice.reducer;
+export const getPublicMachinesByPage =  machinesSlice.reducer;

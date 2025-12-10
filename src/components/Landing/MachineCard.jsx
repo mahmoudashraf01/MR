@@ -8,7 +8,7 @@ const MachineCard = ({ machine }) => {
 
     const {
         title,
-        brand,
+        category,
         location_city,
         daily_rate,
         images
@@ -32,7 +32,7 @@ const MachineCard = ({ machine }) => {
             {/* brand */}
             <div className='absolute top-4 left-4 flex items-center justify-center min-w-[116px] h-8 rounded-full bg-secondary px-3 py-1.5 shadow-md'>
                 <span className='text-sm font-semibold text-gray-900'>
-                    {brand || 'Unknown Brand'}
+                    {category.name || 'Unknown Brand'}
                 </span>
             </div>
 

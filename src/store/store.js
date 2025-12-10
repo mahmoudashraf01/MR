@@ -5,6 +5,7 @@ import { machineBookingDetailsReducer } from "../slices/ViewMachineDetailsSlice"
 import { registerRenterReducer } from "../slices/RegisterRenterSlice";
 import { loginReducer } from "../slices/LoginSlice";
 import { saveTokenReducer } from "../slices/SaveTokenSlice";
+import { getPublicMachinesByPage } from "../slices/GetAllmachinesByPage";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     login: loginReducer,
     saveToken: saveTokenReducer,
     machines: getAllMachinesReducer,
+    machinesByPage: getPublicMachinesByPage,
     machineBokkingDetails: machineBookingDetailsReducer,
   },
 });
