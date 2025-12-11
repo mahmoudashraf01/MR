@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import path from 'path'
 // import dotenv from 'dotenv'
 
 export default defineConfig(({ mode }) => {
@@ -13,6 +14,11 @@ export default defineConfig(({ mode }) => {
       react(),
       tailwindcss(),
     ],
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src/'),
+      }
+    },
     base: '/',
     define: {
       // Provide an explicit app-level constant derived from an env var.

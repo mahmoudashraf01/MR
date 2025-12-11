@@ -14,11 +14,16 @@ const FilteredMachines = () => {
     const { machines, totalMachines, totalPages, loading } = useSelector((state) => state.machinesByPage);
 
     const [currentPage, setCurrentPage] = useState(1);
+    const arr = 6;
 
     // Fetch machines whenever currentPage changes
     useEffect(() => {
         dispatch(fetchPublicMachines(currentPage));
     }, [dispatch, currentPage]);
+
+    console.log('curr page', currentPage);
+    console.log('total page', totalPages);
+
 
     const topRef = useRef(null);
 
@@ -26,6 +31,7 @@ const FilteredMachines = () => {
         if (topRef.current) {
             topRef.current.scrollIntoView({ behavior: 'smooth' });
         }
+        else window.scrollTo({ top: 0, behavior: "smooth", });
     };
 
     // Smooth-scroll to top when the page changes so user sees new results
@@ -34,7 +40,7 @@ const FilteredMachines = () => {
             scrollToTop();
         } catch (e) {
             // fallback for environments that don't support smooth behavior
-            window.scrollTo(0, 0);
+            window.scrollTo({ top: 0, behavior: "smooth", });
         }
     }, [currentPage]);
 
@@ -203,7 +209,7 @@ const FilteredMachines = () => {
                                 )}
 
                                 <button
-                                    className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 transition-all duration-200 font-semibold flex items-center gap-1.5'
+                                    className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 disabled:opacity-50 transition-all duration-200 font-semibold flex items-center gap-1.5'
                                     aria-label="Next page"
                                     disabled={currentPage === totalPages}
                                     onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
