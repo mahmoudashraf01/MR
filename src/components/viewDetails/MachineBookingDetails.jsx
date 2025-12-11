@@ -13,7 +13,7 @@ import LeftArrow from '../../assets/leftArrow.svg'
 import RightArrow from '../../assets/rightArrow.svg'
 import { getMachineDetailsThunk } from '../../slices/ViewMachineDetailsSlice';
 import MachineBookingDetailsSkeleton from '../viewDetails/skeletons/MachineBokkingDetailsLoading';
-import { useNavigate } from 'react-router-dom';
+import BookingDialog from './BookingSamary';
 
 const MachineBookingDetails = ({ id }) => {
     const { data: machine, loading, error } = useSelector((state) => state.machineBokkingDetails);
@@ -33,8 +33,8 @@ const MachineBookingDetails = ({ id }) => {
     const imagesArray = machine?.images?.length > 0 ? machine.images : [MachineImg, machine2, machine3];
     const fakeImg = [machine1, machine2, machine3];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [openDialog, setOpenDialog] = useState(false);
 
-    const navigate = useNavigate();
 
 
     const nextImage = () => {
@@ -232,10 +232,19 @@ const MachineBookingDetails = ({ id }) => {
                         </div>
 
                         {/* Button */}
-                        <button onClick={navigate('/')} className="bg-primaryBtn text-white py-4 rounded-xl mt-4 w-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2">
+                        <button
+                            onClick={() => setOpenDialog(true)}
+                            className="bg-primaryBtn text-white py-4 rounded-xl mt-4 w-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                        >
                             <span>Book Now</span>
                             <FaArrowRight className="text-sm" />
                         </button>
+                        <BookingDialog
+                            open={openDialog}
+                            onOpenChange={setOpenDialog}
+                            machine={machine}
+                        />
+
                     </div>
                 </div>
             </div>
