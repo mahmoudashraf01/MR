@@ -1,5 +1,6 @@
 import { memo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import MachineImg from '../../assets/machineImg.png'
 import machine1 from '../../assets/machine2.jpeg'
@@ -34,6 +35,9 @@ const MachineBookingDetails = ({ id }) => {
     const fakeImg = [machine1, machine2, machine3];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [openDialog, setOpenDialog] = useState(false);
+
+    const navigate = useNavigate();
+    const { token } = useSelector((state) => state.saveToken || {});
 
 
 
@@ -233,7 +237,15 @@ const MachineBookingDetails = ({ id }) => {
 
                         {/* Button */}
                         <button
-                            onClick={() => setOpenDialog(true)}
+                            onClick={() => {
+                                // if user is logged in (token exists) open booking dialog
+                                if (token) {
+                                    setOpenDialog(true);
+                                } else {
+                                    // otherwise redirect to login page
+                                    navigate('/auth/login');
+                                }
+                            }}
                             className="bg-primaryBtn text-white py-4 rounded-xl mt-4 w-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
                         >
                             <span>Book Now</span>

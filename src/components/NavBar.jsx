@@ -1,9 +1,9 @@
 import React, { memo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import PrimaryButton from './buttons/PrimaryButton';
-import SecondaryButton from './buttons/SecondaryButton';
 import Logo from '../assets/logo2.svg';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../slices/SaveTokenSlice';
 
 const NavBar = () => {
     const [nav, setNav] = useState(true);
@@ -11,6 +11,16 @@ const NavBar = () => {
     const handleNav = () => {
         setNav(!nav);
     };
+
+    const dispatch = useDispatch();
+    const { token, user, role } = useSelector((state) => state.saveToken || {});
+
+    const displayName = user?.name || user?.fullName || user?.company_name || user?.companyName || user?.firstName || user?.username || 'User';
+    const displayRole = role ? String(role).charAt(0).toUpperCase() + String(role).slice(1) : null;
+
+    const handleLogout = () => {
+        dispatch(logout());
+    }
 
     return (
         <div className='flex justify-between items-center h-24 bg-navColor mx-auto px-6 md:px-8 text-primary shadow-md'>
@@ -74,13 +84,29 @@ const NavBar = () => {
                     </li>
                 </ul>
             </div>
-            <div className='hidden lg:flex  justify-between gap-3'>
-                <NavLink to ='/auth/login' className=' h-10 px-4 py-2.5 r text-[18px] font-medium text-primary  transition-all duration-200 hover:text-secondary hover:underline hover:decoration-secondary hover:underline-offset-4 hover:text-[20px]'>
-                    Login
-                </NavLink>
-                <NavLink to = '/auth' className=' h-10 px-4 py-2.5 r text-[18px] font-medium text-primary  transition-all duration-200 hover:text-secondary hover:underline hover:decoration-secondary hover:underline-offset-4 hover:text-[20px]'>
-                    Register
-                </NavLink>
+            <div className='hidden lg:flex  justify-between gap-3 items-center'>
+                {!token ? (
+                    <>
+                        <NavLink to='/auth/login' className=' h-10 px-4 py-2.5 r text-[18px] font-medium text-primary  transition-all duration-200 hover:text-secondary hover:underline hover:decoration-secondary hover:underline-offset-4 hover:text-[20px]'>
+                            Login
+                        </NavLink>
+                        <NavLink to='/auth' className=' h-10 px-4 py-2.5 r text-[18px] font-medium text-primary  transition-all duration-200 hover:text-secondary hover:underline hover:decoration-secondary hover:underline-offset-4 hover:text-[20px]'>
+                            Register
+                        </NavLink>
+                    </>
+                ) : (
+                    <div className='flex items-center gap-3'>
+                        <div className='text-white text-[16px] font-medium'>
+                            {displayName}
+                            {displayRole && (
+                                <span className='text-xs text-secondary ml-2 px-2 py-0.5 bg-white/10 rounded'>
+                                    {displayRole.toLowerCase() === 'renter' ? 'Renter Dashboard' : displayRole.toLowerCase() === 'admin' ? 'Admin Dashboard' : 'Company Dashboard'}
+                                </span>
+                            )}
+                        </div>
+                        <button onClick={handleLogout} className='px-3 py-2 rounded-lg bg-white/10 text-white text-sm hover:bg-white/20 transition'>Logout</button>
+                    </div>
+                )}
             </div>
             <div onClick={handleNav} className='block lg:hidden cursor-pointer p-2 hover:bg-white/10 rounded-lg transition-colors'>
                 {!nav ? <AiOutlineClose size={24} className='text-white' /> : <AiOutlineMenu size={24} className='text-white' />}
@@ -104,16 +130,38 @@ const NavBar = () => {
                 <li className='p-4 border-b border-gray-700'>
                     <NavLink to='/contact' onClick={handleNav} className={({ isActive }) => `block py-2 transition-colors ${isActive ? 'text-secondary font-semibold' : 'text-white hover:text-secondary'}`}>Contact</NavLink>
                 </li>
-                <li className='p-4 border-b border-gray-700'>
-                    <NavLink to ='/auth/login' className=' block py-2 transition-colors font-medium text-primary duration-200 hover:text-secondary'>
-                        Login
-                    </NavLink>
-                </li>
-                <li className='p-4 border-b border-gray-700'>
-                    <NavLink to ='/auth' className=' block py-2 transition-colors  font-medium text-primary duration-200 hover:text-secondary'>
-                        Register
-                    </NavLink>
-                </li>
+                {!token ? (
+                    <>
+                        <li className='p-4 border-b border-gray-700'>
+                            <NavLink to='/auth/login' onClick={handleNav} className=' block py-2 transition-colors font-medium text-primary duration-200 hover:text-secondary'>
+                                Login
+                            </NavLink>
+                        </li>
+                        <li className='p-4 border-b border-gray-700'>
+                            <NavLink to='/auth' onClick={handleNav} className=' block py-2 transition-colors  font-medium text-primary duration-200 hover:text-secondary'>
+                                Register
+                            </NavLink>
+                        </li>
+                    </>
+                ) : (
+                    <>
+                        <li className='p-4 border-b border-gray-700'>
+                            <div className='block py-2 transition-colors font-medium text-white'>
+                                {displayName}
+                                {displayRole && (
+                                    <span className='text-xs text-secondary ml-2 px-2 py-0.5 bg-white/10 rounded'>
+                                        {displayRole.toLowerCase() === 'renter' ? 'Renter Dashboard' : displayRole.toLowerCase() === 'admin' ? 'Admin Dashboard' : 'Company Dashboard'}
+                                    </span>
+                                )}
+                            </div>
+                        </li>
+                        <li className='p-4 border-b border-gray-700'>
+                            <button onClick={() => { handleNav(); handleLogout(); }} className=' block py-2 transition-colors font-medium text-primary duration-200 hover:text-secondary'>
+                                Logout
+                            </button>
+                        </li>
+                    </>
+                )}
             </ul>
         </div>
     );
