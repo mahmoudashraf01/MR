@@ -16,6 +16,8 @@ import RenterDataForm1 from './components/Auth/register/Renter/components/Renter
 import RenterDataForm2 from './components/Auth/register/Renter/components/RenterDataForm2'
 import CompanyRegisterParent from './components/Auth/register/Company/CompanyRegisterParent'
 import RenterRegisterParent from './components/Auth/register/Renter/RenterRegisterParent'
+import path from 'path'
+import RenterDashBoard from './pages/Dashboard/RenterDashBoard'
 
 
 
@@ -34,6 +36,9 @@ function App() {
         { path: 'about', element: <About /> },
         { path: 'viewDetails/:id', element: <ViewDetails /> },
         { path: 'technicalSpecifications', element: <TechnicalSpecifications /> },
+
+        //Dashboard routes
+        { path: 'renterDashboard', element: <RenterDashBoard /> },
         // fallback for unknown paths under navbar layout
         { path: '*', element: <Landing /> },
       ],
