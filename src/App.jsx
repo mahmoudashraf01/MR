@@ -18,6 +18,7 @@ import CompanyRegisterParent from './components/Auth/register/Company/CompanyReg
 import RenterRegisterParent from './components/Auth/register/Renter/RenterRegisterParent'
 import path from 'path'
 import RenterDashBoard from './pages/Dashboard/RenterDashBoard'
+import DashboardLayout from './layouts/DashboardLayout'
 
 
 
@@ -36,11 +37,16 @@ function App() {
         { path: 'about', element: <About /> },
         { path: 'viewDetails/:id', element: <ViewDetails /> },
         { path: 'technicalSpecifications', element: <TechnicalSpecifications /> },
-
-        //Dashboard routes
-        { path: 'renterDashboard', element: <RenterDashBoard /> },
         // fallback for unknown paths under navbar layout
         { path: '*', element: <Landing /> },
+      ],
+    },
+
+    {
+      path: '/dashboard',
+      element: <DashboardLayout />,
+      children: [
+        { index: true, element: <RenterDashBoard /> },
       ],
     },
 

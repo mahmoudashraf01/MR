@@ -1,12 +1,17 @@
 import React, { memo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import Logo from '../assets/logo2.svg';
+import Logo from '../../assets/logo2.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../slices/SaveTokenSlice';
+import { logout } from '../../slices/SaveTokenSlice';
+import DropDownArrow from '../../assets/dropdownArrow.svg';
+import UserLocationIcon from '../../assets/location2.svg';
+import LogOutIcon from '../../assets/LogOutIcon.svg';
+
 
 const NavBar = () => {
     const [nav, setNav] = useState(true);
+    const [openSummary, setOpenSummary] = useState(false);
 
     const handleNav = () => {
         setNav(!nav);
@@ -14,8 +19,8 @@ const NavBar = () => {
 
     const dispatch = useDispatch();
     const { token, user, role } = useSelector((state) => state.saveToken || {});
-
-    const displayName = user?.name || user?.fullName || user?.company_name || user?.companyName || user?.first_name
+    const userFullName = user?.first_name + ' ' + user?.last_name;
+    const displayName = user?.name || userFullName || user?.company_name || user?.companyName || user?.first_name
         || user?.username || 'User';
     const displayRole = role ? String(role).charAt(0).toUpperCase() + String(role).slice(1) : null;
 
@@ -96,16 +101,59 @@ const NavBar = () => {
                         </NavLink>
                     </>
                 ) : (
-                    <div className='flex items-center gap-3'>
-                        <div className='text-white text-[16px] font-medium'>
-                            {displayName}
-                            {displayRole && (
-                                <span className='text-xs text-secondary ml-2 px-2 py-0.5 bg-white/10 rounded'>
-                                    {displayRole.toLowerCase() === 'renter' ? 'Renter Dashboard' : displayRole.toLowerCase() === 'admin' ? 'Admin Dashboard' : 'Company Dashboard'}
-                                </span>
-                            )}
+                    <div className='flex items-center gap-2'>
+                        <div className='text-white text-[16px] font-medium relative'>
+                            <div
+                                onClick={() => setOpenSummary(!openSummary)}
+                                className="flex gap-5 justify-between items-center text-sm font-medium cursor-pointer py-2"
+                            >
+                                <div className='flex justify-center items-center gap-2'>
+                                    <div className='w-8 h-8 bg-primaryBtn rounded-full'></div>
+                                    <div className='flex flex-col justify-center items-center'>
+                                        {displayName}
+                                    </div>
+                                </div>
+                                <div className="flex gap-2">
+                                    <span
+                                        className={`transform transition-transform duration-300 ${openSummary
+                                            ? "rotate-0"
+                                            : "rotate-180"
+                                            }`}
+                                    >
+                                        <img src={DropDownArrow} alt="" />
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* DROPDOWN CONTENT - Absolutely positioned */}
+                            <div
+                                className={`absolute top-full right-0 mt-2 w-48 bg-white/30 rounded-lg shadow-lg border border-gray-200 z-50 transition-all duration-300 ${openSummary ? "opacity-100 visible" : "opacity-0 invisible"}`}
+                            >
+                                <div className="p-4">
+                                    {displayRole && (
+                                        <div className='mb-3'>
+                                            <span className='text-xs text-white bg-secondary hover:bg-secondary/80 px-2 py-1 rounded'>
+                                                {displayRole.toLowerCase() === 'renter' ?
+                                                    <NavLink to="/dashboard" className="text-white ">
+                                                        Go to Dashboard
+                                                    </NavLink> : displayRole.toLowerCase() === 'admin' ? 'Admin Dashboard' : 'Company Dashboard'}
+                                            </span>
+                                        </div>
+                                    )}
+                                    <div className=" flex gap-2 text-xs mb-3 leading-relaxed">
+                                        <div className='text-[10px] text-gray-700'>{user?.renter?.city || 'Location'}</div>
+                                        <img src={UserLocationIcon} alt="" />
+                                    </div>
+                                    <div className='flex items-center border-t'>
+                                        <button onClick={handleLogout} className='text-left hover:text-[15px] w-full px-3 py-2 text-sm text-black rounded transition-colors'>
+                                            Logout
+                                        </button>
+                                        <img className='w-5' src={LogOutIcon} alt="" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <button onClick={handleLogout} className='px-3 py-2 rounded-lg bg-white/10 text-white text-sm hover:bg-white/20 transition'>Logout</button>
+                        {/* <button onClick={handleLogout} className='px-3 py-2 rounded-lg bg-white/10 text-white text-sm hover:bg-white/20 transition'>Logout</button> */}
                     </div>
                 )}
             </div>
@@ -113,7 +161,7 @@ const NavBar = () => {
                 {!nav ? <AiOutlineClose size={24} className='text-white' /> : <AiOutlineMenu size={24} className='text-white' />}
             </div>
 
-            <ul className={!nav ? 'fixed left-0 top-0 w-[70%] sm:w-[60%] border-r border-r-gray-900 h-full z-50 bg-navColor ease-in-out duration-300 shadow-2xl' : 'fixed -left-full top-0 w-[70%] sm:w-[60%] border-r border-r-gray-900 h-full bg-navColor z-50 ease-in-out duration-300'}>
+            <ul className={!nav ? 'lg:hidden fixed left-0 top-0 w-[70%] sm:w-[60%] border-r border-r-gray-900 h-full z-50 bg-navColor ease-in-out duration-300 shadow-2xl' : 'fixed -left-full top-0 w-[70%] sm:w-[60%] border-r border-r-gray-900 h-full bg-navColor z-50 ease-in-out duration-300'}>
                 <div className={`${token ? 'flex flex-col justify-between h-full' : 'flex flex-col justify-between '}`} >
                     <div className='flex items-center justify-between py-6 px-6 border-b border-gray-700'>
                         <img src={Logo} alt="Logo" className='h-10' />
@@ -157,7 +205,7 @@ const NavBar = () => {
                                 <div className='flex justify-between items-center'>
                                     <div className='flex justify-center items-center gap-2'>
                                         <div className='w-8 h-8 bg-primaryBtn rounded-full'></div>
-                                        <div className='flex flex-col justify-center items-center'>
+                                        <div className='flex flex-col justify-center items-start'>
                                             {displayName}
                                             <div className=' text-[10px] text-[#D4D4D4]'>{user?.renter.city}</div>
                                         </div>

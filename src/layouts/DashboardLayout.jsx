@@ -1,13 +1,13 @@
 import React from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import NavBar from '../components/NavBar/NavBar'
+import DashBoardNavBar from '../components/NavBar/DashBoardNavBar'
 
-const NavbarLayout = () => {
+const DashboardLayout = () => {
     const location = useLocation()
 
     return (
         <>
-            <NavBar />
+            <DashBoardNavBar />
             <main key={location.pathname} className="flex-1">
                 {/* animate-page-fade defined in index.css */}
                 <div className="animate-page-fade">
@@ -18,4 +18,4 @@ const NavbarLayout = () => {
     )
 }
 
-export default NavbarLayout
+export default DashboardLayout
