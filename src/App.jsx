@@ -17,8 +17,9 @@ import RenterDataForm2 from './components/Auth/register/Renter/components/Renter
 import CompanyRegisterParent from './components/Auth/register/Company/CompanyRegisterParent'
 import RenterRegisterParent from './components/Auth/register/Renter/RenterRegisterParent'
 import path from 'path'
-import RenterDashBoard from './pages/Dashboard/RenterDashBoard'
+import RenterDashBoard from './pages/Dashboard/RenterDashBoardSideBar'
 import DashboardLayout from './layouts/DashboardLayout'
+import MyBookings from './pages/Dashboard/Navigations/MyBookings'
 
 
 
@@ -46,7 +47,10 @@ function App() {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { index: true, element: <RenterDashBoard /> },
+        { index: true, element: <div className="p-8"><h1>Overview</h1><p>Welcome to your dashboard overview.</p></div> },
+        { path: 'myBookings', element: <MyBookings /> },
+        { path: 'profile', element: <div className="p-8"><h1>Profile</h1><p>Manage your profile here.</p></div> },
+        { path: 'settings', element: <div className="p-8"><h1>Settings</h1><p>Adjust your settings here.</p></div> },
       ],
     },
 

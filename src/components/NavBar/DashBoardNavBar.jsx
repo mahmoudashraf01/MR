@@ -29,11 +29,11 @@ const DashboardNavBar = () => {
     }
 
     return (
-        <div className='flex justify-between items-center h-24 bg-navColor mx-auto px-6 md:px-8 text-primary shadow-md'>
+        <div className='flex w-full justify-between items-center h-24 bg-navColor mx-auto px-6 md:px-8 text-primary shadow-md'>
             <NavLink to='/' className='flex items-center'>
                 <img src={Logo} alt="Logo" className='h-10 md:h-12' />
             </NavLink>
-            
+
             <div className='hidden lg:flex  justify-between gap-3 items-center'>
                 {!token ? (
                     <>
@@ -71,24 +71,23 @@ const DashboardNavBar = () => {
 
                             {/* DROPDOWN CONTENT - Absolutely positioned */}
                             <div
-                                className={`absolute top-full right-0 mt-2 w-48 bg-white/30 rounded-lg shadow-lg border border-gray-200 z-50 transition-all duration-300 ${openSummary ? "opacity-100 visible" : "opacity-0 invisible"}`}
+                                className={`absolute top-full right-0 mt-2 w-48 bg-white/90 rounded-lg shadow-lg border border-gray-200 z-50 transition-all duration-300 ${openSummary ? "opacity-100 visible" : "opacity-0 invisible"}`}
                             >
                                 <div className="p-4">
                                     {displayRole && (
-                                        <div className='mb-3'>
-                                            <span className='text-xs text-white bg-secondary hover:bg-secondary/80 px-2 py-1 rounded'>
-                                                {displayRole.toLowerCase() === 'renter' ?
-                                                    <NavLink to="/dashboard" className="text-white ">
-                                                        Go to Dashboard
-                                                    </NavLink> : displayRole.toLowerCase() === 'admin' ? 'Admin Dashboard' : 'Company Dashboard'}
+                                        <NavLink to="/" className='mb-3 flex justify-center items-center'>
+                                            <span className='text-xs text-white w-full text-center bg-secondary hover:bg-secondary/80 px-2 py-1 rounded'>
+                                                <h1 className="text-navColor ">
+                                                    Back To Home
+                                                </h1>
                                             </span>
-                                        </div>
+                                        </NavLink>
                                     )}
                                     <div className=" flex gap-2 text-xs mb-3 leading-relaxed">
                                         <div className='text-[10px] text-gray-700'>{user?.renter?.city || 'Location'}</div>
                                         <img src={UserLocationIcon} alt="" />
                                     </div>
-                                    <div className='flex items-center border-t'>
+                                    <div className='flex items-center border-t border-gray-200'>
                                         <button onClick={handleLogout} className='text-left hover:text-[15px] w-full px-3 py-2 text-sm text-black rounded transition-colors'>
                                             Logout
                                         </button>

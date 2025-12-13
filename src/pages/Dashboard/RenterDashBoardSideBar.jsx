@@ -15,9 +15,10 @@ import ActiveProfileIcon from '../../assets/activeProfileIcon.svg';
 import SettingIcon from '../../assets/SettingIcon.svg';
 import ActiveSettingIcon from '../../assets/activeSettingIcon.svg';
 import LogOutIcon from '../../assets/LogOutIcon.svg';
+import MyBookings from './Navigations/MyBookings';
 
 
-const RenterDashBoard = () => {
+const RenterDashBoardSideBar = () => {
     const dispatch = useDispatch();
 
     const handleLogout = () => {
@@ -25,38 +26,40 @@ const RenterDashBoard = () => {
     };
 
     return (
-        <div className='bg-[#F4F5F7] h-[calc(100vh-96px)]'>
-            <div className='flex gap-5'>
-                <aside className="max-sm:hidden max-md:hidden fixed left-0 top-0 w-[20%] h-[calc(100vh-96px)] bg-white z-50 overflow-hidden">
-                    <div className="flex flex-col justify-between h-full">
-                        {/* LINKS */}
-                        <div className='px-5 py-8'>
-                            <NavItem to="/dashboard/overview" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" />
-                            <NavItem to="/dashboard/bookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="My Bookings" />
-                            <NavItem to="/dashboard/profile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />
-                            <NavItem to="/dashboard/settings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
-                        </div>
+        <aside className=" max-sm:hidden max-md:hidden w-[20%] bg-white overflow-hidden">
+            <div className="flex flex-col justify-between h-full">
+                {/* LINKS */}
+                <div className='px-5 py-8'>
+                    <NavItem to="/dashboard" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" end={true} />
+                    <NavItem to="/dashboard/myBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="My Bookings" />
+                    <NavItem to="/dashboard/profile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />
+                    <NavItem to="/dashboard/settings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
+                </div>
 
-                        {/* LOGOUT */}
-                        <button
-                            onClick={handleLogout}
-                            className="p-4 text-left text-navColor hover:text-secondary transition-colors"
-                        >
-                            Logout
-                        </button>
-                    </div>
-                </aside>
+                {/* LOGOUT */}
+                <div className='px-5 py-5 flex gap-2 hover:gap-3 '>
+                    <img src={LogOutIcon} alt="" />
+                    <NavLink to='/'
+                        onClick={handleLogout}
+                        className=" text-left text-navColor hover:text-primaryBtn transition-colors"
+                    >
+                        Log out
+                    </NavLink>
+                </div>
             </div>
-        </div>
+        </aside>
+
+
     );
 };
 
-const NavItem = ({ to, icon, activeIcon, text }) => {
+const NavItem = ({ to, icon, activeIcon, text, end }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
         <NavLink
             to={to}
+            end={end}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className={({ isActive }) =>
@@ -79,4 +82,4 @@ const NavItem = ({ to, icon, activeIcon, text }) => {
     );
 };
 
-export default memo(RenterDashBoard);
+export default memo(RenterDashBoardSideBar);
