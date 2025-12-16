@@ -19,7 +19,7 @@ import RenterRegisterParent from './components/Auth/register/Renter/RenterRegist
 import path from 'path'
 import RenterDashBoard from './pages/Dashboard/RenterDashBoardSideBar'
 import DashboardLayout from './layouts/DashboardLayout'
-import MyBookings from './pages/Dashboard/Navigations/MyBookings'
+import MyBookings from './pages/Dashboard/Navigations/MyBookings/MyBookings'
 
 
 
