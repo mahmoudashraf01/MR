@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import MyBookingsMachines from '../components/MyBookingsMachines';
+import MyBookingsMachines from './components/MyBookingsMachines';
 
 const MyBookings = () => {
     return (

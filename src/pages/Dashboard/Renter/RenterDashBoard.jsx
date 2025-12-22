@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import Logo from '../../assets/logo2.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../../slices/SaveTokenSlice';
-import LeftArrowIcon from '../../assets/leftArrowIcon.svg';
+import { logout } from '../../../slices/SaveTokenSlice';
+import LeftArrowIcon from '../../../assets/leftArrowIcon.svg';
 import ActiveLeftArrowIcon from '../../assets/activeLeftArrow.svg';
 import OverviewIcon from '../../assets/overviewIcon.svg';
 import ActiveOverviewIcon from '../../assets/activeOverview.svg';
@@ -15,7 +15,7 @@ import ActiveProfileIcon from '../../assets/activeProfileIcon.svg';
 import SettingIcon from '../../assets/SettingIcon.svg';
 import ActiveSettingIcon from '../../assets/activeSettingIcon.svg';
 import LogOutIcon from '../../assets/LogOutIcon.svg';
-import MyBookings from './Navigations/MyBookings/MyBookings';
+import MyBookings from './Navigations/MyBookings';
 
 
 const RenterDashBoardSideBar = () => {

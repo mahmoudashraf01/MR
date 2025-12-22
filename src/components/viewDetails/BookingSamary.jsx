@@ -1,5 +1,7 @@
 // BookingDialog.jsx
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createBooking, resetCreateBookingState } from "../../slices/Bookings/CreateBookings";
 import DropDownArrow from '../../assets/dropdownArrow.svg';
 import PikcupIcon from '../../assets/pikcupIcon.svg';
 import DeliveryIcon from '../../assets/delivery.svg';
@@ -17,6 +19,23 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [openSummary, setOpenSummary] = useState(false);
+    const [notes, setNotes] = useState("");
+
+    const dispatch = useDispatch();
+    const { token, user } = useSelector((state) => state.saveToken || {});
+    const { isLoading, isSuccess, error } = useSelector((state) => state.createBooking || {});
+
+    useEffect(() => {
+        if (isSuccess) {
+            alert("Booking confirmed successfully!");
+            dispatch(resetCreateBookingState());
+            onOpenChange(false);
+        }
+        if (error) {
+            alert("Failed to create booking: " + error);
+            dispatch(resetCreateBookingState());
+        }
+    }, [isSuccess, error, dispatch, onOpenChange]);
 
     // ============================
     //   CALCULATE DAYS DIFFERENCE
@@ -36,13 +55,25 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
     const totalPrice = useMemo(() => {
         if (!durationDays || durationDays <= 0) return 0;
 
-        if (durationDays === 30) return Number(machine?.monthly_rate);
-        if (durationDays === 7) return Number(machine?.weekly_rate);
-        if (durationDays < 7) return durationDays * Number(machine?.daily_rate);
-        if (durationDays > 7 && durationDays < 30)
-            return durationDays * Number(machine?.daily_rate);
+        const dailyRate = Number(machine?.daily_rate) || 0;
+        const weeklyRate = Number(machine?.weekly_rate) || 0;
+        const monthlyRate = Number(machine?.monthly_rate) || 0;
 
-        return durationDays * Number(machine?.daily_rate);
+        if (durationDays < 7) {
+            return durationDays * dailyRate;
+        } else {
+            // Calculate months
+            const months = Math.floor(durationDays / 30);
+            let remainingDays = durationDays % 30;
+
+            // Calculate weeks from remaining days
+            const weeks = Math.floor(remainingDays / 7);
+            remainingDays = remainingDays % 7;
+
+            // Total price
+            const price = (months * monthlyRate) + (weeks * weeklyRate) + (remainingDays * dailyRate);
+            return price;
+        }
     }, [durationDays, machine]);
 
     const taxAndFees = 30;
@@ -141,6 +172,8 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
                         <textarea
                             placeholder="Notes (optional)"
                             className="w-full mt-3 px-3 py-2 rounded-lg border border-gray-300 h-20 focus:border-primaryBtn focus:ring-1 focus:ring-primaryBtn outline-none resize-none"
+                            value={notes}
+                            onChange={(e) => setNotes(e.target.value)}
                         ></textarea>
                     </div>
 
@@ -219,7 +252,6 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
                             </span>
                         </div>
 
-
                     </div>
                     {/* TOTAL PRICE */}
                     <div className="flex justify-between text-lg font-semibold mt-4 text-gray-900">
@@ -232,15 +264,23 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
                 <DialogFooter className="p-6">
                     <button
                         onClick={() => {
-                            console.log(
-                                "Booking confirmed for machine:",
-                                machine?.id
-                            );
-                            onOpenChange(false);
+                            const bookingData = {
+                                machine_id: machine?.id,
+                                owner_company_id: machine?.company?.id,
+                                renter_id: user?.id,
+                                start_date: startDate,
+                                end_date: endDate,
+                                notes: notes,
+                                quantity: 1,
+                                deposit_paid_amount: finalTotal,
+                                is_deposit_paid: true
+                            };
+                            dispatch(createBooking(bookingData));
                         }}
-                        className="w-full bg-primaryBtn text-white py-3 rounded-xl font-semibold text-center hover:opacity-90 transition"
+                        disabled={!startDate || !endDate || isLoading}
+                        className="w-full bg-primaryBtn text-white py-3 rounded-xl font-semibold text-center hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        Confirm Booking
+                        {isLoading ? "Creating..." : "Confirm Booking"}
                     </button>
                 </DialogFooter>
             </DialogContent>

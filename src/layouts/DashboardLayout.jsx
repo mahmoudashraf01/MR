@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import RenterDashBoardSideBar from '../pages/Dashboard/RenterDashBoardSideBar'
+import RenterDashBoardSideBar from '../pages/Dashboard/Renter/RenterDashBoardSideBar'
 import DashBoardNavBar from '../components/NavBar/DashBoardNavBar'
 
 const DashboardLayout = () => {

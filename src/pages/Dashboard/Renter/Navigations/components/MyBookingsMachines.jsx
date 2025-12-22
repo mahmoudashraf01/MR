@@ -1,6 +1,6 @@
 
 import { memo } from 'react';
-import machineImg from '../../../../assets/machine_item.png';
+import machineImg from '../../../../../assets/machine_item.png';
 import { AiOutlineVerified } from 'react-icons/ai';
 import { BiMap } from 'react-icons/bi';
 import { BsShieldCheck } from 'react-icons/bs';
