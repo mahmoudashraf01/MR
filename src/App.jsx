@@ -21,6 +21,7 @@ import RenterDashBoard from './pages/Dashboard/Renter/RenterDashBoardSideBar'
 import DashboardLayout from './layouts/DashboardLayout'
 import MyBookings from './pages/Dashboard/Renter/Navigations/MyBookings'
 import RenterProfile from './pages/Dashboard/Renter/Navigations/RenterProfile'
+import RenterSettings from './pages/Dashboard/Renter/Navigations/RenterSettings'
 
 
 
@@ -51,7 +52,7 @@ function App() {
         { index: true, element: <div className="p-8"><h1>Overview</h1><p>Welcome to your dashboard overview.</p></div> },
         { path: 'myBookings', element: <MyBookings /> },
         { path: 'profile', element: <RenterProfile /> },
-        { path: 'settings', element: <div className="p-8"><h1>Settings</h1><p>Adjust your settings here.</p></div> },
+        { path: 'settings', element: <RenterSettings /> },
       ],
     },
 
