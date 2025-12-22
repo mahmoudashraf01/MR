@@ -18,7 +18,7 @@ import LogOutIcon from '../../assets/LogOutIcon.svg';
 import MyBookings from './Navigations/MyBookings';
 
 
-const RenterDashBoardSideBar = () => {
+const CompanyDashBoardSideBar = () => {
     const dispatch = useDispatch();
 
     const handleLogout = () => {
@@ -84,4 +84,4 @@ const NavItem = ({ to, icon, activeIcon, text }) => {
     );
 };
 
-export default memo(RenterDashBoardSideBar);
+export default memo(CompanyDashBoardSideBar);
