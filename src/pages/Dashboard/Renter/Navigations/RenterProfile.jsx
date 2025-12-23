@@ -35,7 +35,7 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    className="w-full border rounded-md px-4 py-2 bg-white"
+                                    className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
                             </div>
 
@@ -45,7 +45,7 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    className="w-full border rounded-md px-4 py-2 bg-white"
+                                    className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
                             </div>
 
@@ -55,7 +55,7 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    className="w-full border rounded-md px-4 py-2 bg-white"
+                                    className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
                             </div>
 
@@ -65,7 +65,7 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    className="w-full border rounded-md px-4 py-2 bg-white"
+                                    className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
                             </div>
 
