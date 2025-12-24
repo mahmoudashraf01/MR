@@ -22,7 +22,7 @@ const ManageMachines = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
-        <div className="p-6 bg-gray-50 min-h-screen rounded-[40px]  border border-[#B2B2B2]">
+        <div className="p-6 bg-white min-h-screen rounded-[40px]  border border-[#B2B2B2]">
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
                 <div className='flex flex-col justify-center lg:items-start items-center'>
@@ -38,7 +38,7 @@ const ManageMachines = () => {
             </div>
 
             {/* Filters */}
-            <div className="bg-white  rounded-lg p-4 shadow mb-6 space-y-4">
+            <div className="bg-[#D2D2D2]/5 rounded-2xl border border-[#D2D2D2] p-4 mb-6 space-y-4">
                 <div className="relative">
                     <img
                         src={SearchBtn}
@@ -47,13 +47,13 @@ const ManageMachines = () => {
                     />
                     <input
                         placeholder="Search ..."
-                        className="w-full border text-sm placeholder:text-[#9CA3AF] border-[#D2D2D2] rounded-md pl-10 py-2"
+                        className="w-full bg-white border text-sm placeholder:text-[#9CA3AF] border-[#D2D2D2] rounded-md pl-10 py-2"
                     />
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
                     <div className="relative">
-                        <select className="appearance-none border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full">
+                        <select className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full">
                             <option>Category</option>
                         </select>
                         <img
@@ -63,7 +63,7 @@ const ManageMachines = () => {
                         />
                     </div>
                     <div className="relative">
-                        <select className="appearance-none border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full">
+                        <select className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full">
                             <option>Status</option>
                         </select>
                         <img
@@ -73,7 +73,7 @@ const ManageMachines = () => {
                         />
                     </div>
                     <div className="relative">
-                        <select className="appearance-none border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full">
+                        <select className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full">
                             <option>City</option>
                         </select>
                         <img
@@ -118,7 +118,7 @@ const ManageMachines = () => {
             </div>
 
             {/* Table */}
-            <div className="bg-[#F8FAFB] rounded-lg  overflow-x-auto">
+            <div className="bg-white rounded-lg  overflow-x-auto">
                 <table className="w-full border-collapse">
                     <thead className="bg-[#D2D2D2]/5 shadow">
                         <tr>
@@ -171,7 +171,7 @@ const ManageMachines = () => {
                                     )}
 
                                     {activeColumn === "status" && (
-                                        <span className="px-3 py-1 text-xs rounded-full bg-blue-500 text-white">
+                                        <span className="px-3 py-1 text-xs rounded-full bg-primaryBtn text-white">
                                             In Use
                                         </span>
                                     )}
@@ -193,7 +193,7 @@ const ManageMachines = () => {
                                     $150 / Day
                                 </td>
                                 <td className="hidden lg:table-cell px-4 py-3">
-                                    <span className="px-3 py-1 text-xs rounded-full bg-blue-500 text-white">
+                                    <span className="px-3 py-1 text-xs rounded-full bg-primaryBtn text-white">
                                         In Use
                                     </span>
                                 </td>
