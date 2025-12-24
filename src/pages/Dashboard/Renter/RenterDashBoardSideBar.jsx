@@ -30,10 +30,10 @@ const RenterDashBoardSideBar = () => {
             <div className="flex flex-col justify-between h-full">
                 {/* LINKS */}
                 <div className='px-5 py-8'>
-                    <NavItem to="/dashboard" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" end={true} />
-                    <NavItem to="/dashboard/myBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="My Bookings" />
-                    <NavItem to="/dashboard/profile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />
-                    <NavItem to="/dashboard/settings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
+                    <NavItem to="/renterDashboard" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" end={true} />
+                    <NavItem to="/renterDashboard/myBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="My Bookings" />
+                    <NavItem to="/renterDashboard/profile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />
+                    <NavItem to="/renterDashboard/settings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
                 </div>
 
                 {/* LOGOUT */}

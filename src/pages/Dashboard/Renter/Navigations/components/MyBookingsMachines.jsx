@@ -7,8 +7,8 @@ import { BsShieldCheck } from 'react-icons/bs';
 
 const MyBookingsMachines = () => {
     return (
-        <div className='relative mx-auto overflow-hidden h-[475px] bg-primary rounded-2xl shadow-2xl'>
-            <div className='max-sm:w-[350px] max-xs:w-[300px] lg:w-[350px] w-[425px] h-[305px] rounded-t-2xl relative flex items-center justify-center overflow-hidden' >
+        <div className='relative mx-auto max-xs:mx-0 overflow-hidden h-[475px] bg-primary rounded-2xl shadow-2xl'>
+            <div className='max-sm:w-[300px] max-xs:w-[300px] lg:w-[350px] w-[425px] h-[305px] rounded-t-2xl relative flex items-center justify-center overflow-hidden' >
                 <img
                     src={machineImg}
                     alt="hero"

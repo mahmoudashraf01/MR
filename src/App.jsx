@@ -46,7 +46,7 @@ function App() {
     },
 
     {
-      path: '/dashboard',
+      path: '/renterDashboard',
       element: <DashboardLayout />,
       children: [
         { index: true, element: <div className="p-8"><h1>Overview</h1><p>Welcome to your dashboard overview.</p></div> },

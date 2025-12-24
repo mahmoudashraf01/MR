@@ -2,6 +2,7 @@ import React, { memo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import Logo from '../../assets/logo2.svg';
+import ProfileImg from '../../assets/contact.jpeg'
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../slices/SaveTokenSlice';
 import DropDownArrow from '../../assets/dropdownArrow.svg';
@@ -108,7 +109,9 @@ const NavBar = () => {
                                 className="flex gap-5 justify-between items-center text-sm font-medium cursor-pointer py-2"
                             >
                                 <div className='flex justify-center items-center gap-2'>
-                                    <div className='w-8 h-8 bg-primaryBtn rounded-full'></div>
+                                    <div className='w-8 h-8 bg-primaryBtn rounded-full overflow-hidden'>
+                                        <img src={ProfileImg} alt="profileImg" className='w-full h-full object-cover' />
+                                    </div>
                                     <div className='flex flex-col justify-center items-center'>
                                         {displayName}
                                     </div>
@@ -127,14 +130,14 @@ const NavBar = () => {
 
                             {/* DROPDOWN CONTENT - Absolutely positioned */}
                             <div
-                                className={`absolute top-full right-0 mt-2 w-48 bg-white/30 rounded-lg shadow-lg border border-gray-200 z-50 transition-all duration-300 ${openSummary ? "opacity-100 visible" : "opacity-0 invisible"}`}
+                                className={`absolute top-full right-0 mt-2 w-48 bg-white/90 rounded-lg shadow-lg border border-gray-200 z-50 transition-all duration-300 ${openSummary ? "opacity-100 visible" : "opacity-0 invisible"}`}
                             >
                                 <div className="p-4">
                                     {displayRole && (
                                         <div className='mb-3'>
                                             <span className='text-xs text-white bg-secondary hover:bg-secondary/80 px-2 py-1 rounded'>
                                                 {displayRole.toLowerCase() === 'renter' ?
-                                                    <NavLink to="/dashboard" className="text-white ">
+                                                    <NavLink to="/renterDashboard" className="text-navColor ">
                                                         Go to Dashboard
                                                     </NavLink> : displayRole.toLowerCase() === 'admin' ? 'Admin Dashboard' : 'Company Dashboard'}
                                             </span>
@@ -213,7 +216,7 @@ const NavBar = () => {
                                     {displayRole && (
                                         <span className='text-xs text-white bg-secondary ml-2 px-2 py-2 rounded'>
                                             {displayRole.toLowerCase() === 'renter' ?
-                                                <NavLink >
+                                                <NavLink to={'/renterDashboard'}>
                                                     Go to Dashboard
                                                 </NavLink> : displayRole.toLowerCase() === 'admin' ? 'Admin Dashboard' : 'Company Dashboard'}
                                         </span>

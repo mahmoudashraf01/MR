@@ -7,6 +7,17 @@ import { logout } from '../../slices/SaveTokenSlice';
 import DropDownArrow from '../../assets/dropdownArrow.svg';
 import UserLocationIcon from '../../assets/location2.svg';
 import LogOutIcon from '../../assets/LogOutIcon.svg';
+import { MdLogout } from "react-icons/md";
+import LeftArrowIcon from '../../assets/leftArrowIcon.svg';
+import ActiveLeftArrowIcon from '../../assets/activeLeftArrow.svg';
+import OverviewIcon from '../../assets/overviewIcon.svg';
+import ActiveOverviewIcon from '../../assets/activeOverview.svg';
+import BookingIcon from '../../assets/bookingIcon.svg';
+import ActiveBookingIcon from '../../assets/activeBookingIcon.svg';
+import ProfileIcon from '../../assets/profileIcon.svg';
+import ActiveProfileIcon from '../../assets/activeProfileIcon.svg';
+import SettingIcon from '../../assets/SettingIcon.svg';
+import ActiveSettingIcon from '../../assets/activeSettingIcon.svg';
 
 
 const DashboardNavBar = () => {
@@ -112,26 +123,26 @@ const DashboardNavBar = () => {
                             <AiOutlineClose size={20} className='text-white' />
                         </button>
                     </div>
-                    <li className='p-4 border-b border-gray-700'>
-                        <NavLink to='/' end onClick={handleNav} className={({ isActive }) => `block py-2 transition-colors ${isActive ? 'text-secondary font-semibold' : 'text-white hover:text-secondary'}`}>Home</NavLink>
+                    <li className='p-4 border-gray-700'>
+                        <NavItem to="/renterDashboard" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" end={true} />
                     </li>
-                    <li className='p-4 border-b border-gray-700'>
-                        <NavLink to='/machines' onClick={handleNav} className={({ isActive }) => `block py-2 transition-colors ${isActive ? 'text-secondary font-semibold' : 'text-white hover:text-secondary'}`}>Machines</NavLink>
+                    <li className='p-4 border-gray-700'>
+                        <NavItem to="/renterDashboard/myBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="My Bookings" />
                     </li>
-                    <li className='p-4 border-b border-gray-700'>
-                        <NavLink to='/about' onClick={handleNav} className={({ isActive }) => `block py-2 transition-colors ${isActive ? 'text-secondary font-semibold' : 'text-white hover:text-secondary'}`}>About</NavLink>
+                    <li className='p-4 border-gray-700'>
+                        <NavItem to="/renterDashboard/profile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />
                     </li>
-                    <li className='p-4 border-b border-gray-700'>
-                        <NavLink to='/contact' onClick={handleNav} className={({ isActive }) => `block py-2 transition-colors ${isActive ? 'text-secondary font-semibold' : 'text-white hover:text-secondary'}`}>Contact</NavLink>
+                    <li className='p-4 border-gray-700'>
+                        <NavItem to="/renterDashboard/settings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
                     </li>
                     {!token ? (
                         <>
-                            <li className='p-4 border-b border-gray-700'>
+                            <li className='p-4 border-gray-700'>
                                 <NavLink to='/auth/login' onClick={handleNav} className=' block py-2 transition-colors font-medium text-primary duration-200 hover:text-secondary'>
                                     Login
                                 </NavLink>
                             </li>
-                            <li className='p-4 border-b border-gray-700'>
+                            <li className='p-4 border-gray-700'>
                                 <NavLink to='/auth' onClick={handleNav} className=' block py-2 transition-colors  font-medium text-primary duration-200 hover:text-secondary'>
                                     Register
                                 </NavLink>
@@ -139,10 +150,13 @@ const DashboardNavBar = () => {
                         </>
                     ) : (
                         <>
-                            <li className='p-4 border-b border-gray-700'>
-                                <button onClick={() => { handleNav(); handleLogout(); }} className=' block py-2 transition-colors font-medium text-primary duration-200 hover:text-secondary'>
-                                    Logout
-                                </button>
+                            <li className='p-4 border-gray-700'>
+                                <div className='flex px-2 gap-4 rounded-md justify-start items-center hover:bg-primaryBtn'>
+                                    <MdLogout />
+                                    <button onClick={() => { handleNav(); handleLogout(); }} className=' block py-2 transition-colors font-medium text-primary duration-200'>
+                                        Logout
+                                    </button>
+                                </div>
                             </li>
                             <div className='flex flex-col border-t border-gray-700 py-3 px-2 transition-colors font-medium text-white mt-auto'>
                                 <div className='flex justify-between items-center'>
@@ -168,6 +182,33 @@ const DashboardNavBar = () => {
                 </div>
             </ul>
         </div>
+    );
+};
+
+
+const NavItem = ({ to, icon, activeIcon, text, end }) => {
+    const [isHovered, setIsHovered] = useState(false);
+
+    return (
+        <NavLink
+            to={to}
+            end={end}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className={({ isActive }) =>
+                `flex items-center justify-between hover:bg-primaryBtn rounded-md px-2 py-2 mb-2 ${isActive
+                    ? "text-white font-semibold bg-primaryBtn"
+                    : "text-white hover:text-white"
+                }`
+            }
+        >
+            <div className='flex items-center gap-2'>
+                <img src={activeIcon} alt="" className="w-5 h-5" />
+                <span>{text}</span>
+            </div>
+            <img src={ActiveLeftArrowIcon} alt="" className="w-4 h-4" />
+
+        </NavLink>
     );
 };
 
