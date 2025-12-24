@@ -1,14 +1,14 @@
 import React from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import RenterDashBoardSideBar from '../pages/Dashboard/Renter/RenterDashBoardSideBar'
-import DashBoardNavBar from '../components/NavBar/DashBoardNavBar'
+import RenterDashBoardNavBar from '../components/NavBar/RenterDashBoardNavBar'
 
-const DashboardLayout = () => {
+const RenterDashboardLayout = () => {
     const location = useLocation()
 
     return (
         <div className="flex flex-col bg-[#F4F5F7]">
-            <DashBoardNavBar />
+            <RenterDashBoardNavBar />
             <div className="flex flex-1">
                 <RenterDashBoardSideBar />
                 <main key={location.pathname} className="flex-1 h-[calc(100vh-96px)] overflow-hidden">
@@ -22,4 +22,4 @@ const DashboardLayout = () => {
     )
 }
 
-export default DashboardLayout
+export default RenterDashboardLayout

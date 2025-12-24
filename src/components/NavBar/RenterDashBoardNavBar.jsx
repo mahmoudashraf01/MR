@@ -20,7 +20,7 @@ import SettingIcon from '../../assets/SettingIcon.svg';
 import ActiveSettingIcon from '../../assets/activeSettingIcon.svg';
 
 
-const DashboardNavBar = () => {
+const RenterDashboardNavBar = () => {
     const [nav, setNav] = useState(true);
     const [openSummary, setOpenSummary] = useState(false);
 
@@ -168,11 +168,10 @@ const DashboardNavBar = () => {
                                         </div>
                                     </div>
                                     {displayRole && (
-                                        <span className='text-xs text-white bg-secondary ml-2 px-2 py-2 rounded'>
-                                            {displayRole.toLowerCase() === 'renter' ?
-                                                <NavLink >
-                                                    Go to Dashboard
-                                                </NavLink> : displayRole.toLowerCase() === 'admin' ? 'Admin Dashboard' : 'Company Dashboard'}
+                                        <span className='text-xs text-white bg-secondary ml-2 px-5 py-2 rounded'>
+                                            <NavLink to='/'>
+                                                Back To Home
+                                            </NavLink>
                                         </span>
                                     )}
                                 </div>
@@ -212,4 +211,4 @@ const NavItem = ({ to, icon, activeIcon, text, end }) => {
     );
 };
 
-export default memo(DashboardNavBar);
+export default memo(RenterDashboardNavBar);
