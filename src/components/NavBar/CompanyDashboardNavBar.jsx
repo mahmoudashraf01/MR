@@ -20,7 +20,7 @@ import SettingIcon from '../../assets/SettingIcon.svg';
 import ActiveSettingIcon from '../../assets/activeSettingIcon.svg';
 
 
-const RenterDashboardNavBar = () => {
+const CompanyDashboardNavBar = () => {
     const [nav, setNav] = useState(true);
     const [openSummary, setOpenSummary] = useState(false);
 
@@ -211,4 +211,4 @@ const NavItem = ({ to, icon, activeIcon, text, end }) => {
     );
 };
 
-export default memo(RenterDashboardNavBar);
+export default memo(CompanyDashboardNavBar);

@@ -139,12 +139,15 @@ const NavBar = () => {
                                                 {displayRole.toLowerCase() === 'renter' ?
                                                     <NavLink to="/renterDashboard" className="text-navColor ">
                                                         Go to Dashboard
-                                                    </NavLink> : displayRole.toLowerCase() === 'admin' ? 'Admin Dashboard' : 'Company Dashboard'}
+                                                    </NavLink> : displayRole.toLowerCase() === 'admin' ? 'Admin Dashboard'
+                                                        : <NavLink to="/companyDashboard" className="text-navColor ">
+                                                            Go to Dashboard
+                                                        </NavLink>}
                                             </span>
                                         </div>
                                     )}
                                     <div className=" flex gap-2 text-xs mb-3 leading-relaxed">
-                                        <div className='text-[10px] text-gray-700'>{user?.renter?.city || 'Location'}</div>
+                                        <div className='text-[10px] text-gray-700'>{displayRole.toLowerCase() === 'renter' ? user?.renter?.city : displayRole.toLowerCase() === 'company' ? user?.company?.city : user?.admin?.city || 'Location'}</div>
                                         <img src={UserLocationIcon} alt="" />
                                     </div>
                                     <div className='flex items-center border-t'>
@@ -210,7 +213,7 @@ const NavBar = () => {
                                         <div className='w-8 h-8 bg-primaryBtn rounded-full'></div>
                                         <div className='flex flex-col justify-center items-start'>
                                             {displayName}
-                                            <div className=' text-[10px] text-[#D4D4D4]'>{user?.renter.city}</div>
+                                            <div className=' text-[10px] text-[#D4D4D4]'>{displayRole.toLowerCase() === 'renter' ? user?.renter?.city : displayRole.toLowerCase() === 'company' ? user?.company?.city : user?.admin?.city}</div>
                                         </div>
                                     </div>
                                     {displayRole && (
