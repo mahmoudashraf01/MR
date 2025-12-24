@@ -22,6 +22,7 @@ import RenterSettings from './pages/Dashboard/Renter/Navigations/RenterSettings'
 import RenterDashboardLayout from './layouts/RenterDashboardLayout'
 import CompanyDashboardLayout from './layouts/CompanyDashboardLayout'
 import ManageMachines from './pages/Dashboard/Company/Navigations/ManageMachines'
+import AddMachines from './pages/Dashboard/Company/Navigations/AddMachines'
 
 
 
@@ -61,8 +62,9 @@ function App() {
       element: <CompanyDashboardLayout />,
       children: [
         { index: true, element: <div className="p-8"><h1>Overview</h1><p>Welcome to your dashboard overview.</p></div> },
-        { path: 'companyBookings', element: <MyBookings /> },
         { path: 'manageMachines', element: <ManageMachines /> },
+        { path: 'addMachines', element: <AddMachines /> },
+        { path: 'companyBookings', element: <MyBookings /> },
         { path: 'companyprofile', element: <RenterProfile /> },
         { path: 'companysettings', element: <RenterSettings /> },
       ],
