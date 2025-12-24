@@ -25,7 +25,7 @@ const ManageMachines = () => {
         <div className="p-6 bg-gray-50 min-h-screen rounded-[40px]  border border-[#B2B2B2]">
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
-                <div>
+                <div className='flex flex-col justify-center lg:items-start items-center'>
                     <h1 className="text-2xl font-semibold">Manage Machines</h1>
                     <p className="text-gray-500 text-sm">
                         View and manage your rental machines
@@ -47,7 +47,7 @@ const ManageMachines = () => {
                     />
                     <input
                         placeholder="Search ..."
-                        className="w-full border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md pl-10 py-2"
+                        className="w-full border text-sm placeholder:text-[#9CA3AF] border-[#D2D2D2] rounded-md pl-10 py-2"
                     />
                 </div>
 
