@@ -1,4 +1,10 @@
 import { memo } from 'react';
+import DropDownArrow from '../../../../assets/minusArrow.svg';
+
+const labelBase = "block text-sm font-medium text-navColor mb-1";
+
+const selectBase =
+    "w-full border rounded-md px-4 py-2 text-sm focus:outline-none appearance-none text-[#9CA3AF] border-[#D2D2D2] bg-white";
 
 const RenterSettings = () => {
     return (
@@ -22,7 +28,7 @@ const RenterSettings = () => {
                             <input
                                 type="password"
                                 placeholder="****************"
-                                className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 focus:outline-none"
                             />
                         </div>
 
@@ -33,7 +39,7 @@ const RenterSettings = () => {
                             <input
                                 type="password"
                                 placeholder="****************"
-                                className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 focus:outline-none"
                             />
                             <p className="text-xs text-green-600 mt-1">
                                 Minimum 8 characters
@@ -47,7 +53,7 @@ const RenterSettings = () => {
                             <input
                                 type="password"
                                 placeholder="****************"
-                                className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 focus:outline-none"
                             />
                         </div>
                     </div>
@@ -58,24 +64,24 @@ const RenterSettings = () => {
                             Language Settings
                         </h3>
 
-                        <label className="block text-sm text-gray-600 mb-1">
-                            Language
-                        </label>
-
-                        <select className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option>English</option>
-                            <option>Arabic</option>
-                            <option>French</option>
-                        </select>
+                        <div className="relative">
+                            <label className={labelBase}>Language</label>
+                            <select className={selectBase}>
+                                <option>English</option>
+                                <option>Arabic</option>
+                                <option>Frensh</option>
+                            </select>
+                            <img
+                                src={DropDownArrow}
+                                alt="arrow"
+                                className="absolute right-3 top-9 w-4 h-4 pointer-events-none"
+                            />
+                        </div>
                     </div>
 
                     {/* Buttons */}
-                    <div className="flex flex-col sm:flex-row sm:justify-end gap-4">
-                        <button className="w-full sm:w-auto px-6 py-2 bg-[#EF5350] text-white rounded-md hover:bg-red-400 transition">
-                            Delete Your Account
-                        </button>
-
-                        <button className="w-full sm:w-auto px-10 py-2 bg-primaryBtn text-white rounded-md hover:bg-blue-500 transition">
+                    <div className="flex sm:justify-end gap-4">
+                        <button className="w-full sm:w-57 px-10 py-2 bg-primaryBtn text-white rounded-md hover:bg-blue-500 transition">
                             Save
                         </button>
                     </div>
