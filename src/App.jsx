@@ -26,6 +26,7 @@ import AddMachines from './pages/Dashboard/Company/Navigations/AddMachines'
 import Bookings from './pages/Dashboard/Company/Navigations/Bookings'
 import CompanyProfile from './pages/Dashboard/Company/Navigations/CompanyProfile'
 import CompanySettings from './pages/Dashboard/Company/Navigations/CompanySettings'
+import CompanyOverView from './pages/Dashboard/Company/Navigations/CompanyOverView'
 
 
 
@@ -64,7 +65,7 @@ function App() {
       path: '/companyDashboard',
       element: <CompanyDashboardLayout />,
       children: [
-        { index: true, element: <div className="p-8"><h1>Overview</h1><p>Welcome to your dashboard overview.</p></div> },
+        { index: true, element: <CompanyOverView /> },
         { path: 'manageMachines', element: <ManageMachines /> },
         { path: 'addMachines', element: <AddMachines /> },
         { path: 'companyBookings', element: <Bookings /> },
