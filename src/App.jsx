@@ -25,6 +25,7 @@ import ManageMachines from './pages/Dashboard/Company/Navigations/ManageMachines
 import AddMachines from './pages/Dashboard/Company/Navigations/AddMachines'
 import Bookings from './pages/Dashboard/Company/Navigations/Bookings'
 import CompanyProfile from './pages/Dashboard/Company/Navigations/CompanyProfile'
+import CompanySettings from './pages/Dashboard/Company/Navigations/CompanySettings'
 
 
 
@@ -68,7 +69,7 @@ function App() {
         { path: 'addMachines', element: <AddMachines /> },
         { path: 'companyBookings', element: <Bookings /> },
         { path: 'companyprofile', element: <CompanyProfile /> },
-        { path: 'companysettings', element: <RenterSettings /> },
+        { path: 'companysettings', element: <CompanySettings /> },
       ],
     },
 
