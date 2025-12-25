@@ -44,7 +44,7 @@ const CompanyDashBoardSideBar = () => {
                 </div>
 
                 {/* LOGOUT */}
-                <div className='px-5 py-5 flex gap-2 hover:gap-3 '>
+                <div className='px-5 py-5 border-t border-[#D3D3D3] flex gap-2 hover:gap-3 '>
                     <img src={LogOutIcon} alt="" />
                     <NavLink to='/'
                         onClick={handleLogout}
