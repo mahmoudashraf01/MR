@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-
-
 @layer base {
   html {
     font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -133,5 +131,4 @@
     transform: translateX(5px); 
   }
 }
-
 

@@ -74,7 +74,7 @@ const ContactSection = () => {
 
                     {/* Phone */}
                     <div className="flex items-start gap-4 pb-6 border-b border-gray-200">
-                        <div className="w-14 h-14 rounded-xl bg-[#1F6FEB1C] flex items-center justify-center flex-shrink-0">
+                        <div className="w-14 h-14 rounded-xl bg-[#1F6FEB1C] flex items-center justify-center shrink-0">
                             <img src={Phone} alt="phone" className='w-7 h-7' />
                         </div>
                         <div>
@@ -85,7 +85,7 @@ const ContactSection = () => {
 
                     {/* Email */}
                     <div className="flex items-start gap-4 py-6 border-b border-gray-200">
-                        <div className="w-14 h-14 rounded-xl bg-[#1F6FEB1C] flex items-center justify-center flex-shrink-0">
+                        <div className="w-14 h-14 rounded-xl bg-[#1F6FEB1C] flex items-center justify-center shrink-0">
                             <img src={Email} alt="email" className='w-7 h-7' />
                         </div>
                         <div>
@@ -96,7 +96,7 @@ const ContactSection = () => {
 
                     {/* Working Hours */}
                     <div className="flex items-start gap-4 pt-6">
-                        <div className="w-14 h-14 rounded-xl bg-[#1F6FEB1C] flex items-center justify-center flex-shrink-0">
+                        <div className="w-14 h-14 rounded-xl bg-[#1F6FEB1C] flex items-center justify-center shrink-0">
                             <img src={WorkingHours} alt="working hours" className='w-7 h-7' />
                         </div>
                         <div>

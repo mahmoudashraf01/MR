@@ -3,9 +3,16 @@ import TotalMachinesIcon from '../../../../assets/totalMachiensIcon.svg';
 import TotalBookingsIcon from '../../../../assets/totalBookingsIcon.svg';
 import ActivelMachinesIcon from '../../../../assets/activeMachinesIcon.svg';
 import UnderMaintanceIcon from '../../../../assets/underMaintanceIcon.svg';
+import AddMachineIcon from '../../../../assets/addMachineIcon.svg';
+import ViewBookingsIcon from '../../../../assets/viewBookingsIcon.svg';
+import ManageIcon from '../../../../assets/manageIcon.svg';
 import IncreaseArrow from '../../../../assets/increaseArrow.svg';
 import DecreaseArrow from '../../../../assets/decreaseArrow.svg';
 import DropDownArrow from '../../../../assets/minusArrow.svg';
+import ProgressBar from './Components/OverView/ProgressBar';
+import MonthlyRevenueChart from './Components/OverView/MonthlyRevenueChart';
+import MachineUtaliztionChart from './Components/OverView/MachineUtaliztionChart';
+
 
 const labelBase = "block text-sm font-medium text-navColor mb-1";
 
@@ -134,6 +141,66 @@ const CompanyOverView = () => {
                             alt="arrow"
                             className="absolute right-3 top-3 w-4 h-4 pointer-events-none"
                         />
+                    </div>
+                </div>
+            </div>
+
+            <div className='grid xl:grid-cols-2 grid-cols-1 gap-5'>
+                <MonthlyRevenueChart />
+                <MachineUtaliztionChart />
+            </div>
+
+            <div className='grid md:grid-cols-[2fr_1fr] grid-cols-1 w-full gap-5'>
+                <div className='flex flex-col gap-4 border border-[#3A86FF26] p-5 rounded-2xl'>
+                    <div className='flex flex-col gap-2 border-b border-[#E5E5EF]'>
+                        <h1 className='text-[20px] font-semibold'>Monthly Revenue</h1>
+                        <p className="text-[12px] text-gray-500">Revenue trend over time</p>
+                    </div>
+                    <div className='flex gap-2'>
+                        <h1 className='text-[12px] text-[#615E8399]'>Forklifts</h1>
+                        <ProgressBar progressIndecator={20} />
+                        <h1 className='text-[12px] text-[#615E8399]'>12</h1>
+                    </div>
+                    <div className='flex gap-2'>
+                        <h1 className='text-[12px] text-[#615E8399]'>Loaders</h1>
+                        <ProgressBar progressIndecator={30} />
+                        <h1 className='text-[12px] text-[#615E8399]'>15</h1>
+                    </div>
+                    <div className='flex gap-2'>
+                        <h1 className='text-[12px] text-[#615E8399]'>Cranes</h1>
+                        <ProgressBar progressIndecator={10} />
+                        <h1 className='text-[12px] text-[#615E8399]'>10</h1>
+                    </div>
+                    <div className='flex gap-2'>
+                        <h1 className='text-[12px] text-[#615E8399]'>Excavators</h1>
+                        <ProgressBar progressIndecator={40} />
+                        <h1 className='text-[12px] text-[#615E8399]'>30</h1>
+                    </div>
+                </div>
+
+                <div className='flex flex-col gap-4 border border-[#3A86FF26] p-5 rounded-2xl'>
+                    <div className='flex gap-2'>
+                        <img src={AddMachineIcon} alt="" />
+                        <div className='flex flex-col gap-2'>
+                            <h1 className='font-semibold text-navColor'>Add Machine</h1>
+                            <h1 className='font-medium text-[10px] text-[#16163199]'>Add a new machine to your inventory</h1>
+                        </div>
+                    </div>
+
+                    <div className='flex gap-2'>
+                        <img src={ViewBookingsIcon} alt="" />
+                        <div className='flex flex-col gap-2'>
+                            <h1 className='font-semibold text-navColor'>View Bookings</h1>
+                            <h1 className='font-medium text-[10px] text-[#16163199]'>Manage and review all bookings</h1>
+                        </div>
+                    </div>
+
+                    <div className='flex gap-2'>
+                        <img src={ManageIcon} alt="" />
+                        <div className='flex flex-col gap-2'>
+                            <h1 className='font-semibold text-navColor'>Manage Inventory</h1>
+                            <h1 className='font-medium text-[10px] text-[#16163199]'>View and update machine inventory</h1>
+                        </div>
                     </div>
                 </div>
             </div>
