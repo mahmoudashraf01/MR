@@ -22,12 +22,12 @@ import {
 export const description = "A linear line chart"
 
 const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
+  { month: "January", desktop: 10 },
+  { month: "February", desktop: 30 },
+  { month: "March", desktop: 22 },
+  { month: "April", desktop: 50 },
+  { month: "May", desktop: 22 },
+  { month: "June", desktop: 35 },
 ]
 
 const chartConfig = {
@@ -36,6 +36,14 @@ const chartConfig = {
     color: "#146CF9",
   },
 }
+
+const maxValue = Math.max(...chartData.map(d => d.desktop));
+const step = 10;
+
+const yTicks = Array.from(
+  { length: Math.ceil(maxValue / step) + 1 },
+  (_, i) => i * step
+);
 
 const MonthlyRevenueChart = () => {
   return (
@@ -60,6 +68,15 @@ const MonthlyRevenueChart = () => {
               axisLine={false}
               tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
+            />
+
+            <YAxis
+              domain={[0, maxValue]}
+              allowDecimals={false}
+              tick={{ fill: "#6B7280", fontSize: 12 }}
+              ticks={yTicks}
+              axisLine={false}
+              tickLine={false}
             />
 
             <ChartTooltip

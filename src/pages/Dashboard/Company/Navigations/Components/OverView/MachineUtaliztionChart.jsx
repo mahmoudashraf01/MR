@@ -2,7 +2,7 @@ import { memo, useState } from 'react';
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Pie, PieChart,Sector } from "recharts"
+import { Pie, PieChart, Sector } from "recharts"
 
 import CancelColorIcon from '../../../../../../assets/cancelColorIcon.svg'
 import ActiveColorIcon from '../../../../../../assets/activeColorIcon.svg'
@@ -59,6 +59,28 @@ const chartConfig = {
 const MachineUtaliztionChart = () => {
     const [activeIndex, setActiveIndex] = useState(0);
 
+    const hexToRgba = (hex, alpha) => {
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    };
+
+    const getIcon = (machineType) => {
+        switch (machineType) {
+            case 'active':
+                return ActiveColorIcon;
+            case 'canceled':
+                return CancelColorIcon;
+            case 'inUse':
+                return InUseColorIcon;
+            case 'maintance':
+                return MaintanceColorIcon;
+            default:
+                return null;
+        }
+    };
+
     const CustomTooltip = ({ active, payload }) => {
         if (active && payload && payload.length) {
             const data = payload[0].payload;
@@ -66,10 +88,20 @@ const MachineUtaliztionChart = () => {
             const color = chartConfig[machineType]?.color || '#000000';
             return (
                 <div
-                    className="text-white px-3 py-2 rounded-md shadow-lg text-sm font-medium"
-                    style={{ backgroundColor: color }}
+                    className="text-white min-w-40 px-3 py-1 rounded-md shadow-lg text-sm font-medium"
+                    style={{ backgroundColor: hexToRgba(color, 0.5) }}
                 >
-                    <p>{`${chartConfig[machineType]?.label || machineType}: ${data.Utilization}`}</p>
+                    <div className='flex justify-between items-center'>
+                        <div className='flex gap-2'>
+                            <img
+                                src={getIcon(machineType)}
+                                alt=""
+                                className='w-2'
+                            />
+                            <p className='text-navColor'>{`${chartConfig[machineType]?.label || machineType}`}</p>
+                        </div>
+                        <p className='text-navColor'>{`${data.Utilization}`}</p>
+                    </div>
                 </div>
             );
         }
@@ -104,8 +136,8 @@ const MachineUtaliztionChart = () => {
                                     outerRadius = 0,
                                     ...props
                                 }) => (
-                                    <Sector 
-                                        {...props} 
+                                    <Sector
+                                        {...props}
                                         outerRadius={outerRadius + 15}
                                         stroke="#ffffff"
                                         strokeWidth={10}
