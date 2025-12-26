@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 "use client"
 
 import { TrendingUp } from "lucide-react"
@@ -26,10 +26,10 @@ import {
 export const description = "A pie chart with a label"
 
 const chartData = [
-    { browser: "chrome", Utilization: 275, fill: "var(--color-chrome)" },
-    { browser: "safari", Utilization: 204, fill: "var(--color-safari)" },
-    { browser: "firefox", Utilization: 187, fill: "var(--color-firefox)" },
-    { browser: "edge", Utilization: 173, fill: "var(--color-edge)" },
+    { machine: "active", Utilization: 275, fill: "var(--color-active)" },
+    { machine: "inUse", Utilization: 204, fill: "var(--color-inUse)" },
+    { machine: "canceled", Utilization: 187, fill: "var(--color-canceled)" },
+    { machine: "maintance", Utilization: 173, fill: "var(--color-maintance)" },
 
 ]
 
@@ -37,32 +37,50 @@ const chartConfig = {
     MachineUtilization: {
         label: "Utilization",
     },
-    chrome: {
-        label: "Chrome",
+    active: {
+        label: "Active",
         color: "#22C55E",
     },
-    safari: {
-        label: "Safari",
+    inUse: {
+        label: "InUse",
         color: "#146CF9",
     },
-    firefox: {
-        label: "Firefox",
+    canceled: {
+        label: "Canceled",
         color: "#EF5350",
     },
-    edge: {
-        label: "Edge",
+    maintance: {
+        label: "Maintance",
         color: "#F6C90E",
     },
 }
 
 
 const MachineUtaliztionChart = () => {
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    const CustomTooltip = ({ active, payload }) => {
+        if (active && payload && payload.length) {
+            const data = payload[0].payload;
+            const machineType = data.machine;
+            const color = chartConfig[machineType]?.color || '#000000';
+            return (
+                <div
+                    className="text-white px-3 py-2 rounded-md shadow-lg text-sm font-medium"
+                    style={{ backgroundColor: color }}
+                >
+                    <p>{`${chartConfig[machineType]?.label || machineType}: ${data.Utilization}`}</p>
+                </div>
+            );
+        }
+        return null;
+    };
     return (
         <Card className='grid md:grid-cols-2 grid-cols-1 overflow-hidden justify-center items-center'>
             <div className='flex flex-col justify-strart'>
                 <CardHeader className="items-center pb-0">
-                    <CardTitle>Pie Chart - Donut Active</CardTitle>
-                    <CardDescription>January - June 2024</CardDescription>
+                    <CardTitle>Machine Utilization</CardTitle>
+                    <CardDescription>Status breakdown</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1 pb-0">
                     <ChartContainer
@@ -72,20 +90,26 @@ const MachineUtaliztionChart = () => {
                         <PieChart>
                             <ChartTooltip
                                 cursor={false}
-                                content={<ChartTooltipContent hideLabel />}
+                                content={<CustomTooltip />}
                             />
                             <Pie
                                 data={chartData}
                                 dataKey="Utilization"
-                                nameKey="browser"
+                                nameKey="machine"
                                 innerRadius={60}
                                 strokeWidth={5}
-                                activeIndex={0}
+                                activeIndex={activeIndex}
+                                onMouseEnter={(_, index) => setActiveIndex(index)}
                                 activeShape={({
                                     outerRadius = 0,
                                     ...props
                                 }) => (
-                                    <Sector {...props} outerRadius={outerRadius + 10} />
+                                    <Sector 
+                                        {...props} 
+                                        outerRadius={outerRadius + 15}
+                                        stroke="#ffffff"
+                                        strokeWidth={10}
+                                    />
                                 )}
                             />
                         </PieChart>
