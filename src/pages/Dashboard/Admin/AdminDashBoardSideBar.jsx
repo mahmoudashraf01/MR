@@ -36,7 +36,7 @@ const AdminDashBoardSideBar = () => {
                 {/* LINKS */}
                 <div className='px-5 py-8'>
                     <NavItem to="/adminDashboard" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" end={true} />
-                    <NavItem to="/adminDashboard/manageMachines" icon={ManageMachinesIcon} activeIcon={ActiveManageMachinesIcon} text="Manage Machines" />
+                    <NavItem to="/adminDashboard/companyManagment" icon={ManageMachinesIcon} activeIcon={ActiveManageMachinesIcon} text="Manage Machines" />
                     <NavItem to="/adminDashboard/addMachines" icon={PlusIcon} activeIcon={ActivePlusIcon} text="Add Machines" />
                     <NavItem to="/adminDashboard/companyBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="Bookings" />
                     <NavItem to="/adminDashboard/companyprofile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />

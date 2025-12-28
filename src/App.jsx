@@ -28,6 +28,8 @@ import CompanyProfile from './pages/Dashboard/Company/Navigations/CompanyProfile
 import CompanySettings from './pages/Dashboard/Company/Navigations/CompanySettings'
 import CompanyOverView from './pages/Dashboard/Company/Navigations/CompanyOverView'
 import AdminOverView from './pages/Dashboard/Admin/Navigations/AdminOverView'
+import AdminDashBoardLayout from './layouts/AdminDashBoardLayout'
+import CompanyManagment from './pages/Dashboard/Admin/Navigations/CompanyManagment'
 
 
 
@@ -77,10 +79,10 @@ function App() {
 
     {
       path: '/adminDashboard',
-      element: <CompanyDashboardLayout />,
+      element: <AdminDashBoardLayout />,
       children: [
         { index: true, element: <AdminOverView /> },
-        { path: 'manageMachines', element: <ManageMachines /> },
+        { path: 'companyManagment', element: <CompanyManagment /> },
         { path: 'addMachines', element: <AddMachines /> },
         { path: 'companyBookings', element: <Bookings /> },
         { path: 'companyprofile', element: <CompanyProfile /> },
