@@ -27,6 +27,7 @@ import Bookings from './pages/Dashboard/Company/Navigations/Bookings'
 import CompanyProfile from './pages/Dashboard/Company/Navigations/CompanyProfile'
 import CompanySettings from './pages/Dashboard/Company/Navigations/CompanySettings'
 import CompanyOverView from './pages/Dashboard/Company/Navigations/CompanyOverView'
+import AdminOverView from './pages/Dashboard/Admin/Navigations/AdminOverView'
 
 
 
@@ -66,6 +67,19 @@ function App() {
       element: <CompanyDashboardLayout />,
       children: [
         { index: true, element: <CompanyOverView /> },
+        { path: 'manageMachines', element: <ManageMachines /> },
+        { path: 'addMachines', element: <AddMachines /> },
+        { path: 'companyBookings', element: <Bookings /> },
+        { path: 'companyprofile', element: <CompanyProfile /> },
+        { path: 'companysettings', element: <CompanySettings /> },
+      ],
+    },
+
+    {
+      path: '/adminDashboard',
+      element: <CompanyDashboardLayout />,
+      children: [
+        { index: true, element: <AdminOverView /> },
         { path: 'manageMachines', element: <ManageMachines /> },
         { path: 'addMachines', element: <AddMachines /> },
         { path: 'companyBookings', element: <Bookings /> },

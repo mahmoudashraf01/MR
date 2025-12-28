@@ -2,15 +2,24 @@ import React, { memo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import Logo from '../../assets/logo2.svg';
-import ProfileImg from '../../assets/contact.jpeg'
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../slices/SaveTokenSlice';
 import DropDownArrow from '../../assets/dropdownArrow.svg';
 import UserLocationIcon from '../../assets/location2.svg';
 import LogOutIcon from '../../assets/LogOutIcon.svg';
+import { MdLogout } from "react-icons/md";
+import LeftArrowIcon from '../../assets/leftArrowIcon.svg';
+import ActiveLeftArrowIcon from '../../assets/activeLeftArrow.svg';
+import OverviewIcon from '../../assets/overviewIcon.svg';
+import ActiveOverviewIcon from '../../assets/activeOverview.svg';
+import BookingIcon from '../../assets/bookingIcon.svg';
+import ActiveBookingIcon from '../../assets/activeBookingIcon.svg';
+import ProfileIcon from '../../assets/profileIcon.svg';
+import ActiveProfileIcon from '../../assets/activeProfileIcon.svg';
+import SettingIcon from '../../assets/SettingIcon.svg';
+import ActiveSettingIcon from '../../assets/activeSettingIcon.svg';
 
-
-const NavBar = () => {
+const AdminDashboardNavBar = () => {
     const [nav, setNav] = useState(true);
     const [openSummary, setOpenSummary] = useState(false);
 
@@ -30,67 +39,11 @@ const NavBar = () => {
     }
 
     return (
-        <div className='flex justify-between items-center h-24 bg-navColor mx-auto px-6 md:px-8 text-primary shadow-md'>
+        <div className='flex w-full justify-between items-center h-24 bg-navColor mx-auto px-6 md:px-8 text-primary shadow-md'>
             <NavLink to='/' className='flex items-center'>
                 <img src={Logo} alt="Logo" className='h-10 md:h-12' />
             </NavLink>
-            <div>
-                <ul className='hidden lg:flex items-center gap-1'>
-                    <li>
-                        <NavLink
-                            to='/'
-                            end
-                            className={({ isActive }) =>
-                                `text-[18px] font-medium transition-all duration-200 px-4 py-2 rounded-lg ${isActive
-                                    ? 'text-secondary underline decoration-secondary decoration-2 underline-offset-4'
-                                    : 'text-white hover:text-secondary hover:underline hover:decoration-secondary hover:underline-offset-4'
-                                }`
-                            }
-                        >
-                            Home
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to='/machines'
-                            className={({ isActive }) =>
-                                `text-[18px] font-medium transition-all duration-200 px-4 py-2 rounded-lg ${isActive
-                                    ? 'text-secondary underline decoration-secondary decoration-2 underline-offset-4'
-                                    : 'text-white hover:text-secondary hover:underline hover:decoration-secondary hover:underline-offset-4'
-                                }`
-                            }
-                        >
-                            Machines
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to='/about'
-                            className={({ isActive }) =>
-                                `text-[18px] font-medium transition-all duration-200 px-4 py-2 rounded-lg ${isActive
-                                    ? 'text-secondary underline decoration-secondary decoration-2 underline-offset-4'
-                                    : 'text-white hover:text-secondary hover:underline hover:decoration-secondary hover:underline-offset-4'
-                                }`
-                            }
-                        >
-                            About
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to='/contact'
-                            className={({ isActive }) =>
-                                `text-[18px] font-medium transition-all duration-200 px-4 py-2 rounded-lg ${isActive
-                                    ? 'text-secondary underline decoration-secondary decoration-2 underline-offset-4'
-                                    : 'text-white hover:text-secondary hover:underline hover:decoration-secondary hover:underline-offset-4'
-                                }`
-                            }
-                        >
-                            Contact
-                        </NavLink>
-                    </li>
-                </ul>
-            </div>
+
             <div className='hidden lg:flex  justify-between gap-3 items-center'>
                 {!token ? (
                     <>
@@ -109,9 +62,7 @@ const NavBar = () => {
                                 className="flex gap-5 justify-between items-center text-sm font-medium cursor-pointer py-2"
                             >
                                 <div className='flex justify-center items-center gap-2'>
-                                    <div className='w-8 h-8 bg-primaryBtn rounded-full overflow-hidden'>
-                                        <img src={ProfileImg} alt="profileImg" className='w-full h-full object-cover' />
-                                    </div>
+                                    <div className='w-8 h-8 bg-primaryBtn rounded-full'></div>
                                     <div className='flex flex-col justify-center items-center'>
                                         {displayName}
                                     </div>
@@ -134,29 +85,19 @@ const NavBar = () => {
                             >
                                 <div className="p-4">
                                     {displayRole && (
-                                        <div className='mb-3'>
-                                            <span className='text-xs text-white bg-secondary hover:bg-secondary/80 px-2 py-1 rounded'>
-                                                {
-                                                    displayRole.toLowerCase() === 'renter' ?
-                                                        <NavLink to="/renterDashboard" className="text-navColor ">
-                                                            Go to Dashboard
-                                                        </NavLink>
-                                                        : displayRole.toLowerCase() === 'admin'
-                                                            ? <NavLink to="/adminDashboard" className="text-navColor ">
-                                                                Go to Dashboard
-                                                            </NavLink>
-                                                            : <NavLink to="/companyDashboard" className="text-navColor ">
-                                                                Go to Dashboard
-                                                            </NavLink>
-                                                }
+                                        <NavLink to="/" className='mb-3 flex justify-center items-center'>
+                                            <span className='text-xs text-white w-full text-center bg-secondary hover:bg-secondary/80 px-2 py-1 rounded'>
+                                                <h1 className="text-navColor ">
+                                                    Back To Home
+                                                </h1>
                                             </span>
-                                        </div>
+                                        </NavLink>
                                     )}
                                     <div className=" flex gap-2 text-xs mb-3 leading-relaxed">
                                         <div className='text-[10px] text-gray-700'>{displayRole.toLowerCase() === 'renter' ? user?.renter?.city : displayRole.toLowerCase() === 'company' ? user?.company?.city : user?.admin?.city || 'Location'}</div>
                                         <img src={UserLocationIcon} alt="" />
                                     </div>
-                                    <div className='flex items-center border-t'>
+                                    <div className='flex items-center border-t border-gray-200'>
                                         <button onClick={handleLogout} className='text-left hover:text-[15px] w-full px-3 py-2 text-sm text-black rounded transition-colors'>
                                             Logout
                                         </button>
@@ -181,26 +122,26 @@ const NavBar = () => {
                             <AiOutlineClose size={20} className='text-white' />
                         </button>
                     </div>
-                    <li className='p-4 border-b border-gray-700'>
-                        <NavLink to='/' end onClick={handleNav} className={({ isActive }) => `block py-2 transition-colors ${isActive ? 'text-secondary font-semibold' : 'text-white hover:text-secondary'}`}>Home</NavLink>
+                    <li className='p-4 border-gray-700'>
+                        <NavItem to="/renterDashboard" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" end={true} />
                     </li>
-                    <li className='p-4 border-b border-gray-700'>
-                        <NavLink to='/machines' onClick={handleNav} className={({ isActive }) => `block py-2 transition-colors ${isActive ? 'text-secondary font-semibold' : 'text-white hover:text-secondary'}`}>Machines</NavLink>
+                    <li className='p-4 border-gray-700'>
+                        <NavItem to="/renterDashboard/myBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="My Bookings" />
                     </li>
-                    <li className='p-4 border-b border-gray-700'>
-                        <NavLink to='/about' onClick={handleNav} className={({ isActive }) => `block py-2 transition-colors ${isActive ? 'text-secondary font-semibold' : 'text-white hover:text-secondary'}`}>About</NavLink>
+                    <li className='p-4 border-gray-700'>
+                        <NavItem to="/renterDashboard/profile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />
                     </li>
-                    <li className='p-4 border-b border-gray-700'>
-                        <NavLink to='/contact' onClick={handleNav} className={({ isActive }) => `block py-2 transition-colors ${isActive ? 'text-secondary font-semibold' : 'text-white hover:text-secondary'}`}>Contact</NavLink>
+                    <li className='p-4 border-gray-700'>
+                        <NavItem to="/renterDashboard/settings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
                     </li>
                     {!token ? (
                         <>
-                            <li className='p-4 border-b border-gray-700'>
+                            <li className='p-4 border-gray-700'>
                                 <NavLink to='/auth/login' onClick={handleNav} className=' block py-2 transition-colors font-medium text-primary duration-200 hover:text-secondary'>
                                     Login
                                 </NavLink>
                             </li>
-                            <li className='p-4 border-b border-gray-700'>
+                            <li className='p-4 border-gray-700'>
                                 <NavLink to='/auth' onClick={handleNav} className=' block py-2 transition-colors  font-medium text-primary duration-200 hover:text-secondary'>
                                     Register
                                 </NavLink>
@@ -208,10 +149,13 @@ const NavBar = () => {
                         </>
                     ) : (
                         <>
-                            <li className='p-4 border-b border-gray-700'>
-                                <button onClick={() => { handleNav(); handleLogout(); }} className=' block py-2 transition-colors font-medium text-primary duration-200 hover:text-secondary'>
-                                    Logout
-                                </button>
+                            <li className='p-4 border-gray-700'>
+                                <div className='flex px-2 gap-4 rounded-md justify-start items-center hover:bg-primaryBtn'>
+                                    <MdLogout />
+                                    <button onClick={() => { handleNav(); handleLogout(); }} className=' block py-2 transition-colors font-medium text-primary duration-200'>
+                                        Logout
+                                    </button>
+                                </div>
                             </li>
                             <div className='flex flex-col border-t border-gray-700 py-3 px-2 transition-colors font-medium text-white mt-auto'>
                                 <div className='flex justify-between items-center'>
@@ -222,25 +166,13 @@ const NavBar = () => {
                                             <div className=' text-[10px] text-[#D4D4D4]'>{displayRole.toLowerCase() === 'renter' ? user?.renter?.city : displayRole.toLowerCase() === 'company' ? user?.company?.city : user?.admin?.city}</div>
                                         </div>
                                     </div>
-                                    {
-                                        displayRole && (
-                                            <span className='text-xs text-white bg-secondary hover:bg-yellow-300 cursor-pointer ml-2 px-2 py-2 rounded'>
-                                                {
-                                                    displayRole.toLowerCase() === 'renter' ?
-                                                        <NavLink to={'/renterDashboard'}>
-                                                            Go to Dashboard
-                                                        </NavLink>
-                                                        : displayRole.toLowerCase() === 'admin'
-                                                            ? <NavLink to={'/adminDashboard'}>
-                                                                Go to Dashboard
-                                                            </NavLink>
-                                                            : <NavLink to={'/companyDashboard'}>
-                                                                Go to Dashboard
-                                                            </NavLink>
-                                                }
-                                            </span>
-                                        )
-                                    }
+                                    {displayRole && (
+                                        <span className='text-xs text-white bg-secondary ml-2 px-5 py-2 rounded'>
+                                            <NavLink to='/'>
+                                                Back To Home
+                                            </NavLink>
+                                        </span>
+                                    )}
                                 </div>
                             </div>
                         </>
@@ -251,4 +183,31 @@ const NavBar = () => {
     );
 };
 
-export default memo(NavBar);
+
+const NavItem = ({ to, icon, activeIcon, text, end }) => {
+    const [isHovered, setIsHovered] = useState(false);
+
+    return (
+        <NavLink
+            to={to}
+            end={end}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className={({ isActive }) =>
+                `flex items-center justify-between hover:bg-primaryBtn rounded-md px-2 py-2 mb-2 ${isActive
+                    ? "text-white font-semibold bg-primaryBtn"
+                    : "text-white hover:text-white"
+                }`
+            }
+        >
+            <div className='flex items-center gap-2'>
+                <img src={activeIcon} alt="" className="w-5 h-5" />
+                <span>{text}</span>
+            </div>
+            <img src={ActiveLeftArrowIcon} alt="" className="w-4 h-4" />
+
+        </NavLink>
+    );
+};
+
+export default memo(AdminDashboardNavBar);
