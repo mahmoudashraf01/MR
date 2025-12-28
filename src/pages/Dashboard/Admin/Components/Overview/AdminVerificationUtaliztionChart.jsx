@@ -6,7 +6,6 @@ import { Pie, PieChart, Sector } from "recharts"
 import CancelColorIcon from '../../../../../assets/cancelColorIcon.svg'
 import ActiveColorIcon from '../../../../../assets/activeColorIcon.svg'
 import InUseColorIcon from '../../../../../assets/inUseColorIcon.svg'
-import MaintanceColorIcon from '../../../../../assets/maintanceColorIcon.svg'
 
 import {
     Card,
@@ -35,18 +34,18 @@ const chartConfig = {
     },
 
     nonVerified: {
-        label: "nonVerified",
+        label: "Non-verified",
         color: "#EF5350",
     },
     verified: {
-        label: "verified",
+        label: "Verified",
         color: "#146CF9",
     },
 
 }
 
 
-const AdminMachineUtaliztionChart = () => {
+const AdminVerificationUtaliztionChart = () => {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const hexToRgba = (hex, alpha) => {
@@ -84,9 +83,9 @@ const AdminMachineUtaliztionChart = () => {
                                 alt=""
                                 className='w-2'
                             />
-                            <p className='text-navColor'>{`${chartConfig[CompanyStatus]?.label || CompanyStatus}`}</p>
+                            <p className='text-navColor font-semibold'>{`${chartConfig[CompanyStatus]?.label || CompanyStatus}`}</p>
                         </div>
-                        <p className='text-navColor'>{`${data.CompaniesVerification}`}</p>
+                        <p className='text-navColor font-semibold'>{`${data.CompaniesVerification}`}</p>
                     </div>
                 </div>
             );
@@ -139,7 +138,7 @@ const AdminMachineUtaliztionChart = () => {
                 <div className='flex justify-between'>
                     <div className='flex gap-2'>
                         <img src={CancelColorIcon} alt="" />
-                        <h1 className='text-[14px]'>Non-Verified</h1>
+                        <h1 className='text-[14px] font-semibold'>Non-Verified</h1>
                     </div>
                     <h1 className='text-[14px] text-[#9291A5]'>187</h1>
                 </div>
@@ -147,7 +146,7 @@ const AdminMachineUtaliztionChart = () => {
                 <div className='flex justify-between'>
                     <div className='flex gap-2'>
                         <img src={InUseColorIcon} alt="" />
-                        <h1 className='text-[14px]'>Verified</h1>
+                        <h1 className='text-[14px] font-semibold'>Verified</h1>
                     </div>
                     <h1 className='text-[14px] text-[#9291A5]'>204</h1>
                 </div>
@@ -157,4 +156,4 @@ const AdminMachineUtaliztionChart = () => {
     );
 };
 
-export default memo(AdminMachineUtaliztionChart);
+export default memo(AdminVerificationUtaliztionChart);

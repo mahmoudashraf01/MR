@@ -8,7 +8,7 @@ const CompaniesApproval = () => {
     ]
 
     return (
-        <div className="w-full border border-[#3A86FF26] p-5 max-w-5xl">
+        <div className="w-full border border-[#3A86FF26] rounded-2xl p-5 max-w-5xl">
             {/* Header */}
             <div className="mb-4">
                 <h2 className="text-lg font-semibold text-navColor">

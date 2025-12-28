@@ -11,7 +11,7 @@ import IncreaseArrow from '../../../../assets/increaseArrow.svg';
 import DecreaseArrow from '../../../../assets/decreaseArrow.svg';
 import DropDownArrow from '../../../../assets/minusArrow.svg';
 import AdminMonthlyRevenue from '../Components/Overview/AdminMonthlyRevenue';
-import AdminMachineUtilization from '../Components/Overview/AdminMachineUtilization';
+import AdminMachineUtilization from '../Components/Overview/AdminVerificationUtaliztionChart';
 import AdminProgressBar from '../Components/Overview/AdminProgressBar';
 import CardInfo from '../../Components/CardInfo';
 import CompaniesApproval from '../Components/Overview/CompaniesApproval';
