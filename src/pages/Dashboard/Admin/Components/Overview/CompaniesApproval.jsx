@@ -24,7 +24,7 @@ const CompaniesApproval = () => {
                 {companies.map((company) => (
                     <div
                         key={company.id}
-                        className="flex items-center justify-between rounded-xl border border-[#CBD5E1] bg-white px-4 py-3"
+                        className="flex max-sm:flex-col gap-5 items-center justify-between rounded-xl border border-[#CBD5E1] bg-white px-4 py-3"
                     >
                         {/* Left */}
                         <div className="flex items-center gap-3">
@@ -51,7 +51,7 @@ const CompaniesApproval = () => {
                         </div>
 
                         {/* Action */}
-                        <button className="rounded-md bg-primaryBtn px-4 py-1.5 text-sm font-medium text-white hover:bg-[#2563EB] transition">
+                        <button className="rounded-md max-sm:w-full bg-primaryBtn px-4 py-1.5 text-sm font-medium text-white hover:bg-[#2563EB] transition">
                             Review
                         </button>
                     </div>

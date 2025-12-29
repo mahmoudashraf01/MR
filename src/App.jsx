@@ -30,6 +30,8 @@ import CompanyOverView from './pages/Dashboard/Company/Navigations/CompanyOverVi
 import AdminOverView from './pages/Dashboard/Admin/Navigations/AdminOverView'
 import AdminDashBoardLayout from './layouts/AdminDashBoardLayout'
 import CompanyManagment from './pages/Dashboard/Admin/Navigations/CompanyManagment'
+import CategoryManagment from './pages/Dashboard/Admin/Navigations/CategoryManagment'
+import AdminBookings from './pages/Dashboard/Admin/Navigations/AdminBookings'
 
 
 
@@ -83,8 +85,9 @@ function App() {
       children: [
         { index: true, element: <AdminOverView /> },
         { path: 'companyManagment', element: <CompanyManagment /> },
+        { path: 'categoryManagment', element: <CategoryManagment /> },
         { path: 'addMachines', element: <AddMachines /> },
-        { path: 'companyBookings', element: <Bookings /> },
+        { path: 'adminBookings', element: <AdminBookings /> },
         { path: 'companyprofile', element: <CompanyProfile /> },
         { path: 'companysettings', element: <CompanySettings /> },
       ],
