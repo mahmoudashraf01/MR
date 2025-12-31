@@ -10,16 +10,17 @@ import Machine from '../../../../assets/machine2.jpeg';
 
 
 const columns = [
-    { key: "description", label: "Description" },
-    { key: "subcategory_name", label: "Sub Category Name" },
-    { key: "status", label: "Status" },
-    { key: "actions", label: "Actions" },
+    { key: "renter", label: "Renter" },
+    { key: "owner_company", label: "Owner Company" },
+    { key: "booking_status", label: "Booking Status" },
+    { key: "booking_period", label: "Booking Period" },
+    { key: "total_cost", label: "Total Cost" },
 ];
 
 const machines = Array.from({ length: 8 });
 
 const BookingsTable = () => {
-    const [activeColumn, setActiveColumn] = useState("sub_category");
+    const [activeColumn, setActiveColumn] = useState("owner_company");
     const [menuOpen, setMenuOpen] = useState(false);
     return (
         <div>
@@ -62,7 +63,7 @@ const BookingsTable = () => {
                     <thead className="bg-[#F8FAFB] shadow">
                         <tr>
                             <th className="text-left px-4 py-3 text-sm font-medium">
-                                Subcategory Image
+                                Machine Name
                             </th>
 
                             {/* Mobile Dynamic Column */}
@@ -77,10 +78,11 @@ const BookingsTable = () => {
                             </th>
 
                             {/* Desktop Columns */}
-                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Subcategory Name</th>
-                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Description</th>
-                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Status</th>
-                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Actions</th>
+                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Owner Company</th>
+                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Renter</th>
+                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Booking Period</th>
+                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Booking Status</th>
+                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Total Costs</th>
                         </tr>
                     </thead>
 
@@ -89,35 +91,37 @@ const BookingsTable = () => {
                             <tr key={i} className="border-t border-gray-300">
                                 {/* Title */}
                                 <td className="px-4 py-3 flex items-center gap-3">
-                                    <img src={Machine} alt="machine" className="w-8 h-8 rounded-md" />
+                                    <h1 className='text-xs font-medium'>Machine name</h1>
                                 </td>
 
                                 {/* Mobile Dynamic Cell */}
                                 <td className="px-4 py-3 lg:hidden transition-all duration-300 ease-in-out">
 
-                                    {activeColumn === "subcategory_name" && (
+                                    {activeColumn === "owner_company" && (
                                         <span className="text-gray-500 text-sm">
                                             ---------------
                                         </span>
                                     )}
 
-                                    {activeColumn === "description" && (
+                                    {activeColumn === "renter" && (
                                         <span className="text-gray-500 text-sm">
                                             -------------
                                         </span>
                                     )}
 
-                                    {activeColumn === "status" && (
+                                    {activeColumn === "booking_status" && (
                                         <span className="px-3 py-1 text-xs rounded-full bg-[#68BB5FCC] text-white">
-                                            Active
+                                            Approved
                                         </span>
                                     )}
 
-                                    {activeColumn === "actions" && (
+                                    {activeColumn === "booking_period" && (
+                                        <h1>---------------</h1>
+                                    )}
+
+                                    {activeColumn === "total_cost" && (
                                         <div className="flex gap-3">
-                                            <img src={TrashIcon} alt="delete" className="w-4 h-4" />
-                                            <img src={EditIcon} alt="edit" className="w-4 h-4" />
-                                            <img src={EyeIcon} alt="view" className="w-4 h-4" />
+                                            ----------
                                         </div>
                                     )}
                                 </td>
@@ -129,16 +133,17 @@ const BookingsTable = () => {
                                 <td className="hidden lg:table-cell px-4 py-3 text-gray-500">
                                     -------------
                                 </td>
+                                <td className="hidden lg:table-cell px-4 py-3 text-gray-500">
+                                    -------------
+                                </td>
                                 <td className="hidden lg:table-cell px-4 py-3">
                                     <span className="px-3 py-1 text-xs rounded-full bg-[#68BB5FCC] text-white">
-                                        Active
+                                        Approved
                                     </span>
                                 </td>
                                 <td className="hidden lg:table-cell px-4 py-3">
                                     <div className="flex gap-3">
-                                        <img src={TrashIcon} alt="delete" className="w-4 h-4" />
-                                        <img src={EditIcon} alt="edit" className="w-4 h-4" />
-                                        <img src={EyeIcon} alt="view" className="w-4 h-4" />
+                                        <h1>---------</h1>
                                     </div>
                                 </td>
                             </tr>
