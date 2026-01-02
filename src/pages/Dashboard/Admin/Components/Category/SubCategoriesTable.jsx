@@ -1,10 +1,12 @@
 import { memo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import DropDownArrow from '../../../../../assets/dropdownArrow.svg';
 import TrashIcon from '../../../../../assets/trashIcon.svg';
 import EditIcon from '../../../../../assets/editIcon.svg';
 import EyeIcon from '../../../../../assets/eyeIcon.svg';
 import Machine from '../../../../../assets/machine2.jpeg';
+import { fetchCategories } from '../../../../../slices/GetAllCategoriesByPage';
 
 
 const columns = [
@@ -14,9 +16,10 @@ const columns = [
     { key: "actions", label: "Actions" },
 ];
 
-const machines = Array.from({ length: 5 });
 
 const SubCategoryTable = () => {
+    const dispatch = useDispatch();
+    const { categories, subCategories, loading } = useSelector((state) => state.categoriesByPage);
     const [activeColumn, setActiveColumn] = useState("subcategory_name");
     const [menuOpen, setMenuOpen] = useState(false);
     return (
@@ -74,7 +77,7 @@ const SubCategoryTable = () => {
                             <th
                                 className={`px-4 py-3 text-sm text-left font-medium lg:hidden transition-all duration-300 ease-in-out
                      ${activeColumn !== "subcategory"
-                                        ? "text-blue-600"
+                                        ? "text-primaryBtn"
                                         : ""
                                     }`}
                             >
@@ -89,33 +92,46 @@ const SubCategoryTable = () => {
                         </tr>
                     </thead>
 
-                    <tbody>
-                        {machines.map((_, i) => (
-                            <tr key={i} className="border-t border-gray-300">
+                    <tbody className='w-full'>
+                        {subCategories?.map((subcategory) => (
+                            <tr key={subCategories.id} className="border-t border-gray-300">
+                                {/* Title */}
                                 {/* Title */}
                                 <td className="px-4 py-3 flex items-center gap-3">
-                                    <img src={Machine} alt="machine" className="w-8 h-8 rounded-md" />
+                                    <img
+                                        src={subcategory.image || Machine}
+                                        alt={subcategory.name}
+                                        className="w-8 h-8 rounded-md object-cover"
+                                    />
                                 </td>
 
                                 {/* Mobile Dynamic Cell */}
-                                <td className="px-4 py-3 lg:hidden transition-all duration-300 ease-in-out">
+                                <td className=" px-4 py-3 lg:hidden transition-all duration-300 ease-in-out">
 
                                     {activeColumn === "subcategory_name" && (
                                         <span className="text-gray-500 text-sm">
-                                            ---------------
+                                            {subcategory.name}
                                         </span>
                                     )}
 
                                     {activeColumn === "description" && (
-                                        <span className="text-gray-500 text-sm">
-                                            -------------
-                                        </span>
+                                        <div className='flex w-35'>
+                                            <span className="line-clamp-2 text-gray-500 text-sm">
+                                                {subcategory.description}
+                                            </span>
+                                        </div>
                                     )}
 
                                     {activeColumn === "status" && (
-                                        <span className="px-3 py-1 text-xs rounded-full bg-[#68BB5FCC] text-white">
-                                            Active
-                                        </span>
+                                        <button className={`w-25 h-7 text-xs rounded-full
+                                        ${subcategory.is_active ? "bg-[#68BB5FCC]" : "bg-[#EF5350CC]"}
+                                        `}>
+                                            <h1
+                                                className=' px-5 py-1 text-xs rounded-full text-white'
+                                            >
+                                                {subcategory.is_active ? "Active" : "Inactive"}
+                                            </h1>
+                                        </button>
                                     )}
 
                                     {activeColumn === "actions" && (
@@ -129,10 +145,19 @@ const SubCategoryTable = () => {
 
                                 {/* Desktop Cells */}
                                 <td className="hidden lg:table-cell px-4 py-3 text-gray-500">
-                                    -----------
+                                    <span className="text-gray-500 text-sm">
+                                        {subcategory.name}
+                                    </span>
+
                                 </td>
                                 <td className="hidden lg:table-cell px-4 py-3 text-gray-500">
-                                    -------------
+                                    {activeColumn === "description" && (
+                                        <div className='flex w-30'>
+                                            <span className="line-clamp-2 text-gray-500 text-sm">
+                                                {subcategory.description}
+                                            </span>
+                                        </div>
+                                    )}
                                 </td>
                                 <td className="hidden lg:table-cell px-4 py-3">
                                     <span className="px-3 py-1 text-xs rounded-full bg-[#68BB5FCC] text-white">

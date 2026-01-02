@@ -1,4 +1,5 @@
-import { memo, useState } from 'react';
+import { memo, useEffect, useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import DropDownArrow from '../../../../../assets/dropdownArrow.svg';
 import TrashIcon from '../../../../../assets/trashIcon.svg';
@@ -6,18 +7,34 @@ import EditIcon from '../../../../../assets/editIcon.svg';
 import EyeIcon from '../../../../../assets/eyeIcon.svg';
 import Machine from '../../../../../assets/machine2.jpeg';
 import CategoryDialog from './CategoryDialog';
+import { fetchCategories } from '../../../../../slices/GetAllCategoriesByPage';
 
 
-const columns = [
-    { key: "description", label: "Description" },
-    { key: "category_name", label: "Category Name" },
-    { key: "status", label: "Status" },
-    { key: "actions", label: "Actions" },
-];
-
-const machines = Array.from({ length: 5 });
 
 const CategoryTable = () => {
+
+    const dispatch = useDispatch();
+    const { categories, loading } = useSelector((state) => state.categoriesByPage);
+
+    const arr = 6;
+
+    // Fetch machines whenever currentPage changes
+    useEffect(() => {
+        dispatch(fetchCategories());
+    }, [dispatch]);
+
+    console.log('categories', categories);
+
+
+    const columns = [
+        { key: "description", label: "Description" },
+        { key: "category_name", label: "Category Name" },
+        { key: "status", label: "Status" },
+        { key: "actions", label: "Actions" },
+    ];
+
+    const machines = Array.from({ length: 5 });
+
     const [activeColumn, setActiveColumn] = useState("category_name");
     const [openDialog, setOpenDialog] = useState(false);
 
@@ -98,12 +115,16 @@ const CategoryTable = () => {
                         </tr>
                     </thead>
 
-                    <tbody>
-                        {machines.map((_, i) => (
-                            <tr key={i} className="border-t border-gray-300">
+                    <tbody className='w-full'>
+                        {categories?.map((category) => (
+                            <tr key={category.id} className="border-t border-gray-300">
                                 {/* Title */}
                                 <td className="px-4 py-3 flex items-center gap-3">
-                                    <img src={Machine} alt="machine" className="w-8 h-8 rounded-md" />
+                                    <img
+                                        src={category.image || Machine}
+                                        alt={category.name}
+                                        className="w-8 h-8 rounded-md object-cover"
+                                    />
                                 </td>
 
                                 {/* Mobile Dynamic Cell */}
@@ -111,20 +132,29 @@ const CategoryTable = () => {
 
                                     {activeColumn === "category_name" && (
                                         <span className="text-gray-500 text-sm">
-                                            ---------------
+                                            {category.name}
                                         </span>
                                     )}
 
                                     {activeColumn === "description" && (
-                                        <span className="text-gray-500 text-sm">
-                                            -------------
-                                        </span>
+                                        <div className='flex w-30'>
+                                            <span className="line-clamp-2 text-gray-500 text-sm">
+                                                {category.description}
+                                            </span>
+                                        </div>
+
                                     )}
 
                                     {activeColumn === "status" && (
-                                        <span className="px-3 py-1 text-xs rounded-full bg-[#68BB5FCC] text-white">
-                                            Active
-                                        </span>
+                                        <button className={`w-25 h-7 text-xs rounded-full
+                                        ${category.is_active ? "bg-[#68BB5FCC]" : "bg-[#EF5350CC]"}
+                                        `}>
+                                            <h1
+                                                className=' px-5 py-1 text-xs rounded-full text-white'
+                                            >
+                                                {category.is_active ? "Active" : "Inactive"}
+                                            </h1>
+                                        </button>
                                     )}
 
                                     {activeColumn === "actions" && (
@@ -138,15 +168,27 @@ const CategoryTable = () => {
 
                                 {/* Desktop Cells */}
                                 <td className="hidden lg:table-cell px-4 py-3 text-gray-500">
-                                    -----------
+                                    <span className="text-gray-500 text-sm">
+                                        {category.name}
+                                    </span>
                                 </td>
                                 <td className="hidden lg:table-cell px-4 py-3 text-gray-500">
-                                    -------------
+                                    <div className='flex w-55'>
+                                        <span className="line-clamp-2 text-gray-500 text-sm">
+                                            {category.description}
+                                        </span>
+                                    </div>
                                 </td>
                                 <td className="hidden lg:table-cell px-4 py-3">
-                                    <span className="px-3 py-1 text-xs rounded-full bg-[#68BB5FCC] text-white">
-                                        Active
-                                    </span>
+                                    <button className={`w-25 h-7 text-xs rounded-full
+                                        ${category.is_active ? "bg-[#68BB5FCC]" : "bg-[#EF5350CC]"}
+                                        `}>
+                                        <h1
+                                            className=' px-5 py-1 text-xs rounded-full text-white'
+                                        >
+                                            {category.is_active ? "Active" : "Inactive"}
+                                        </h1>
+                                    </button>
                                 </td>
                                 <td className="hidden lg:table-cell px-4 py-3">
                                     <div className="flex gap-3">

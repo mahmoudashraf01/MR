@@ -10,7 +10,7 @@ export const fetchCategories = createAsyncThunk(
     "categpries/fetchCategories",
     async (page, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${baseURL}/categories?page=${page}`);
+            const response = await axios.get(`${baseURL}/categories`);
 
             console.log("Fetched categories by page:", response.data);
             return response.data;
@@ -31,8 +31,8 @@ const categoriesSlice = createSlice({
     name: "categoriesByPage",
     initialState: {
         categories: [],
+        subCategories: [],
         totalCategories: 1,
-        totalPages: 1,
         loading: false,
         error: null,
     },
@@ -51,8 +51,11 @@ const categoriesSlice = createSlice({
 
                 // API RESPONSE STRUCTURE
                 state.categories = action.payload.data || [];
-                state.totalCategories = action.payload.meta.total || 1;
-                state.totalPages = action.payload.meta.last_page;
+                console.log('categories', state.categories)
+
+                // Extract all subcategories from all categories
+                state.subCategories = action.payload.data?.flatMap(category => category.sub_categories || []) || [];
+                console.log('subCategories', state.subCategories)
             })
 
             .addCase(fetchCategories.rejected, (state, action) => {
