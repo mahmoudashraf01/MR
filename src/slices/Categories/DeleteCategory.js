@@ -8,12 +8,14 @@ export const deleteCategory = createAsyncThunk(
         try {
             const state = getState();
             const token = state.saveToken?.token;
-
+            console.log("TOKEN =>", token);
             const response = await axios.delete(
                 `${baseURL}/categories/${categoryId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
                     },
                 }
             );

@@ -1,3 +1,5 @@
+
+
 import { memo, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPublicMachines } from '../../../../slices/GetAllmachinesByPage';
@@ -11,20 +13,20 @@ import EyeIcon from '../../../../assets/eyeIcon.svg';
 import Machine from '../../../../assets/machine2.jpeg';
 import SkeletonTable from '../Skeletons/SkeletonTable';
 
-
 const columns = [
+    { key: "category", label: "Category" },
     { key: "city", label: "City" },
-    { key: "phone", label: "Phone" },
+    { key: "owner_company", label: "Owner Company" },
     { key: "status", label: "Status" },
     { key: "actions", label: "Actions" },
 ];
 
-const CompanyManagment = () => {
+const AdminMachinesManagment = () => {
     const dispatch = useDispatch();
-    const { companies, loading, totalPages } = useSelector((state) => state.machinesByPage);
+    const { machines, loading, totalPages } = useSelector((state) => state.machinesByPage);
     const tableRef = useRef(null);
 
-    const [activeColumn, setActiveColumn] = useState("city");
+    const [activeColumn, setActiveColumn] = useState("category");
     const [menuOpen, setMenuOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -39,12 +41,9 @@ const CompanyManagment = () => {
         }
     };
 
-    const uniqueCompanies = companies?.filter((company, index, self) =>
-        index === self.findIndex((c) => c.id === company.id)
-    ) || [];
-
     const renderPaginationButtons = () => {
         const buttons = [];
+        const maxVisibleButtons = 3;
 
         // Helper function to create button
         const createButton = (pageNum) => (
@@ -102,9 +101,9 @@ const CompanyManagment = () => {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
                 <div className='flex flex-col justify-center lg:items-start items-center'>
-                    <h1 className="text-2xl font-semibold">Companies Management</h1>
+                    <h1 className="text-2xl font-semibold">Manage Machines</h1>
                     <p className="text-gray-500 text-sm">
-                        Review, verify, and manage registered companies
+                        View and manage your rental machines
                     </p>
                 </div>
             </div>
@@ -123,8 +122,18 @@ const CompanyManagment = () => {
                     />
                 </div>
 
-                <div className="flex w-full flex-col sm:flex-row gap-4">
-                    <div className="relative w-full md:w-55 ">
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="relative">
+                        <select className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full">
+                            <option>Category</option>
+                        </select>
+                        <img
+                            src={DropDownArrow}
+                            alt="dropdown"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 pointer-events-none"
+                        />
+                    </div>
+                    <div className="relative">
                         <select className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full">
                             <option>Status</option>
                         </select>
@@ -134,7 +143,7 @@ const CompanyManagment = () => {
                             className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 pointer-events-none"
                         />
                     </div>
-                    <div className="relative w-full md:w-55">
+                    <div className="relative">
                         <select className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full">
                             <option>City</option>
                         </select>
@@ -167,7 +176,7 @@ const CompanyManagment = () => {
                                     setMenuOpen(false);
                                 }}
                                 className={`w-full text-left px-4 py-2 text-sm
-                     ${activeColumn === col.key
+                  ${activeColumn === col.key
                                         ? "text-primaryBtn font-medium bg-blue-50"
                                         : "text-gray-700"
                                     }`}
@@ -185,13 +194,13 @@ const CompanyManagment = () => {
                     <thead className="bg-[#D2D2D2]/5 shadow">
                         <tr>
                             <th className="text-left px-4 py-3 text-sm font-medium">
-                                Company Name
+                                Title
                             </th>
 
                             {/* Mobile Dynamic Column */}
                             <th
                                 className={`px-4 py-3 text-sm text-left font-medium lg:hidden transition-all duration-300 ease-in-out
-                     ${activeColumn !== "category"
+                  ${activeColumn !== "category"
                                         ? "text-blue-600"
                                         : ""
                                     }`}
@@ -200,8 +209,9 @@ const CompanyManagment = () => {
                             </th>
 
                             {/* Desktop Columns */}
+                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Category</th>
                             <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">City</th>
-                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Phone</th>
+                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Owner Company</th>
                             <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Status</th>
                             <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Actions</th>
                         </tr>
@@ -211,39 +221,40 @@ const CompanyManagment = () => {
                         {loading ? (
                             <SkeletonTable rows={8} />
                         ) : (
-                            uniqueCompanies.map((company) => (
-                                <tr key={company.id} className="border-t border-gray-300 hover:bg-blue-50 transition-colors">
-                                    {/* Company Name & Image */}
+                            machines?.map((machine) => (
+                                <tr key={machine.id} className="border-t border-gray-300 hover:bg-blue-50 transition-colors">
+                                    {/* Title */}
                                     <td className="px-4 py-3 flex items-center gap-3">
-                                        <img src={company.image || Machine} alt={company.company_name} className="w-8 h-8 rounded-md" />
+                                        <img src={machine.images[0] || Machine} alt={machine.title} className="w-8 h-8 rounded-md" />
                                         <span className="text-sm font-medium">
-                                            {company.company_name}
+                                            {machine.title}
                                         </span>
                                     </td>
 
                                     {/* Mobile Dynamic Cell */}
                                     <td className="px-4 py-3 lg:hidden transition-all duration-300 ease-in-out">
-                                        {activeColumn === "city" && (
+                                        {activeColumn === "category" && (
                                             <span className="text-gray-500 text-sm">
-                                                {company.city || "N/A"}
+                                                {machine.category?.name || "N/A"}
                                             </span>
                                         )}
 
-                                        {activeColumn === "phone" && (
+                                        {activeColumn === "city" && (
                                             <span className="text-gray-500 text-sm">
-                                                {company.phone || "N/A"}
+                                                {machine.location_city || "N/A"}
+                                            </span>
+                                        )}
+
+                                        {activeColumn === "owner_company" && (
+                                            <span className="text-gray-500 text-sm">
+                                                {machine.company?.company_name || "N/A"}
                                             </span>
                                         )}
 
                                         {activeColumn === "status" && (
-                                            <button className={`w-30 h-8 text-xs rounded-xl
-                                        ${company.verified ? "bg-primaryBtn" : "bg-[#EF5350CC]"}`}>
-                                                <h1
-                                                    className=' px-5 py-1 text-xs rounded-full text-white'
-                                                >
-                                                    {company.verified ? "Verified" : "Non-Verified"}
-                                                </h1>
-                                            </button>
+                                            <span className={`px-3 py-1 text-xs rounded-full ${machine.availability_status === 'available' ? 'bg-[#68BB5FCC]' : 'bg-[#EF5350CC]'} text-white`}>
+                                                {machine.availability_status}
+                                            </span>
                                         )}
 
                                         {activeColumn === "actions" && (
@@ -257,20 +268,18 @@ const CompanyManagment = () => {
 
                                     {/* Desktop Cells */}
                                     <td className="hidden lg:table-cell px-4 py-3 text-gray-500">
-                                        {company.city || "N/A"}
+                                        {machine.category?.name || "N/A"}
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3 text-gray-500">
-                                        {company.phone || "N/A"}
+                                        {machine.location_city || "N/A"}
+                                    </td>
+                                    <td className="hidden lg:table-cell px-4 py-3 text-gray-500">
+                                        {machine.company?.company_name || "N/A"}
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3">
-                                        <button className={`w-30 h-8 text-xs rounded-xl
-                                        ${company.verified ? "bg-primaryBtn" : "bg-[#EF5350CC]"}`}>
-                                            <h1
-                                                className=' px-5 py-1 text-xs rounded-md text-white'
-                                            >
-                                                {company.verified ? "Verified" : "Non-Verified"}
-                                            </h1>
-                                        </button>
+                                        <span className={`px-3 py-1 text-xs rounded-full ${machine.availability_status === 'available' ? 'bg-[#68BB5FCC]' : 'bg-[#EF5350CC]'} text-white`}>
+                                            {machine.availability_status}
+                                        </span>
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3">
                                         <div className="flex gap-3">
@@ -315,4 +324,4 @@ const CompanyManagment = () => {
     );
 };
 
-export default memo(CompanyManagment);
+export default memo(AdminMachinesManagment);

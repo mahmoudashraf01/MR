@@ -78,6 +78,7 @@ const AdminBookings = () => {
             <div className='flex flex-col gap-10'>
                 {/* Bookings Table */}
                 <BookingsTable />
+                
             </div>
         </div>
     );

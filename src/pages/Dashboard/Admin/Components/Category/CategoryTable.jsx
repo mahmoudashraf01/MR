@@ -8,6 +8,9 @@ import EyeIcon from '../../../../../assets/eyeIcon.svg';
 import Machine from '../../../../../assets/machine2.jpeg';
 import CategoryDialog from './CategoryDialog';
 import { fetchCategories } from '../../../../../slices/GetAllCategoriesByPage';
+import { deleteCategory, resetDeleteCategory } from '../../../../../slices/Categories/DeleteCategory';
+import { Spinner } from '../../../../../components/ui/spinner';
+import DeleteCategoryAlert from './DeleteCategoryAlert';
 
 
 
@@ -15,6 +18,7 @@ const CategoryTable = () => {
 
     const dispatch = useDispatch();
     const { categories, loading } = useSelector((state) => state.categoriesByPage);
+    const { loading: deleteLoading, success: deleteSuccess, error: deleteError } = useSelector((state) => state.deleteCategory);
 
     const arr = 6;
 
@@ -25,6 +29,34 @@ const CategoryTable = () => {
 
     console.log('categories', categories);
 
+    const [activeColumn, setActiveColumn] = useState("category_name");
+    const [openDialog, setOpenDialog] = useState(false);
+    const [deletingId, setDeletingId] = useState(null);
+
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    useEffect(() => {
+        if (deleteSuccess) {
+            dispatch(fetchCategories());
+            const timer = setTimeout(() => {
+                dispatch(resetDeleteCategory());
+                setDeletingId(null);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+        if (deleteError) {
+            const timer = setTimeout(() => {
+                dispatch(resetDeleteCategory());
+                setDeletingId(null);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [deleteSuccess, deleteError, dispatch]);
+
+    const handleDelete = (id) => {
+        setDeletingId(id);
+        dispatch(deleteCategory(id));
+    };
 
     const columns = [
         { key: "description", label: "Description" },
@@ -35,10 +67,6 @@ const CategoryTable = () => {
 
     const machines = Array.from({ length: 5 });
 
-    const [activeColumn, setActiveColumn] = useState("category_name");
-    const [openDialog, setOpenDialog] = useState(false);
-
-    const [menuOpen, setMenuOpen] = useState(false);
     return (
         <div>
             {/* Table title */}
@@ -54,6 +82,8 @@ const CategoryTable = () => {
                     onOpenChange={setOpenDialog}
                 />
             </div>
+            {deleteSuccess && <DeleteCategoryAlert alertTitle="Category deleted successfully" />}
+            {deleteError && <DeleteCategoryAlert alertTitle={typeof deleteError === 'string' ? deleteError : "Failed to delete category"} />}
 
             {/* Mobile Column Menu */}
             <div className="relative mb-3 lg:hidden">
@@ -117,7 +147,7 @@ const CategoryTable = () => {
 
                     <tbody className='w-full'>
                         {categories?.map((category) => (
-                            <tr key={category.id} className="border-t border-gray-300">
+                            <tr key={category.id} className="border-t border-gray-300 hover:bg-blue-50 transition-colors">
                                 {/* Title */}
                                 <td className="px-4 py-3 flex items-center gap-3">
                                     <img
@@ -159,7 +189,16 @@ const CategoryTable = () => {
 
                                     {activeColumn === "actions" && (
                                         <div className="flex gap-3">
-                                            <img src={TrashIcon} alt="delete" className="w-4 h-4" />
+                                            {deleteLoading && deletingId === category.id ? (
+                                                <Spinner />
+                                            ) : (
+                                                <img 
+                                                    src={TrashIcon} 
+                                                    alt="delete" 
+                                                    className="w-4 h-4 cursor-pointer" 
+                                                    onClick={() => handleDelete(category.id)}
+                                                />
+                                            )}
                                             <img src={EditIcon} alt="edit" className="w-4 h-4" />
                                             <img src={EyeIcon} alt="view" className="w-4 h-4" />
                                         </div>
@@ -192,7 +231,16 @@ const CategoryTable = () => {
                                 </td>
                                 <td className="hidden lg:table-cell px-4 py-3">
                                     <div className="flex gap-3">
-                                        <img src={TrashIcon} alt="delete" className="w-4 h-4" />
+                                        {deleteLoading && deletingId === category.id ? (
+                                            <Spinner />
+                                        ) : (
+                                            <img 
+                                                src={TrashIcon} 
+                                                alt="delete" 
+                                                className="w-4 h-4 cursor-pointer" 
+                                                onClick={() => handleDelete(category.id)}
+                                            />
+                                        )}
                                         <img src={EditIcon} alt="edit" className="w-4 h-4" />
                                         <img src={EyeIcon} alt="view" className="w-4 h-4" />
                                     </div>

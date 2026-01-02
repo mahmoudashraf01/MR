@@ -32,6 +32,8 @@ const machinesSlice = createSlice({
     name: "machinesByPage",
     initialState: {
         machines: [],
+        categories: [],
+        companies: [],
         totalMachines: 1,
         totalPages: 1,
         loading: false,
@@ -54,6 +56,12 @@ const machinesSlice = createSlice({
                 state.machines = action.payload.data || [];
                 state.totalMachines = action.payload.meta.total || 1;
                 state.totalPages = Math.ceil(action.payload.meta.total / 10) || 1;
+                // Extract all categories from all machines
+                state.categories = action.payload.data?.flatMap(machine => machine.category || []) || [];
+                console.log('MachineCategories', state.categories)
+                // Extract all companies from all machines
+                state.companies = action.payload.data?.flatMap(machine => machine.company || []) || [];
+                console.log('MachineCategories', state.companies)
             })
 
             .addCase(fetchPublicMachines.rejected, (state, action) => {
