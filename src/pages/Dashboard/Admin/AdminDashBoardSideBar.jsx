@@ -45,7 +45,7 @@ const AdminDashBoardSideBar = () => {
                     <NavItem to="/adminDashboard/categoryManagment" icon={CategoryIcon} activeIcon={ActiveCategoryIcon} text="Categories" />
                     <NavItem to="/adminDashboard/adminBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="Bookings" />
                     <NavItem to="/adminDashboard/companyprofile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />
-                    <NavItem to="/adminDashboard/companysettings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
+                    <NavItem to="/adminDashboard/adminSettings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
                 </div>
 
                 {/* LOGOUT */}

@@ -15,17 +15,14 @@ const saveTokenSlice = createSlice({
         setCredentials: (state, action) => {
             const { token, user, role } = action.payload;
 
-            // احفظهم في الستور
             state.token = token;
             state.user = user;
             state.role = role;
 
-            // احفظهم في localStorage لو بتعمل كدا
             localStorage.setItem("token", token);
             localStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem("role", role);
 
-            // 🔥 اطبعهم هنا أول ما يتخزنوا
             console.log("🔥 Stored Token →", token);
             console.log("🔥 Stored Role →", role);
             console.log("🔥 Stored User →", user);

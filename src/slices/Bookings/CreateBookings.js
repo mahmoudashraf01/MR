@@ -7,7 +7,6 @@ import { baseURL } from "../../Helpers/const/const";
 // Base URL
 // ======================
 const BASE_URL = `${baseURL}/bookings`;
-
 // ======================
 // Thunk: Create Booking
 // ======================

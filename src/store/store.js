@@ -10,6 +10,7 @@ import { CreateBookingReducer } from "../slices/Bookings/CreateBookings";
 import { getAllCategoriesByPage } from "../slices/GetAllCategoriesByPage";
 import { CreateCategoryReducer } from "../slices/Categories/CreateCategory";
 import { deleteCategoryReducer } from "../slices/Categories/DeleteCategory";
+import { getAllBookingsReducer } from "../slices/Bookings/getAllBookings";
 
 export const store = configureStore({
   reducer: {
@@ -24,5 +25,6 @@ export const store = configureStore({
     createBooking: CreateBookingReducer,
     createCategory: CreateCategoryReducer,
     deleteCategory: deleteCategoryReducer,
+    getAllBookings: getAllBookingsReducer,
   },
 });

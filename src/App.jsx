@@ -33,6 +33,7 @@ import CompanyManagment from './pages/Dashboard/Admin/Navigations/CompanyManagme
 import CategoryManagment from './pages/Dashboard/Admin/Navigations/CategoryManagment'
 import AdminBookings from './pages/Dashboard/Admin/Navigations/AdminBookings'
 import AdminMachinesManagment from './pages/Dashboard/Admin/Navigations/AdminMachinesManagment'
+import AdminSettings from './pages/Dashboard/Admin/Navigations/AdminSettings'
 
 
 
@@ -90,7 +91,7 @@ function App() {
         { path: 'cmachineManagment', element: <AdminMachinesManagment /> },
         { path: 'adminBookings', element: <AdminBookings /> },
         { path: 'companyprofile', element: <CompanyProfile /> },
-        { path: 'companysettings', element: <CompanySettings /> },
+        { path: 'adminSettings', element: <AdminSettings /> },
       ],
     },
 
