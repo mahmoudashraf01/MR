@@ -1,3 +1,5 @@
 const baseURL = 'https://darkgray-bee-896770.hostingersite.com/api';
+const apiKey = 'AIzaSyCJEeIkSkj45LdIms4SudgoW4d-Xm4lgq0';
 
+export { apiKey }
 export { baseURL };

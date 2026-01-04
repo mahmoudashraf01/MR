@@ -11,6 +11,12 @@ import { getAllCategoriesByPage } from "../slices/GetAllCategoriesByPage";
 import { CreateCategoryReducer } from "../slices/Categories/CreateCategory";
 import { deleteCategoryReducer } from "../slices/Categories/DeleteCategory";
 import { getAllBookingsReducer } from "../slices/Bookings/getAllBookings";
+import { changePasswordReducer } from "../slices/Auth/ChangePassword";
+import { distanceReducer } from "../slices/Bookings/CalcDistance";
+import { statisticsReducer } from "../slices/Dashboard/Statistics";
+import changeBookingStatusReducer from "../slices/Bookings/ChangeBookingStatus";
+
+
 
 export const store = configureStore({
   reducer: {
@@ -23,8 +29,12 @@ export const store = configureStore({
     categoriesByPage: getAllCategoriesByPage,
     machineBokkingDetails: machineBookingDetailsReducer,
     createBooking: CreateBookingReducer,
+    distance: distanceReducer,
     createCategory: CreateCategoryReducer,
     deleteCategory: deleteCategoryReducer,
     getAllBookings: getAllBookingsReducer,
+    changeBookingStatus: changeBookingStatusReducer,
+    changePassword: changePasswordReducer,
+    statistics: statisticsReducer,
   },
 });

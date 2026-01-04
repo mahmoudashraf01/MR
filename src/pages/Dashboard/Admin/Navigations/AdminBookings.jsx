@@ -1,6 +1,7 @@
 import { memo, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllBookings } from '../../../../slices/Bookings/getAllBookings';
+import { updateBookingStatus } from '../../../../slices/Bookings/ChangeBookingStatus';
 import DropDownArrow from '../../../../assets/dropdownArrow.svg';
 import SearchBtn from '../../../../assets/search.svg';
 import DateIcon from '../../../../assets/dateIcon.svg';
@@ -17,6 +18,8 @@ const columns = [
     { key: "total_cost", label: "Total Costs" },
 ];
 
+const bookingStatuses = ['approved', 'pending', 'in_progress', 'rejected', 'cancelled', 'completed'];
+
 const AdminBookings = () => {
     const dispatch = useDispatch();
     const { bookings, loading, totalPages } = useSelector((state) => state.getAllBookings);
@@ -26,16 +29,37 @@ const AdminBookings = () => {
     const [activeColumn, setActiveColumn] = useState("owner_company");
     const [menuOpen, setMenuOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    const [activeDropdown, setActiveDropdown] = useState(null);
 
     useEffect(() => {
         dispatch(fetchAllBookings(currentPage));
     }, [dispatch, currentPage]);
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (activeDropdown && !event.target.closest('.status-dropdown-container')) {
+                setActiveDropdown(null);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [activeDropdown]);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
         if (tableRef.current) {
             tableRef.current.scrollIntoView({ behavior: 'smooth' });
         }
+    };
+
+    const handleStatusUpdate = async (bookingId, newStatus) => {
+        setActiveDropdown(null);
+        await dispatch(updateBookingStatus({ bookingId, status: newStatus }));
+        dispatch(fetchAllBookings(currentPage));
     };
 
     const openDatePicker = () => {
@@ -56,8 +80,44 @@ const AdminBookings = () => {
         const lowerStatus = status?.toLowerCase() || "";
         if (lowerStatus === 'pending') return 'bg-secondary';
         if (lowerStatus === 'approved') return 'bg-[#68BB5FCC]';
+        if (lowerStatus === 'in_progress') return 'bg-blue-500';
+        if (lowerStatus === 'completed') return 'bg-green-600';
         return 'bg-[#EF5350CC]';
     };
+
+    const renderStatusCell = (booking) => (
+        <div className="relative status-dropdown-container">
+            <button
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveDropdown(activeDropdown === booking.id ? null : booking.id);
+                }}
+                className={`px-3 py-1 text-xs rounded-full ${getStatusColor(booking.status)} text-white flex items-center gap-2 transition-all hover:opacity-80`}
+            >
+                {booking.status}
+                <img src={DropDownArrow} alt="arrow" className={`w-2 h-2 brightness-0 invert transition-transform ${activeDropdown === booking.id ? 'rotate-180' : ''}`} />
+            </button>
+            
+            {activeDropdown === booking.id && (
+                <div className="absolute top-full left-0 mt-2 w-40 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden animate-fade-in origin-top-left">
+                    {bookingStatuses.map((status) => (
+                        <button
+                            key={status}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleStatusUpdate(booking.id, status);
+                            }}
+                            className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors capitalize
+                                ${booking.status?.toLowerCase() === status ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'}
+                            `}
+                        >
+                            {status.replace('_', ' ')}
+                        </button>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
 
     const renderPaginationButtons = () => {
         const buttons = [];
@@ -292,9 +352,7 @@ const AdminBookings = () => {
                                         {calculatePeriod(booking.start_date, booking.end_date)}
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3">
-                                        <span className={`px-3 py-1 text-xs rounded-full ${getStatusColor(booking.status)} text-white`}>
-                                            {booking.status}
-                                        </span>
+                                        {renderStatusCell(booking)}
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3 text-gray-500">
                                         {booking.total_cost || "0"}

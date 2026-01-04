@@ -2,10 +2,12 @@
 import { useState, useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createBooking, resetCreateBookingState } from "../../slices/Bookings/CreateBookings";
+import { fetchDistanceKm, resetDistance } from "../../slices/Bookings/CalcDistance";
 import DropDownArrow from '../../assets/dropdownArrow.svg';
 import PikcupIcon from '../../assets/pikcupIcon.svg';
 import DeliveryIcon from '../../assets/delivery.svg';
 import EmailLocationyIcon from '../../assets/emailLocation.svg';
+import { Spinner } from "@/components/ui/spinner";
 import {
     Dialog,
     DialogContent,
@@ -20,10 +22,13 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
     const [endDate, setEndDate] = useState("");
     const [openSummary, setOpenSummary] = useState(false);
     const [notes, setNotes] = useState("");
+    const [userAddress, setUserAddress] = useState("");
+    const [selectedDeliveryOption, setSelectedDeliveryOption] = useState(null); // 'pickup' or 'delivery'
 
     const dispatch = useDispatch();
     const { token, user } = useSelector((state) => state.saveToken || {});
     const { isLoading, isSuccess, error } = useSelector((state) => state.createBooking || {});
+    const { distanceKm, loading: distanceLoading, error: distanceError } = useSelector((state) => state.distance || {});
 
     useEffect(() => {
         if (isSuccess) {
@@ -36,6 +41,26 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
             dispatch(resetCreateBookingState());
         }
     }, [isSuccess, error, dispatch, onOpenChange]);
+
+    useEffect(() => {
+        // Reset distance when dialog opens/closes
+        if (!open) {
+            dispatch(resetDistance());
+            setSelectedDeliveryOption(null);
+            setUserAddress("");
+        }
+    }, [open, dispatch]);
+
+    const handleCalculateDistance = () => {
+        if (userAddress && machine?.company?.address) {
+            dispatch(fetchDistanceKm({
+                userAddress: userAddress,
+                companyAddress: machine.company.address
+            }));
+        } else if (!userAddress) {
+             // Optional: alert user to enter address
+        }
+    };
 
     // ============================
     //   CALCULATE DAYS DIFFERENCE
@@ -76,9 +101,16 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
         }
     }, [durationDays, machine]);
 
+    const deliveryCost = useMemo(() => {
+        if (selectedDeliveryOption === 'delivery' && distanceKm) {
+            return distanceKm * 5;
+        }
+        return 0;
+    }, [selectedDeliveryOption, distanceKm]);
+
     const taxAndFees = 30;
     const subtotal = totalPrice;
-    const finalTotal = subtotal + taxAndFees;
+    const finalTotal = subtotal + taxAndFees + deliveryCost;
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
@@ -133,40 +165,20 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
                         </div>
                     </div>
 
-                    {/* DELIVERY OPTION */}
-                    <div className="mt-6">
-                        <h3 className="text-sm font-semibold text-gray-700 mb-2">
-                            Delivery Option
-                        </h3>
-
-                        <div className="grid grid-cols-2 gap-3">
-                            <button className="border-2 flex flex-col justify-center items-center gap-2 border-primaryBtn text-primaryBtn font-semibold py-3 rounded-xl">
-                                <img src={PikcupIcon} alt="pikcupIcon" className="w-5" />
-                                <h1>Pick up</h1>
-                                <h1>(Free)</h1>
-                            </button>
-
-                            <button className="border-2 flex flex-col justify-center items-center gap-2 border-gray-300 text-gray-600 py-3 rounded-xl">
-                                <img src={DeliveryIcon} alt="pikcupIcon" className="w-5" />
-                                <h1>Delivery </h1>
-                                <h1>($)</h1>
-
-                            </button>
-                        </div>
-                    </div>
-
                     {/* DELIVERY DETAILS */}
                     <div className="mt-6">
                         <h3 className="text-sm font-semibold text-gray-700 mb-2">
                             Delivery Details
                         </h3>
-                        <div className="flex gap-1">
+                        <div className="flex gap-1 items-center">
                             <input
                                 type="text"
                                 placeholder="Enter Address"
                                 className="w-full px-3 py-1.5 rounded-lg border border-gray-300 focus:border-primaryBtn focus:ring-1 focus:ring-primaryBtn outline-none"
+                                value={userAddress}
+                                onChange={(e) => setUserAddress(e.target.value)}
                             />
-                            <img src={EmailLocationyIcon} alt="" />
+                            <img src={EmailLocationyIcon} alt="" className="cursor-pointer" />
                         </div>
 
                         <textarea
@@ -177,56 +189,84 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
                         ></textarea>
                     </div>
 
+                    {/* DELIVERY OPTION */}
+                    <div className="mt-6">
+                        <h3 className="text-sm font-semibold text-gray-700 mb-2">
+                            Delivery Option
+                        </h3>
+
+                        <div className="grid grid-cols-2 gap-3">
+                            <div className="flex flex-col gap-2">
+                                <button
+                                    onClick={() => {
+                                        setSelectedDeliveryOption('pickup');
+                                        dispatch(resetDistance());
+                                    }}
+                                    className={`border-2 flex flex-col justify-center items-center gap-2 py-3 rounded-xl transition-all ${selectedDeliveryOption === 'pickup' ? 'border-primaryBtn text-primaryBtn bg-blue-50' : 'border-gray-300 text-gray-600'}`}
+                                >
+                                    <img src={PikcupIcon} alt="pikcupIcon" className="w-5" />
+                                    <h1>Pick up</h1>
+                                    <h1>(Free)</h1>
+                                </button>
+                                {selectedDeliveryOption === 'pickup' && (
+                                    <div className="text-xs text-gray-600 bg-gray-50 p-2 rounded border border-gray-200">
+                                        <span className="font-semibold">Address:</span> {machine?.company?.address || "Address not available"}
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                <button
+                                    onClick={() => {
+                                        setSelectedDeliveryOption('delivery');
+                                        handleCalculateDistance();
+                                    }}
+                                    disabled={!userAddress}
+                                    className={`border-2 flex flex-col justify-center items-center gap-2 py-3 rounded-xl transition-all ${selectedDeliveryOption === 'delivery' ? 'border-primaryBtn text-primaryBtn bg-blue-50' : 'border-gray-300 text-gray-600'} ${!userAddress ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                >
+                                    {distanceLoading ? (
+                                        <Spinner className="w-5 h-5 text-current" />
+                                    ) : (
+                                        <img src={DeliveryIcon} alt="pikcupIcon" className="w-5" />
+                                    )}
+                                    <h1>Delivery </h1>
+                                    <h1>(5$/km)</h1>
+                                </button>
+                                {selectedDeliveryOption === 'delivery' && (
+                                    <div className="text-xs text-gray-600 bg-gray-50 p-2 rounded border border-gray-200 min-h-[60px]">
+                                        {distanceLoading && (
+                                            <div className="flex items-center justify-center h-full">
+                                                <span>Calculating...</span>
+                                            </div>
+                                        )}
+                                        {distanceError && (
+                                            <div className="text-red-500">
+                                                Error: {distanceError}
+                                            </div>
+                                        )}
+                                        {!distanceLoading && !distanceError && distanceKm && (
+                                            <>
+                                                <div className="flex justify-between mb-1">
+                                                    <span className="font-semibold">Distance:</span>
+                                                    <span>{distanceKm.toFixed(2)} KM</span>
+                                                </div>
+                                                <div className="flex justify-between">
+                                                    <span className="font-semibold">Price:</span>
+                                                    <span>${(distanceKm * 5).toFixed(2)}</span>
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
                     {/* ORDER SUMMARY */}
                     <div className="mt-6 select-none border-b border-gray-200 pb-4">
                         <h3 className="text-sm font-semibold text-gray-700 mb-2">
                             Order Summary
                         </h3>
-
-                        {/* DROPDOWN HEADER */}
-
-                        <div
-                            onClick={() => setOpenSummary(!openSummary)}
-                            className="flex justify-between items-center text-sm text-gray-700 font-medium cursor-pointer py-2"
-                        >
-                            <span>Machines</span>
-                            <div className="flex gap-2">
-                                <h1 className="">Items</h1>
-                                <span
-                                    className={`transform transition-transform duration-300 ${openSummary
-                                        ? "rotate-0"
-                                        : "rotate-180"
-                                        }`}
-                                >
-                                    <img src={DropDownArrow} alt="" />
-                                </span>
-                            </div>
-                        </div>
-
-                        {/* DROPDOWN CONTENT */}
-                        <div
-                            className={`transition-all duration-300 overflow-hidden ${openSummary ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
-                                }`}
-                        >
-                            <div className="text-xs flex flex-col gap-2 text-gray-500 ml-1 mb-3 leading-relaxed">
-                                <div className="flex justify-between">
-                                    <h1>Machine 1</h1>
-                                    <h1>50$</h1>
-                                </div>
-                                <div className="flex justify-between">
-                                    <h1>Machine 2</h1>
-                                    <h1>80$$</h1>
-                                </div>
-                                <div className="flex justify-between">
-                                    <h1>Machine 3</h1>
-                                    <h1>70$</h1>
-                                </div>
-                                <div className="flex justify-between">
-                                    <h1>Machine 4</h1>
-                                    <h1>120$</h1>
-                                </div>
-                            </div>
-                        </div>
 
                         {/* DURATION */}
                         <div className="flex justify-between text-sm text-gray-700">
@@ -236,6 +276,13 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
                             </span>
                         </div>
 
+                        {/* Delivery */}
+                        <div className="flex justify-between text-sm text-gray-700 mt-2">
+                            <span>Delivery</span>
+                            <span className="font-semibold text-gray-900">
+                                {deliveryCost > 0 ? `${deliveryCost.toFixed(2)}$` : '--$'}
+                            </span>
+                        </div>
                         {/* TAX */}
                         <div className="flex justify-between text-sm text-gray-700 mt-2">
                             <span>Tax & Fees</span>
@@ -256,7 +303,7 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
                     {/* TOTAL PRICE */}
                     <div className="flex justify-between text-lg font-semibold mt-4 text-gray-900">
                         <span>Total Price</span>
-                        <span className="text-secondary">{finalTotal}$</span>
+                        <span className="text-secondary">{finalTotal.toFixed(2)}$</span>
                     </div>
                 </div>
 

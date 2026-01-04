@@ -38,6 +38,7 @@ const AdminOverView = () => {
       {/*Cards Review*/}
       <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4'>
 
+        {/* Total Companies */}
         <CardInfo
           cardColor={'#F6C90E1A'}
           cardBorder={'#F6C90E33'}
@@ -50,6 +51,7 @@ const AdminOverView = () => {
           footerConent={'last month'}
         />
 
+        {/* Verified Companies */}
         <CardInfo
           cardColor={'#3A86FF33'}
           cardBorder={'#22C55E33'}
@@ -62,6 +64,7 @@ const AdminOverView = () => {
           footerConent={'last month'}
         />
 
+        {/* Active Bookings */}
         <CardInfo
           cardColor={'#22C55E1A'}
           cardBorder={'#22C55E33'}
@@ -74,6 +77,7 @@ const AdminOverView = () => {
           footerConent={'last month'}
         />
 
+        {/* Total machines */}
         <CardInfo
           cardColor={'#EDEEFC'}
           cardBorder={'#8A38F533'}
