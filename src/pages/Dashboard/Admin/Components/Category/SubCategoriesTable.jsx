@@ -7,6 +7,8 @@ import EditIcon from '../../../../../assets/editIcon.svg';
 import EyeIcon from '../../../../../assets/eyeIcon.svg';
 import Machine from '../../../../../assets/machine2.jpeg';
 import { fetchCategories } from '../../../../../slices/GetAllCategoriesByPage';
+import SubCategoryDialog from './SubCategoryDialog';
+import SkeletonTable from '../../Skeletons/SkeletonTable';
 
 
 const columns = [
@@ -22,14 +24,22 @@ const SubCategoryTable = () => {
     const { categories, subCategories, loading } = useSelector((state) => state.categoriesByPage);
     const [activeColumn, setActiveColumn] = useState("subcategory_name");
     const [menuOpen, setMenuOpen] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
+
     return (
         <div>
             {/* Table title */}
             <div className='flex max-md:flex-col gap-5 justify-between items-center py-5'>
                 <h1 className='text-[24px] font-semibold'>Sub Categories Table</h1>
-                <button className='bg-primaryBtn p-3 rounded-xl w-55 max-md:w-full text-[18px] text-white font-semibold hover:bg-blue-500'>
+                <button 
+                    onClick={() => { setOpenDialog(true) }}
+                    className='bg-primaryBtn p-3 rounded-xl w-55 max-md:w-full text-[18px] text-white font-semibold hover:bg-blue-500'>
                     Add Subcategery
                 </button>
+                <SubCategoryDialog
+                    open={openDialog}
+                    onOpenChange={setOpenDialog}
+                />
             </div>
 
             {/* Mobile Column Menu */}
@@ -93,7 +103,9 @@ const SubCategoryTable = () => {
                     </thead>
 
                     <tbody className='w-full'>
-                        {subCategories?.map((subcategory) => (
+                        {loading ? (
+                            <SkeletonTable rows={5} />
+                        ) : subCategories?.map((subcategory) => (
                             <tr key={subCategories.id} className="border-t border-gray-300">
                                 {/* Title */}
                                 {/* Title */}

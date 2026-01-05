@@ -114,7 +114,7 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className=" bg-white rounded-2xl border border-gray-100 shadow-xl py-px px-0">
+            <DialogContent className="sm:max-w-[60%] w-full bg-white rounded-2xl border border-gray-100 shadow-xl py-px px-0">
 
                 <div className="max-h-[75vh] overflow-y-auto p-6 my-3 md:p-8">
 

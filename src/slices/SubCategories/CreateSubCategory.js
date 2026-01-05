@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { baseURL } from "../../Helpers/const/const";
 
-export const createCategory = createAsyncThunk(
-    "categories/createCategory",
-    async ({ name, description, images, isActive }, { rejectWithValue, getState }) => {
+export const createSubCategory = createAsyncThunk(
+    "subCategories/createSubCategory",
+    async ({ name, category_id, description, images, is_active }, { rejectWithValue, getState }) => {
         try {
             const state = getState();
             const token = state.saveToken?.token;
@@ -15,18 +15,19 @@ export const createCategory = createAsyncThunk(
 
             const formData = new FormData();
             formData.append("name", name);
+            formData.append("category_id", category_id);
             formData.append("description", description);
-            formData.append("is_active", isActive ? 1 : 0);
+            formData.append("is_active", is_active ? 1 : 0);
 
             if (images && images.length > 0) {
                 images.forEach((img) => {
-                    // Assuming API expects "image" (singular) for single file upload
+                    // User requested "image": [list of images]
                     formData.append("image", img.file || img); 
                 });
             }
 
             const response = await axios.post(
-                `${baseURL}/categories`,
+                `${baseURL}/sub-categories`,
                 formData,
                 {
                     headers: {
@@ -39,21 +40,21 @@ export const createCategory = createAsyncThunk(
             return response.data;
         } catch (error) {
             return rejectWithValue(
-                error.response?.data?.message || "Failed to create category"
+                error.response?.data?.message || "Failed to create subcategory"
             );
         }
     }
 );
 
-const createCategorySlice = createSlice({
-    name: "createCategory",
+const createSubCategorySlice = createSlice({
+    name: "createSubCategory",
     initialState: {
         loading: false,
         success: false,
         error: null,
     },
     reducers: {
-        resetCreateCategory(state) {
+        resetCreateSubCategory(state) {
             state.loading = false;
             state.success = false;
             state.error = null;
@@ -61,16 +62,16 @@ const createCategorySlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(createCategory.pending, (state) => {
+            .addCase(createSubCategory.pending, (state) => {
                 state.loading = true;
                 state.error = null;
                 state.success = false;
             })
-            .addCase(createCategory.fulfilled, (state) => {
+            .addCase(createSubCategory.fulfilled, (state) => {
                 state.loading = false;
                 state.success = true;
             })
-            .addCase(createCategory.rejected, (state, action) => {
+            .addCase(createSubCategory.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
                 state.success = false;
@@ -78,5 +79,5 @@ const createCategorySlice = createSlice({
     },
 });
 
-export const { resetCreateCategory } = createCategorySlice.actions;
-export const CreateCategoryReducer = createCategorySlice.reducer;
+export const { resetCreateSubCategory } = createSubCategorySlice.actions;
+export const createSubCategoryReducer = createSubCategorySlice.reducer;

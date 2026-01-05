@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import DropDownArrow from "../../../../../assets/minusArrow.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../../../../../slices/GetAllCategoriesByPage";
-import { createCategory } from "../../../../../slices/Categories/CreateCategory";
+import { createSubCategory, resetCreateSubCategory } from "../../../../../slices/SubCategories/CreateSubCategory";
 import {
     Dialog,
     DialogContent,
@@ -15,10 +15,7 @@ import {
 const inputBase =
     "w-full bg-white border rounded-md px-4 py-2 text-sm focus:outline-none border-[#D2D2D2]";
 
-const selectBase =
-    "w-full border rounded-md px-4 py-2 text-sm focus:outline-none appearance-none border-[#D2D2D2] bg-white";
-
-const CategoryDialog = ({ open, onOpenChange }) => {
+const SubCategoryDialog = ({ open, onOpenChange }) => {
     const dispatch = useDispatch();
 
     const { categories } = useSelector(
@@ -26,7 +23,7 @@ const CategoryDialog = ({ open, onOpenChange }) => {
     );
 
     const { loading: createLoading } = useSelector(
-        (state) => state.createCategory
+        (state) => state.createSubCategory
     );
 
     /* =======================
@@ -35,10 +32,11 @@ const CategoryDialog = ({ open, onOpenChange }) => {
     const fileInputRef = useRef(null);
     const [images, setImages] = useState([]);
     const [status, setStatus] = useState("active");
+    const [selectedCategoryId, setSelectedCategoryId] = useState("");
 
     const [showSuccess, setShowSuccess] = useState(false);
     const [showError, setShowError] = useState(false);
-    const [createdCategory, setCreatedCategory] = useState(null);
+    const [createdSubCategory, setCreatedSubCategory] = useState(null);
 
     /* =======================
        Form
@@ -72,30 +70,26 @@ const CategoryDialog = ({ open, onOpenChange }) => {
     const onSubmit = async (data) => {
         const payload = {
             name: data.name,
+            category_id: selectedCategoryId,
             description: data.description,
-            isActive: status === "active",
-            images, // زي ما هي (لو form-data الـ thunk بيظبطها)
+            is_active: status === "active",
+            images,
         };
 
-        console.log("Payload sent:", payload);
+        const res = await dispatch(createSubCategory(payload));
 
-        const res = await dispatch(createCategory(payload));
-
-        if (createCategory.fulfilled.match(res)) {
-            console.log("Create category response:", res.payload);
-
-            // 👇 الاسم جاي من data.name
-            console.log("Category name:", res.payload?.data?.name);
-
-            setCreatedCategory(res.payload.data);
+        if (createSubCategory.fulfilled.match(res)) {
+            setCreatedSubCategory(res.payload.data);
             reset();
             setImages([]);
             setStatus("active");
+            setSelectedCategoryId("");
 
-            onOpenChange(false);   // اقفل dialog الأساسي
-            setShowSuccess(true);  // افتح success dialog
+            onOpenChange(false);
+            setShowSuccess(true);
+            dispatch(resetCreateSubCategory());
         } else {
-            console.error("Create category failed:", res);
+            console.error("Create subcategory failed:", res);
             setShowError(true);
         }
     };
@@ -106,12 +100,12 @@ const CategoryDialog = ({ open, onOpenChange }) => {
     ======================= */
     return (
         <>
-            {/* ============ CREATE CATEGORY DIALOG ============ */}
+            {/* ============ CREATE SUB CATEGORY DIALOG ============ */}
             <Dialog open={open} onOpenChange={onOpenChange}>
                 <DialogContent className="bg-[#F4F5F7] w-[400px] rounded-2xl px-0">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <DialogHeader className="flex justify-center items-center mb-6">
-                            <DialogTitle>Add Category</DialogTitle>
+                            <DialogTitle>Add Sub Category</DialogTitle>
                         </DialogHeader>
 
                         <div className="flex flex-col gap-5 px-6 py-6">
@@ -144,10 +138,32 @@ const CategoryDialog = ({ open, onOpenChange }) => {
                                 </div>
                             )}
 
-                            {/* CATEGORY */}
+                            {/* CATEGORY SELECT */}
+                            <div className="relative">
+                                <select
+                                    value={selectedCategoryId}
+                                    onChange={(e) => setSelectedCategoryId(e.target.value)}
+                                    className={`${inputBase} appearance-none`}
+                                    required
+                                >
+                                    <option value="" disabled>Select Category</option>
+                                    {categories?.map((cat) => (
+                                        <option key={cat.id} value={cat.id}>
+                                            {cat.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <img
+                                    src={DropDownArrow}
+                                    alt="arrow"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"
+                                />
+                            </div>
+
+                            {/* SUB CATEGORY NAME */}
                             <input
                                 {...register("name", { required: true })}
-                                placeholder="Category Name"
+                                placeholder="Sub Category Name"
                                 className={`${inputBase}`}
                             />
 
@@ -194,10 +210,10 @@ const CategoryDialog = ({ open, onOpenChange }) => {
 
                             <button
                                 type="submit"
-                                disabled={!isValid || createLoading}
+                                disabled={!isValid || createLoading || !selectedCategoryId}
                                 className={`py-2 rounded-md text-white ${createLoading
                                     ? "bg-blue-300"
-                                    : isValid
+                                    : isValid && selectedCategoryId
                                         ? "bg-primaryBtn cursor-pointer hover:bg-blue-500"
                                         : "bg-blue-300"
                                     }`}
@@ -213,28 +229,29 @@ const CategoryDialog = ({ open, onOpenChange }) => {
             <Dialog open={showSuccess} onOpenChange={setShowSuccess}>
                 <DialogContent className="bg-white w-[360px] rounded-2xl text-center p-8">
                     <h2 className="text-xl font-semibold mb-3 animate-pulse">
-                        🎉 Category created successfully
+                        🎉 Sub Category created successfully
                     </h2>
 
-                    {createdCategory && (
+                    {createdSubCategory && (
                         <p className="text-sm text-gray-500 mb-6">
-                            {createdCategory.name}
+                            {createdSubCategory.name}
                         </p>
                     )}
 
                     <button
                         onClick={() => setShowSuccess(false)}
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md transition">
+                        className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md transition"
+                    >
                         Done
                     </button>
                 </DialogContent>
             </Dialog>
 
-            {/* ============ ERROR DIALOG ============ */}
-            <Dialog open={showError} onOpenChange={setShowError}>
+             {/* ============ ERROR DIALOG ============ */}
+             <Dialog open={showError} onOpenChange={setShowError}>
                 <DialogContent className="bg-white w-[360px] rounded-2xl text-center p-8">
                     <h2 className="text-xl font-semibold mb-3 text-red-500">
-                        Failed to create Category
+                         Failed to create Sub Category
                     </h2>
                     <p className="text-sm text-gray-500 mb-6">
                         Please try again later.
@@ -242,7 +259,8 @@ const CategoryDialog = ({ open, onOpenChange }) => {
 
                     <button
                         onClick={() => setShowError(false)}
-                        className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-md transition">
+                        className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-md transition"
+                    >
                         Close
                     </button>
                 </DialogContent>
@@ -251,4 +269,4 @@ const CategoryDialog = ({ open, onOpenChange }) => {
     );
 };
 
-export default memo(CategoryDialog);
+export default memo(SubCategoryDialog);

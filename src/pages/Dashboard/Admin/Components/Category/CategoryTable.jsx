@@ -11,6 +11,7 @@ import { fetchCategories } from '../../../../../slices/GetAllCategoriesByPage';
 import { deleteCategory, resetDeleteCategory } from '../../../../../slices/Categories/DeleteCategory';
 import { Spinner } from '../../../../../components/ui/spinner';
 import DeleteCategoryAlert from './DeleteCategoryAlert';
+import SkeletonTable from '../../Skeletons/SkeletonTable';
 
 
 
@@ -146,7 +147,9 @@ const CategoryTable = () => {
                     </thead>
 
                     <tbody className='w-full'>
-                        {categories?.map((category) => (
+                        {loading ? (
+                            <SkeletonTable rows={5} />
+                        ) : categories?.map((category) => (
                             <tr key={category.id} className="border-t border-gray-300 hover:bg-blue-50 transition-colors">
                                 {/* Title */}
                                 <td className="px-4 py-3 flex items-center gap-3">

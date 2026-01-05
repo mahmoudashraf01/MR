@@ -15,6 +15,7 @@ import { changePasswordReducer } from "../slices/Auth/ChangePassword";
 import { distanceReducer } from "../slices/Bookings/CalcDistance";
 import { statisticsReducer } from "../slices/Dashboard/Statistics";
 import changeBookingStatusReducer from "../slices/Bookings/ChangeBookingStatus";
+import { createSubCategoryReducer } from "../slices/SubCategories/CreateSubCategory";
 
 
 
@@ -31,6 +32,7 @@ export const store = configureStore({
     createBooking: CreateBookingReducer,
     distance: distanceReducer,
     createCategory: CreateCategoryReducer,
+    createSubCategory: createSubCategoryReducer,
     deleteCategory: deleteCategoryReducer,
     getAllBookings: getAllBookingsReducer,
     changeBookingStatus: changeBookingStatusReducer,
