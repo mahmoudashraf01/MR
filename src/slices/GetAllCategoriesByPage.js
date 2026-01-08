@@ -24,6 +24,21 @@ export const fetchCategories = createAsyncThunk(
 );
 
 
+export const fetchCategoryById = createAsyncThunk(
+    "categories/fetchCategoryById",
+    async (id, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${baseURL}/categories/${id}`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data?.message || "Failed to fetch category"
+            );
+        }
+    }
+);
+
+
 // ------------------------
 // Slice
 // ------------------------
@@ -32,12 +47,17 @@ const categoriesSlice = createSlice({
     initialState: {
         categories: [],
         subCategories: [],
+        selectedCategory: null,
         totalCategories: 1,
         loading: false,
         error: null,
     },
 
-    reducers: {},
+    reducers: {
+        clearSelectedCategory(state) {
+            state.selectedCategory = null;
+        }
+    },
 
     extraReducers: (builder) => {
         builder
@@ -61,9 +81,24 @@ const categoriesSlice = createSlice({
             .addCase(fetchCategories.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            })
+
+            // Fetch Category By ID cases
+            .addCase(fetchCategoryById.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchCategoryById.fulfilled, (state, action) => {
+                state.loading = false;
+                state.selectedCategory = action.payload.data;
+            })
+            .addCase(fetchCategoryById.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
     }
 });
 
 
+export const { clearSelectedCategory } = categoriesSlice.actions;
 export const getAllCategoriesByPage = categoriesSlice.reducer;

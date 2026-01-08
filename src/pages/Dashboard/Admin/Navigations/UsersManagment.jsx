@@ -1,26 +1,17 @@
-import { memo, useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPublicMachines } from '../../../../slices/GetAllmachinesByPage';
-import SearchBtn from '../../../../assets/search.svg';
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import { FaArrowRight } from 'react-icons/fa';
+import { memo } from 'react';
 import DropDownArrow from '../../../../assets/dropdownArrow.svg';
-import TrashIcon from '../../../../assets/trashIcon.svg';
-import EditIcon from '../../../../assets/editIcon.svg';
-import EyeIcon from '../../../../assets/eyeIcon.svg';
-import Machine from '../../../../assets/machine2.jpeg';
-import SkeletonTable from '../Skeletons/SkeletonTable';
-import CompanyManagmentTable from '../CompaniesManagments/CompanyManagmentTable';
+import SearchBtn from '../../../../assets/search.svg';
 
-const CompanyManagment = () => {
+
+const UsersManagment = () => {
     return (
         <div className="p-6 bg-white min-h-screen rounded-[40px]  border border-[#B2B2B2]">
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
                 <div className='flex flex-col justify-center lg:items-start items-center'>
-                    <h1 className="text-2xl font-semibold">Companies Management</h1>
-                    <p className="text-gray-500 text-sm">
-                        Review, verify, and manage registered companies
+                    <h1 className="text-2xl font-semibold">Users Management</h1>
+                    <p className="text-gray-500 text-center text-sm">
+                        Manage user roles and account status
                     </p>
                 </div>
             </div>
@@ -52,7 +43,7 @@ const CompanyManagment = () => {
                     </div>
                     <div className="relative w-full md:w-55">
                         <select className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full">
-                            <option>City</option>
+                            <option>Role</option>
                         </select>
                         <img
                             src={DropDownArrow}
@@ -62,11 +53,8 @@ const CompanyManagment = () => {
                     </div>
                 </div>
             </div>
-
-            {/* Companies Table */}
-            <CompanyManagmentTable />
         </div>
     );
 };
 
-export default memo(CompanyManagment);
+export default memo(UsersManagment);

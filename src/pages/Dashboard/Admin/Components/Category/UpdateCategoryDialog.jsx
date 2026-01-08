@@ -55,8 +55,8 @@ const UpdateCategoryDialog = ({ open, onOpenChange, category }) => {
         dispatch(updateCategory({ id: category.id, data }));
     };
 
-    const inputClasses = "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-primaryBtn  disabled:cursor-not-allowed disabled:opacity-50";
-    const textareaClasses = "flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-primaryBtn  disabled:cursor-not-allowed disabled:opacity-50";
+    const inputClasses = "flex h-10 w-full rounded-md border border-[#D2D2D2] bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-primaryBtn  disabled:cursor-not-allowed disabled:opacity-50";
+    const textareaClasses = "flex min-h-[100px] w-full rounded-md border border-[#D2D2D2] bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-primaryBtn  disabled:cursor-not-allowed disabled:opacity-50";
     const buttonBaseClasses = "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
     const buttonOutlineClasses = `${buttonBaseClasses} bg-primaryBtn hover:bg-primaryBtn/90 text-white cursor-pointer font-semibold h-9 px-3`;
     const buttonSecondaryClasses = `w-full rounded-md bg-[#EF5350] text-white font-semibold hover:bg-[#EF5350]/80 cursor-pointer h-9 px-4 py-2`;

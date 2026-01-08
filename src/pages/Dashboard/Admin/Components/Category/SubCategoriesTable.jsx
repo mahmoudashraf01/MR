@@ -9,6 +9,7 @@ import Machine from '../../../../../assets/machine2.jpeg';
 import { fetchCategories } from '../../../../../slices/GetAllCategoriesByPage';
 import { deleteSubCategory, resetDeleteSubCategory } from '../../../../../slices/SubCategories/deleteSubcategory';
 import SubCategoryDialog from './SubCategoryDialog';
+import SubcategoryDetailsDialog from './SubcategoryDetailsDialog';
 import SkeletonTable from '../../Skeletons/SkeletonTable';
 import DeleteCategoryAlert from './DeleteCategoryAlert';
 import { Spinner } from '../../../../../components/ui/spinner';
@@ -26,11 +27,14 @@ const SubCategoryTable = () => {
     const dispatch = useDispatch();
     const { categories, subCategories, loading } = useSelector((state) => state.categoriesByPage);
     const { loading: deleteLoading, success: deleteSuccess, error: deleteError } = useSelector((state) => state.deleteSubCategory);
-    
+
     const [activeColumn, setActiveColumn] = useState("subcategory_name");
     const [menuOpen, setMenuOpen] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
     const [deletingId, setDeletingId] = useState(null);
+
+    const [viewDialogOpen, setViewDialogOpen] = useState(false);
+    const [subcategoryToView, setSubcategoryToView] = useState(null);
 
     useEffect(() => {
         if (deleteSuccess) {
@@ -55,12 +59,17 @@ const SubCategoryTable = () => {
         dispatch(deleteSubCategory(id));
     };
 
+    const handleViewClick = (subcategory) => {
+        setSubcategoryToView(subcategory);
+        setViewDialogOpen(true);
+    };
+
     return (
         <div>
             {/* Table title */}
             <div className='flex max-md:flex-col gap-5 justify-between items-center py-5'>
                 <h1 className='text-[24px] font-semibold'>Sub Categories Table</h1>
-                <button 
+                <button
                     onClick={() => { setOpenDialog(true) }}
                     className='bg-primaryBtn p-3 rounded-xl w-55 max-md:w-full text-[18px] text-white font-semibold hover:bg-blue-500'>
                     Add Subcategery
@@ -68,6 +77,11 @@ const SubCategoryTable = () => {
                 <SubCategoryDialog
                     open={openDialog}
                     onOpenChange={setOpenDialog}
+                />
+                <SubcategoryDetailsDialog
+                    open={viewDialogOpen}
+                    onOpenChange={setViewDialogOpen}
+                    subcategory={subcategoryToView}
                 />
             </div>
             {deleteSuccess && <DeleteCategoryAlert
@@ -192,15 +206,20 @@ const SubCategoryTable = () => {
                                             {deleteLoading && deletingId === subcategory.id ? (
                                                 <Spinner />
                                             ) : (
-                                                <img 
-                                                    src={TrashIcon} 
-                                                    alt="delete" 
-                                                    className="w-4 h-4 cursor-pointer" 
+                                                <img
+                                                    src={TrashIcon}
+                                                    alt="delete"
+                                                    className="w-4 h-4 cursor-pointer"
                                                     onClick={() => handleDelete(subcategory.id)}
                                                 />
                                             )}
-                                            <img src={EditIcon} alt="edit" className="w-4 h-4" />
-                                            <img src={EyeIcon} alt="view" className="w-4 h-4" />
+                                            <img src={EditIcon} alt="view" className="w-4 h-4" />
+                                            <img
+                                                src={EyeIcon}
+                                                alt="edit"
+                                                className="w-4 h-4 cursor-pointer"
+                                                onClick={() => handleViewClick(subcategory)}
+                                            />
                                         </div>
                                     )}
                                 </td>
@@ -231,15 +250,21 @@ const SubCategoryTable = () => {
                                         {deleteLoading && deletingId === subcategory.id ? (
                                             <Spinner />
                                         ) : (
-                                            <img 
-                                                src={TrashIcon} 
-                                                alt="delete" 
-                                                className="w-4 h-4 cursor-pointer" 
+                                            <img
+                                                src={TrashIcon}
+                                                alt="delete"
+                                                className="w-4 h-4 cursor-pointer"
                                                 onClick={() => handleDelete(subcategory.id)}
                                             />
                                         )}
-                                        <img src={EditIcon} alt="edit" className="w-4 h-4" />
-                                        <img src={EyeIcon} alt="view" className="w-4 h-4" />
+                                        <img src={EditIcon} alt="view" className="w-4 h-4" />
+                                        <img
+                                            src={EyeIcon}
+                                            alt="edit"
+                                            className="w-4 h-4 cursor-pointer"
+                                            onClick={() => handleViewClick(subcategory)}
+                                        />
+
                                     </div>
                                 </td>
                             </tr>

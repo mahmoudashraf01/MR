@@ -14,8 +14,7 @@ export const fetchPublicMachines = createAsyncThunk(
 
             console.log("Fetched machines by page:", response.data);
             return response.data;
-            // الـ API بيرجع:
-            // { machines: [...], total_pages: X, current_page: Y }
+
         } catch (error) {
             return rejectWithValue(
                 error.response?.data?.message || "Failed to fetch machines"

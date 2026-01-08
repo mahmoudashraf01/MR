@@ -44,7 +44,7 @@ const AdminDashBoardSideBar = () => {
                     <NavItem to="/adminDashboard/cmachineManagment" icon={ManageMachinesIcon} activeIcon={ActiveManageMachinesIcon} text="Machines" />
                     <NavItem to="/adminDashboard/categoryManagment" icon={CategoryIcon} activeIcon={ActiveCategoryIcon} text="Categories" />
                     <NavItem to="/adminDashboard/adminBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="Bookings" />
-                    <NavItem to="/adminDashboard/companyprofile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />
+                    <NavItem to="/adminDashboard/allUsers" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Users" />
                     <NavItem to="/adminDashboard/adminSettings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
                 </div>
 
