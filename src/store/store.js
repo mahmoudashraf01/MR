@@ -16,6 +16,8 @@ import { distanceReducer } from "../slices/Bookings/CalcDistance";
 import { statisticsReducer } from "../slices/Dashboard/Statistics";
 import changeBookingStatusReducer from "../slices/Bookings/ChangeBookingStatus";
 import { createSubCategoryReducer } from "../slices/SubCategories/CreateSubCategory";
+import { deleteSubCategoryReducer } from "../slices/SubCategories/deleteSubcategory";
+import { updateCategoryReducer } from "../slices/Categories/UpdateCateogry";
 
 
 
@@ -34,6 +36,8 @@ export const store = configureStore({
     createCategory: CreateCategoryReducer,
     createSubCategory: createSubCategoryReducer,
     deleteCategory: deleteCategoryReducer,
+    deleteSubCategory: deleteSubCategoryReducer,
+    updateCategory: updateCategoryReducer,
     getAllBookings: getAllBookingsReducer,
     changeBookingStatus: changeBookingStatusReducer,
     changePassword: changePasswordReducer,

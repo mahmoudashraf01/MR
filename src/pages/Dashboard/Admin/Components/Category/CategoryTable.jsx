@@ -1,7 +1,6 @@
 import { memo, useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import DropDownArrow from '../../../../../assets/dropdownArrow.svg';
 import TrashIcon from '../../../../../assets/trashIcon.svg';
 import EditIcon from '../../../../../assets/editIcon.svg';
 import EyeIcon from '../../../../../assets/eyeIcon.svg';
@@ -12,7 +11,8 @@ import { deleteCategory, resetDeleteCategory } from '../../../../../slices/Categ
 import { Spinner } from '../../../../../components/ui/spinner';
 import DeleteCategoryAlert from './DeleteCategoryAlert';
 import SkeletonTable from '../../Skeletons/SkeletonTable';
-
+import CategoyDetailsDialog from './CategoyDetailsDialog';
+import UpdateCategoryDialog from './UpdateCategoryDialog';
 
 
 const CategoryTable = () => {
@@ -20,13 +20,14 @@ const CategoryTable = () => {
     const dispatch = useDispatch();
     const { categories, loading } = useSelector((state) => state.categoriesByPage);
     const { loading: deleteLoading, success: deleteSuccess, error: deleteError } = useSelector((state) => state.deleteCategory);
+    const { success: updateSuccess } = useSelector((state) => state.updateCategory);
 
     const arr = 6;
 
     // Fetch machines whenever currentPage changes
     useEffect(() => {
         dispatch(fetchCategories());
-    }, [dispatch]);
+    }, [dispatch, updateSuccess]);
 
     console.log('categories', categories);
 
@@ -35,6 +36,9 @@ const CategoryTable = () => {
     const [deletingId, setDeletingId] = useState(null);
 
     const [menuOpen, setMenuOpen] = useState(false);
+    const [detailsOpen, setDetailsOpen] = useState(false);
+    const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
     useEffect(() => {
         if (deleteSuccess) {
@@ -57,6 +61,16 @@ const CategoryTable = () => {
     const handleDelete = (id) => {
         setDeletingId(id);
         dispatch(deleteCategory(id));
+    };
+
+    const handleViewDetails = (category) => {
+        setSelectedCategory(category);
+        setDetailsOpen(true);
+    };
+
+    const handleUpdateClick = (category) => {
+        setSelectedCategory(category);
+        setUpdateDialogOpen(true);
     };
 
     const columns = [
@@ -83,8 +97,21 @@ const CategoryTable = () => {
                     onOpenChange={setOpenDialog}
                 />
             </div>
-            {deleteSuccess && <DeleteCategoryAlert alertTitle="Category deleted successfully" />}
-            {deleteError && <DeleteCategoryAlert alertTitle={typeof deleteError === 'string' ? deleteError : "Failed to delete category"} />}
+            {
+                deleteSuccess && <DeleteCategoryAlert
+                    alertTitle="Category deleted successfully"
+                    alertColor='#68BB5FCC'
+                    borderColor='#22C55E33'
+                    type="success"
+                />
+            }
+            {
+                deleteError && <DeleteCategoryAlert
+                    alertTitle={typeof deleteError === 'string' ? deleteError : "Failed to delete category"}
+                    alertColor='#EF5350CC'
+                    borderColor='#EF535033'
+                    type="error"
+                />}
 
             {/* Mobile Column Menu */}
             <div className="relative mb-3 lg:hidden">
@@ -195,15 +222,25 @@ const CategoryTable = () => {
                                             {deleteLoading && deletingId === category.id ? (
                                                 <Spinner />
                                             ) : (
-                                                <img 
-                                                    src={TrashIcon} 
-                                                    alt="delete" 
-                                                    className="w-4 h-4 cursor-pointer" 
+                                                <img
+                                                    src={TrashIcon}
+                                                    alt="delete"
+                                                    className="w-4 h-4 cursor-pointer"
                                                     onClick={() => handleDelete(category.id)}
                                                 />
                                             )}
-                                            <img src={EditIcon} alt="edit" className="w-4 h-4" />
-                                            <img src={EyeIcon} alt="view" className="w-4 h-4" />
+                                            <img 
+                                                src={EditIcon} 
+                                                alt="edit" 
+                                                className="w-4 h-4 cursor-pointer" 
+                                                onClick={() => handleUpdateClick(category)}
+                                            />
+                                            <img
+                                                src={EyeIcon}
+                                                alt="view"
+                                                className="w-4 h-4 cursor-pointer"
+                                                onClick={() => handleViewDetails(category)}
+                                            />
                                         </div>
                                     )}
                                 </td>
@@ -237,15 +274,25 @@ const CategoryTable = () => {
                                         {deleteLoading && deletingId === category.id ? (
                                             <Spinner />
                                         ) : (
-                                            <img 
-                                                src={TrashIcon} 
-                                                alt="delete" 
-                                                className="w-4 h-4 cursor-pointer" 
+                                            <img
+                                                src={TrashIcon}
+                                                alt="delete"
+                                                className="w-4 h-4 cursor-pointer"
                                                 onClick={() => handleDelete(category.id)}
                                             />
                                         )}
-                                        <img src={EditIcon} alt="edit" className="w-4 h-4" />
-                                        <img src={EyeIcon} alt="view" className="w-4 h-4" />
+                                        <img 
+                                            src={EditIcon} 
+                                            alt="edit" 
+                                            className="w-4 h-4 cursor-pointer" 
+                                            onClick={() => handleUpdateClick(category)}
+                                        />
+                                        <img
+                                            src={EyeIcon}
+                                            alt="view"
+                                            className="w-4 h-4 cursor-pointer"
+                                            onClick={() => handleViewDetails(category)}
+                                        />
                                     </div>
                                 </td>
                             </tr>
@@ -253,6 +300,18 @@ const CategoryTable = () => {
                     </tbody>
                 </table>
             </div>
+
+            <CategoyDetailsDialog
+                open={detailsOpen}
+                onOpenChange={setDetailsOpen}
+                category={selectedCategory}
+            />
+            
+            <UpdateCategoryDialog
+                open={updateDialogOpen}
+                onOpenChange={setUpdateDialogOpen}
+                category={selectedCategory}
+            />
         </div>
     );
 };

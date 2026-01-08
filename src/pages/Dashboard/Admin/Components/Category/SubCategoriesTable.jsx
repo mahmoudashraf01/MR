@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import DropDownArrow from '../../../../../assets/dropdownArrow.svg';
@@ -7,8 +7,11 @@ import EditIcon from '../../../../../assets/editIcon.svg';
 import EyeIcon from '../../../../../assets/eyeIcon.svg';
 import Machine from '../../../../../assets/machine2.jpeg';
 import { fetchCategories } from '../../../../../slices/GetAllCategoriesByPage';
+import { deleteSubCategory, resetDeleteSubCategory } from '../../../../../slices/SubCategories/deleteSubcategory';
 import SubCategoryDialog from './SubCategoryDialog';
 import SkeletonTable from '../../Skeletons/SkeletonTable';
+import DeleteCategoryAlert from './DeleteCategoryAlert';
+import { Spinner } from '../../../../../components/ui/spinner';
 
 
 const columns = [
@@ -22,9 +25,35 @@ const columns = [
 const SubCategoryTable = () => {
     const dispatch = useDispatch();
     const { categories, subCategories, loading } = useSelector((state) => state.categoriesByPage);
+    const { loading: deleteLoading, success: deleteSuccess, error: deleteError } = useSelector((state) => state.deleteSubCategory);
+    
     const [activeColumn, setActiveColumn] = useState("subcategory_name");
     const [menuOpen, setMenuOpen] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
+    const [deletingId, setDeletingId] = useState(null);
+
+    useEffect(() => {
+        if (deleteSuccess) {
+            dispatch(fetchCategories());
+            const timer = setTimeout(() => {
+                dispatch(resetDeleteSubCategory());
+                setDeletingId(null);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+        if (deleteError) {
+            const timer = setTimeout(() => {
+                dispatch(resetDeleteSubCategory());
+                setDeletingId(null);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [deleteSuccess, deleteError, dispatch]);
+
+    const handleDelete = (id) => {
+        setDeletingId(id);
+        dispatch(deleteSubCategory(id));
+    };
 
     return (
         <div>
@@ -41,6 +70,18 @@ const SubCategoryTable = () => {
                     onOpenChange={setOpenDialog}
                 />
             </div>
+            {deleteSuccess && <DeleteCategoryAlert
+                alertTitle="Subcategory deleted successfully"
+                alertColor='#68BB5FCC'
+                borderColor='#22C55E33'
+                type="success"
+            />}
+            {deleteError && <DeleteCategoryAlert
+                alertTitle={typeof deleteError === 'string' ? deleteError : "Failed to delete subcategory"}
+                alertColor='#EF5350CC'
+                borderColor='#EF535033'
+                type="error"
+            />}
 
             {/* Mobile Column Menu */}
             <div className="relative mb-3 lg:hidden">
@@ -106,7 +147,7 @@ const SubCategoryTable = () => {
                         {loading ? (
                             <SkeletonTable rows={5} />
                         ) : subCategories?.map((subcategory) => (
-                            <tr key={subCategories.id} className="border-t border-gray-300">
+                            <tr key={subcategory.id} className="border-t border-gray-300 hover:bg-blue-50">
                                 {/* Title */}
                                 {/* Title */}
                                 <td className="px-4 py-3 flex items-center gap-3">
@@ -148,7 +189,16 @@ const SubCategoryTable = () => {
 
                                     {activeColumn === "actions" && (
                                         <div className="flex gap-3">
-                                            <img src={TrashIcon} alt="delete" className="w-4 h-4" />
+                                            {deleteLoading && deletingId === subcategory.id ? (
+                                                <Spinner />
+                                            ) : (
+                                                <img 
+                                                    src={TrashIcon} 
+                                                    alt="delete" 
+                                                    className="w-4 h-4 cursor-pointer" 
+                                                    onClick={() => handleDelete(subcategory.id)}
+                                                />
+                                            )}
                                             <img src={EditIcon} alt="edit" className="w-4 h-4" />
                                             <img src={EyeIcon} alt="view" className="w-4 h-4" />
                                         </div>
@@ -178,7 +228,16 @@ const SubCategoryTable = () => {
                                 </td>
                                 <td className="hidden lg:table-cell px-4 py-3">
                                     <div className="flex gap-3">
-                                        <img src={TrashIcon} alt="delete" className="w-4 h-4" />
+                                        {deleteLoading && deletingId === subcategory.id ? (
+                                            <Spinner />
+                                        ) : (
+                                            <img 
+                                                src={TrashIcon} 
+                                                alt="delete" 
+                                                className="w-4 h-4 cursor-pointer" 
+                                                onClick={() => handleDelete(subcategory.id)}
+                                            />
+                                        )}
                                         <img src={EditIcon} alt="edit" className="w-4 h-4" />
                                         <img src={EyeIcon} alt="view" className="w-4 h-4" />
                                     </div>

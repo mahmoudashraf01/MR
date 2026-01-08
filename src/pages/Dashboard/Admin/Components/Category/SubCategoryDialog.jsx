@@ -87,6 +87,7 @@ const SubCategoryDialog = ({ open, onOpenChange }) => {
 
             onOpenChange(false);
             setShowSuccess(true);
+            dispatch(fetchCategories()); // Refresh table
             dispatch(resetCreateSubCategory());
         } else {
             console.error("Create subcategory failed:", res);

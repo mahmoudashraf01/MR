@@ -94,6 +94,7 @@ const CategoryDialog = ({ open, onOpenChange }) => {
 
             onOpenChange(false);   // اقفل dialog الأساسي
             setShowSuccess(true);  // افتح success dialog
+            dispatch(fetchCategories()); // Refresh table
         } else {
             console.error("Create category failed:", res);
             setShowError(true);
