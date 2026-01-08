@@ -1,9 +1,29 @@
-import { memo } from 'react';
+import { memo, useState, useEffect } from 'react';
 import DropDownArrow from '../../../../assets/dropdownArrow.svg';
 import SearchBtn from '../../../../assets/search.svg';
+import UserManagmentTable from '../Components/UsersManagment/UserMAnagmentTable';
 
 
 const UsersManagment = () => {
+    const [searchTerm, setSearchTerm] = useState("");
+    const [debouncedSearch, setDebouncedSearch] = useState("");
+    const [role, setRole] = useState("");
+    const [verified, setVerified] = useState("");
+
+    // Debounce search
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedSearch(searchTerm);
+        }, 500);
+        return () => clearTimeout(timer);
+    }, [searchTerm]);
+
+    const filters = {
+        search: debouncedSearch || undefined,
+        role: role || undefined,
+        verified: verified === "" ? undefined : verified
+    };
+
     return (
         <div className="p-6 bg-white min-h-screen rounded-[40px]  border border-[#B2B2B2]">
             {/* Header */}
@@ -25,15 +45,23 @@ const UsersManagment = () => {
                         className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4"
                     />
                     <input
-                        placeholder="Search ..."
+                        placeholder="Search by name or email ....."
                         className="w-full bg-white border text-sm placeholder:text-[#9CA3AF] border-[#D2D2D2] rounded-md pl-10 py-2"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
 
                 <div className="flex w-full flex-col sm:flex-row gap-4">
                     <div className="relative w-full md:w-55 ">
-                        <select className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full">
-                            <option>Status</option>
+                        <select 
+                            className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full outline-none focus:border-primaryBtn"
+                            value={verified}
+                            onChange={(e) => setVerified(e.target.value)}
+                        >
+                            <option value="">All accounts</option>
+                            <option value="true">Verified</option>
+                            <option value="false">Non-verified</option>
                         </select>
                         <img
                             src={DropDownArrow}
@@ -42,8 +70,15 @@ const UsersManagment = () => {
                         />
                     </div>
                     <div className="relative w-full md:w-55">
-                        <select className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full">
-                            <option>Role</option>
+                        <select 
+                            className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full outline-none focus:border-primaryBtn"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}
+                        >
+                            <option value="">All Roles</option>
+                            <option value="renter">Renter</option>
+                            <option value="company">Company</option>
+                            <option value="admin">Admin</option>
                         </select>
                         <img
                             src={DropDownArrow}
@@ -53,6 +88,9 @@ const UsersManagment = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Table */}
+            <UserManagmentTable filters={filters} />
         </div>
     );
 };

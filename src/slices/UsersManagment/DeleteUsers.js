@@ -3,11 +3,11 @@ import axios from "axios";
 import { baseURL } from "../../Helpers/const/const";
 
 // ------------------------
-// Fetch Users Thunk
+// Delete User Thunk
 // ------------------------
-export const fetchUsers = createAsyncThunk(
-    "users/fetchUsers",
-    async (arg = 1, { rejectWithValue, getState }) => {
+export const deleteUser = createAsyncThunk(
+    "users/deleteUser",
+    async (id, { rejectWithValue, getState }) => {
         try {
             const state = getState();
             const token = state.saveToken?.token;
@@ -16,26 +16,18 @@ export const fetchUsers = createAsyncThunk(
                 return rejectWithValue("No authentication token found");
             }
 
-            let params = {};
-            if (typeof arg === 'object') {
-                params = arg;
-            } else {
-                params = { page: arg };
-            }
-
-            const response = await axios.get(`${baseURL}/users`, {
-                params: params,
+            const response = await axios.delete(`${baseURL}/users/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
 
-            console.log("Fetched users:", response.data);
+            console.log("Delete user response:", response.data);
             return response.data;
 
         } catch (error) {
             return rejectWithValue(
-                error.response?.data?.message || "Failed to fetch users"
+                error.response?.data?.message || "Failed to delete user"
             );
         }
     }
@@ -44,31 +36,39 @@ export const fetchUsers = createAsyncThunk(
 // ------------------------
 // Slice
 // ------------------------
-const usersSlice = createSlice({
-    name: "listUsers",
+const deleteUserSlice = createSlice({
+    name: "deleteUser",
     initialState: {
-        users: [],
-        totalPages: 1,
         loading: false,
+        success: false,
         error: null,
     },
-    reducers: {},
+    reducers: {
+        resetDeleteUser: (state) => {
+            state.loading = false;
+            state.success = false;
+            state.error = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchUsers.pending, (state) => {
+            .addCase(deleteUser.pending, (state) => {
                 state.loading = true;
+                state.success = false;
                 state.error = null;
             })
-            .addCase(fetchUsers.fulfilled, (state, action) => {
+            .addCase(deleteUser.fulfilled, (state) => {
                 state.loading = false;
-                state.users = action.payload.data || [];
-                state.totalPages = action.payload.meta?.last_page || 1;
+                state.success = true;
+                state.error = null;
             })
-            .addCase(fetchUsers.rejected, (state, action) => {
+            .addCase(deleteUser.rejected, (state, action) => {
                 state.loading = false;
+                state.success = false;
                 state.error = action.payload;
             });
     },
 });
 
-export const listUsersReducer = usersSlice.reducer;
+export const { resetDeleteUser } = deleteUserSlice.actions;
+export const deleteUserReducer = deleteUserSlice.reducer;

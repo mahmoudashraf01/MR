@@ -18,6 +18,9 @@ import changeBookingStatusReducer from "../slices/Bookings/ChangeBookingStatus";
 import { createSubCategoryReducer } from "../slices/SubCategories/CreateSubCategory";
 import { deleteSubCategoryReducer } from "../slices/SubCategories/deleteSubcategory";
 import { updateCategoryReducer } from "../slices/Categories/UpdateCateogry";
+import { listUsersReducer } from "../slices/UsersManagment/ListUsers";
+import { deleteUserReducer } from "../slices/UsersManagment/DeleteUsers";
+import { updateUserReducer } from "../slices/UsersManagment/UpdateUser";
 
 
 
@@ -38,6 +41,9 @@ export const store = configureStore({
     deleteCategory: deleteCategoryReducer,
     deleteSubCategory: deleteSubCategoryReducer,
     updateCategory: updateCategoryReducer,
+    listUsers: listUsersReducer,
+    deleteUser: deleteUserReducer,
+    updateUser: updateUserReducer,
     getAllBookings: getAllBookingsReducer,
     changeBookingStatus: changeBookingStatusReducer,
     changePassword: changePasswordReducer,
