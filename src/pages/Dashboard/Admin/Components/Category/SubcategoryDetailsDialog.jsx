@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import Machine from "../../../../../assets/machine2.jpeg";
-import { fetchCategoryById, clearSelectedCategory } from '../../../../../slices/GetAllCategoriesByPage';
+import { fetchCategoryById, clearSelectedCategory } from '../../../../../slices/Categories/GetAllCategoriesByPage';
 import { Spinner } from '../../../../../components/ui/spinner';
 
 const SubcategoryDetailsDialog = ({ open, onOpenChange, subcategory }) => {

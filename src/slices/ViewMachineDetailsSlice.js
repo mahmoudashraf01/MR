@@ -31,9 +31,9 @@ const machineDetailsSlice = createSlice({
     name: "machineDetails",
 
     initialState: {
-        data: null,          // بيانات الماشين
-        loading: false,      // حالة اللودينج
-        error: null,         // أي خطأ
+        data: null,
+        loading: false,
+        error: null,
     },
 
     reducers: {},

@@ -3,11 +3,11 @@ import { registerCompnayReducer } from "../slices/RegisterCompanySlice";
 import { getAllMachinesReducer } from "../slices/landingSlice";
 import { machineBookingDetailsReducer } from "../slices/ViewMachineDetailsSlice";
 import { registerRenterReducer } from "../slices/RegisterRenterSlice";
-import { loginReducer } from "../slices/LoginSlice";
+import { loginReducer } from "../slices/Auth/LoginSlice";
 import { saveTokenReducer } from "../slices/SaveTokenSlice";
 import { getPublicMachinesByPage } from "../slices/GetAllmachinesByPage";
 import { CreateBookingReducer } from "../slices/Bookings/CreateBookings";
-import { getAllCategoriesByPage } from "../slices/GetAllCategoriesByPage";
+import { getAllCategoriesByPage } from "../slices/Categories/GetAllCategoriesByPage";
 import { CreateCategoryReducer } from "../slices/Categories/CreateCategory";
 import { deleteCategoryReducer } from "../slices/Categories/DeleteCategory";
 import { getAllBookingsReducer } from "../slices/Bookings/getAllBookings";
@@ -21,6 +21,9 @@ import { updateCategoryReducer } from "../slices/Categories/UpdateCateogry";
 import { listUsersReducer } from "../slices/UsersManagment/ListUsers";
 import { deleteUserReducer } from "../slices/UsersManagment/DeleteUsers";
 import { updateUserReducer } from "../slices/UsersManagment/UpdateUser";
+import { getPrivateMachinesReducer } from "../slices/Machines/GetPrivateMachines";
+import { createMachineReducer } from "../slices/Machines/CreateMachine";
+import { profileReducer } from "../slices/Auth/Profile";
 
 
 
@@ -30,8 +33,11 @@ export const store = configureStore({
     registerRenter: registerRenterReducer,
     login: loginReducer,
     saveToken: saveTokenReducer,
+    profile: profileReducer,
     machines: getAllMachinesReducer,
     machinesByPage: getPublicMachinesByPage,
+    privateMachines: getPrivateMachinesReducer,
+    createMachine: createMachineReducer,
     categoriesByPage: getAllCategoriesByPage,
     machineBokkingDetails: machineBookingDetailsReducer,
     createBooking: CreateBookingReducer,

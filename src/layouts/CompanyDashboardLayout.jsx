@@ -2,8 +2,10 @@ import { memo } from 'react';
 import { Outlet, useLocation } from 'react-router-dom'
 import CompanyDashboardNavBar from '../components/NavBar/CompanyDashboardNavBar';
 import CompanyDashboardSideBar from '../pages/Dashboard/Company/CompanyDashboardSideBar';
+import useAuthRedirect from '../hooks/useAuthRedirect';
 
 const CompanyDashboardLayout = () => {
+    useAuthRedirect();
     const location = useLocation();
 
     return (

@@ -2,8 +2,10 @@ import React from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import RenterDashBoardSideBar from '../pages/Dashboard/Renter/RenterDashBoardSideBar'
 import RenterDashBoardNavBar from '../components/NavBar/RenterDashBoardNavBar'
+import useAuthRedirect from '../hooks/useAuthRedirect';
 
 const RenterDashboardLayout = () => {
+    useAuthRedirect();
     const location = useLocation()
 
     return (

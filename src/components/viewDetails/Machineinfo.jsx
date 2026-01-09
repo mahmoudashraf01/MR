@@ -1,10 +1,20 @@
-import { memo, useState } from 'react';
+import { memo, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import TechnicalSpecifications from './TechnicalSpecifications';
 import MachineMoreImages from './MachineMoreImages';
 
 const Machineinfo = () => {
+    const { data: machine } = useSelector((state) => state.machineBokkingDetails);
     const [activeTab, setActiveTab] = useState("specs");
     const [animating, setAnimating] = useState(false);
+
+    const hasImages = machine?.images && machine.images.length > 0;
+
+    useEffect(() => {
+        if (!hasImages && activeTab === "photos") {
+            setActiveTab("specs");
+        }
+    }, [hasImages, activeTab]);
 
     const handleTabChange = (tab) => {
         if (tab === activeTab) return;
@@ -32,15 +42,17 @@ const Machineinfo = () => {
                     Specifications
                 </button>
 
-                <button
-                    onClick={() => handleTabChange("photos")}
-                    className={`text-base font-medium pb-2 ${activeTab === "photos"
-                        ? "text-navColor border-b-2 transition-colors duration-150 border-secondary"
-                        : "text-[#0A254066] hover:text-navColor"
-                        }`}
-                >
-                    Photos/Gallery
-                </button>
+                {hasImages && (
+                    <button
+                        onClick={() => handleTabChange("photos")}
+                        className={`text-base font-medium pb-2 ${activeTab === "photos"
+                            ? "text-navColor border-b-2 transition-colors duration-150 border-secondary"
+                            : "text-[#0A254066] hover:text-navColor"
+                            }`}
+                    >
+                        Photos/Gallery
+                    </button>
+                )}
             </div>
 
             {/* Content */}
@@ -52,7 +64,7 @@ const Machineinfo = () => {
         `
                 }>
                     {activeTab === "specs" && <TechnicalSpecifications />}
-                    {activeTab === "photos" && <MachineMoreImages />}
+                    {activeTab === "photos" && hasImages && <MachineMoreImages />}
                 </div>
 
             </div>

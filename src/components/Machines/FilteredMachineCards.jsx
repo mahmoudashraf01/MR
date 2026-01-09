@@ -23,8 +23,8 @@ const FilteredMachineCard = ({ machine }) => {
 
     // Image fallback
     const displayedImage =
-        images?.length > 0 && images[0]?.url
-            ? images[0].url
+        images?.length > 0 && images[0]
+            ? images[0]
             : machineImg;
 
     return (
@@ -97,11 +97,11 @@ const FilteredMachineCard = ({ machine }) => {
                         </div>
                     )}
 
-                    {technical_specifications && (
+                    {/* {technical_specifications && (
                         <div className='px-2.5 py-1 bg-gray-50 rounded-md border border-gray-100'>
                             <span className='text-xs text-gray-700 font-medium'>{power} HP</span>
                         </div>
-                    )}
+                    )} */}
 
                     <div className={`px-2.5 py-1 rounded-md border ${availability_status ? "bg-green-50 border-green-100" : "bg-red-50 border-red-100"
                         }`}>

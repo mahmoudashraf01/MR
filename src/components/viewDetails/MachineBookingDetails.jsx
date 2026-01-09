@@ -32,7 +32,6 @@ const MachineBookingDetails = ({ id }) => {
     // IMAGES LOGIC
     // ================================
     const imagesArray = machine?.images?.length > 0 ? machine.images : [MachineImg, machine2, machine3];
-    const fakeImg = [machine1, machine2, machine3];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [openDialog, setOpenDialog] = useState(false);
 
@@ -82,7 +81,7 @@ const MachineBookingDetails = ({ id }) => {
             className="transition-all duration-500 ease-out opacity-0 translate-y-2"
             style={{ animation: "fadeIn 1.5s forwards" }}
         >
-            <div className="w-full rounded-2xl shadow-xl bg-white p-6 md:p-8 border border-gray-100">
+            <div className="w-full rounded-md shadow-xl bg-white p-6 md:p-8 border border-gray-100">
 
                 <div className="flex flex-col md:flex-row gap-8">
 
@@ -169,7 +168,6 @@ const MachineBookingDetails = ({ id }) => {
                         {/* Rating + Location */}
                         <div className="flex items-center gap-4 text-sm">
 
-                            {/* Rating – ثابت مبدئياً */}
                             <div className="flex items-center gap-1.5">
                                 <img src={FilledStar} className="w-5 h-5" />
                                 <img src={FilledStar} className="w-5 h-5" />
@@ -218,7 +216,7 @@ const MachineBookingDetails = ({ id }) => {
                         <hr className="border-gray-200" />
 
                         {/* Pricing Plans */}
-                        <div className="flex flex-wrap gap-3 mt-2">
+                        <div className="grid xl:grid-cols-3 grid-cols-2 gap-3 mt-2">
                             <div className="border-2 border-gray-200 hover:border-primaryBtn transition-colors cursor-pointer rounded-xl px-5 py-3 text-center flex-1 min-w-[100px]">
                                 <div className="text-xs text-gray-600 mb-1">Daily Rate</div>
                                 <div className="font-bold text-secondary text-lg">${machine?.daily_rate}</div>

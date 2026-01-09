@@ -6,7 +6,7 @@ import EditIcon from '../../../../../assets/editIcon.svg';
 import EyeIcon from '../../../../../assets/eyeIcon.svg';
 import Machine from '../../../../../assets/machine2.jpeg';
 import CategoryDialog from './CategoryDialog';
-import { fetchCategories } from '../../../../../slices/GetAllCategoriesByPage';
+import { fetchCategories } from '../../../../../slices/Categories/GetAllCategoriesByPage';
 import { deleteCategory, resetDeleteCategory } from '../../../../../slices/Categories/DeleteCategory';
 import { Spinner } from '../../../../../components/ui/spinner';
 import DeleteCategoryAlert from './DeleteCategoryAlert';

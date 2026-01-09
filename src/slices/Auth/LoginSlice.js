@@ -2,7 +2,7 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { setCredentials } from "./SaveTokenSlice";  // 👈 أهم إضافة
+import { setCredentials } from "../SaveTokenSlice";  // 👈 أهم إضافة
 
 const BASE_URL = "https://darkgray-bee-896770.hostingersite.com/api";
 

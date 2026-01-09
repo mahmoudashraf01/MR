@@ -2,9 +2,11 @@ import { memo } from 'react';
 import { Outlet, useLocation } from 'react-router-dom'
 import AdminDashboardNavBar from '../components/NavBar/AdminDashboardNavBar';
 import AdminDashBoardSideBar from '../pages/Dashboard/Admin/AdminDashBoardSideBar';
+import useAuthRedirect from '../hooks/useAuthRedirect';
 
 
 const AdminDashBoardLayout = () => {
+    useAuthRedirect();
     const location = useLocation();
 
     return (

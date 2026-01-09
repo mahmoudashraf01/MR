@@ -2,7 +2,7 @@ import { memo, useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import DropDownArrow from "../../../../../assets/minusArrow.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories } from "../../../../../slices/GetAllCategoriesByPage";
+import { fetchCategories } from "../../../../../slices/Categories/GetAllCategoriesByPage";
 import { createCategory } from "../../../../../slices/Categories/CreateCategory";
 import {
     Dialog,

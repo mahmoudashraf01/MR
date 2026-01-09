@@ -6,7 +6,7 @@ import TrashIcon from '../../../../../assets/trashIcon.svg';
 import EditIcon from '../../../../../assets/editIcon.svg';
 import EyeIcon from '../../../../../assets/eyeIcon.svg';
 import Machine from '../../../../../assets/machine2.jpeg';
-import { fetchCategories } from '../../../../../slices/GetAllCategoriesByPage';
+import { fetchCategories } from '../../../../../slices/Categories/GetAllCategoriesByPage';
 import { deleteSubCategory, resetDeleteSubCategory } from '../../../../../slices/SubCategories/deleteSubcategory';
 import SubCategoryDialog from './SubCategoryDialog';
 import SubcategoryDetailsDialog from './SubcategoryDetailsDialog';

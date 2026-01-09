@@ -6,7 +6,7 @@ import LockIcon from "../../../assets/lockIcon.svg";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { loginUser } from '../../../slices/LoginSlice'
+import { loginUser } from '../../../slices/Auth/LoginSlice'
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
