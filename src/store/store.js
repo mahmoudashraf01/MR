@@ -23,6 +23,7 @@ import { deleteUserReducer } from "../slices/UsersManagment/DeleteUsers";
 import { updateUserReducer } from "../slices/UsersManagment/UpdateUser";
 import { getPrivateMachinesReducer } from "../slices/Machines/GetPrivateMachines";
 import { createMachineReducer } from "../slices/Machines/CreateMachine";
+import { deleteMachineReducer } from "../slices/Machines/DeleteMachine";
 import { profileReducer } from "../slices/Auth/Profile";
 
 
@@ -38,6 +39,7 @@ export const store = configureStore({
     machinesByPage: getPublicMachinesByPage,
     privateMachines: getPrivateMachinesReducer,
     createMachine: createMachineReducer,
+    deleteMachine: deleteMachineReducer,
     categoriesByPage: getAllCategoriesByPage,
     machineBokkingDetails: machineBookingDetailsReducer,
     createBooking: CreateBookingReducer,

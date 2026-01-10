@@ -1,6 +1,7 @@
 import { memo, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPrivateMachines } from '../../../../../../slices/Machines/GetPrivateMachines';
+import { deleteMachine, resetDeleteState } from '../../../../../../slices/Machines/DeleteMachine';
 import TrashIcon from '../../../../../../assets/trashIcon.svg';
 import EditIcon from '../../../../../../assets/editIcon.svg';
 import EyeIcon from '../../../../../../assets/eyeIcon.svg';
@@ -9,6 +10,8 @@ import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import SkeletonTable from '../../../../Admin/Skeletons/SkeletonTable';
 import MachinesDetailsDialog from './MachinesDetailsDialog';
 import { FaArrowRight } from 'react-icons/fa';
+import DeleteCategoryAlert from '../../../../Admin/Components/Category/DeleteCategoryAlert';
+import { Spinner } from '@/components/ui/spinner';
 
 const columns = [
     { key: "category", label: "Category" },
@@ -20,6 +23,7 @@ const columns = [
 const ManageMachinesTable = () => {
     const dispatch = useDispatch();
     const { machines, loading, totalPages } = useSelector((state) => state.privateMachines);
+    const { loading: deleteLoading, error: deleteError, success: deleteSuccess } = useSelector((state) => state.deleteMachine);
     const tableRef = useRef(null);
 
     const [activeColumn, setActiveColumn] = useState("category");
@@ -27,15 +31,52 @@ const ManageMachinesTable = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedMachine, setSelectedMachine] = useState(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [deletingId, setDeletingId] = useState(null);
+    const [alertInfo, setAlertInfo] = useState({ show: false, title: "", type: "", color: "", borderColor: "" });
 
     const handleView = (machine) => {
         setSelectedMachine(machine);
         setIsDialogOpen(true);
     };
 
+    const handleDelete = (id) => {
+        setDeletingId(id);
+        dispatch(deleteMachine(id));
+    };
+
     useEffect(() => {
         dispatch(fetchPrivateMachines(currentPage));
     }, [dispatch, currentPage]);
+
+    useEffect(() => {
+        if (deleteSuccess) {
+            setAlertInfo({ 
+                show: true, 
+                title: "Machine deleted successfully", 
+                type: "success",
+                color: "#68BB5FCC",
+                borderColor: "#22C55E33"
+            });
+            setDeletingId(null);
+            dispatch(resetDeleteState());
+            dispatch(fetchPrivateMachines(currentPage));
+            const timer = setTimeout(() => setAlertInfo(prev => ({ ...prev, show: false })), 3000);
+            return () => clearTimeout(timer);
+        }
+        if (deleteError) {
+             setAlertInfo({ 
+                 show: true, 
+                 title: typeof deleteError === 'string' ? deleteError : "Failed to delete machine", 
+                 type: "error",
+                 color: "#EF5350CC",
+                 borderColor: "#EF535033"
+             });
+             setDeletingId(null);
+             dispatch(resetDeleteState());
+             const timer = setTimeout(() => setAlertInfo(prev => ({ ...prev, show: false })), 3000);
+             return () => clearTimeout(timer);
+        }
+    }, [deleteSuccess, deleteError, dispatch, currentPage]);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -95,6 +136,16 @@ const ManageMachinesTable = () => {
 
     return (
         <div ref={tableRef}>
+            {alertInfo.show && (
+                <div className="mb-4">
+                    <DeleteCategoryAlert 
+                        alertTitle={alertInfo.title} 
+                        alertColor={alertInfo.color} 
+                        borderColor={alertInfo.borderColor} 
+                        type={alertInfo.type} 
+                    />
+                </div>
+            )}
             {/* Mobile Column Menu */}
             <div className="relative mb-3 lg:hidden">
                 <button
@@ -221,7 +272,16 @@ const ManageMachinesTable = () => {
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3">
                                         <div className="flex gap-3">
-                                            <img src={TrashIcon} alt="delete" className="w-4 h-4 cursor-pointer" />
+                                            {deleteLoading && deletingId === machine.id ? (
+                                                <Spinner className='text-primaryBtn'/>
+                                            ) : (
+                                                <img 
+                                                    src={TrashIcon} 
+                                                    alt="delete" 
+                                                    className="w-4 h-4 cursor-pointer" 
+                                                    onClick={() => handleDelete(machine.id)}
+                                                />
+                                            )}
                                             <img src={EditIcon} alt="edit" className="w-4 h-4 cursor-pointer" />
                                             <img 
                                                 src={EyeIcon} 

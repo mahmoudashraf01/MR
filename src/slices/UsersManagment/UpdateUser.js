@@ -29,10 +29,29 @@ export const updateUserStatus = createAsyncThunk(
                 if (typeof value === 'boolean') {
                     value = value ? 1 : 0;
                 }
-                formData.append(key, value);
+                
+                // Handle nested objects (like company details) if necessary
+                // Although the requirement says "add also to the body company_name, contact_person...",
+                // assuming these are passed as flat keys in `data` or need to be flattened.
+                // If `data` comes with a `company` object, we might need to spread it or append specific fields.
+                // However, based on the prompt, the user says "add also to the body company_name..."
+                // which implies these fields will be top-level in the request body or handled here.
+                // Let's assume the component prepares a flat object or we handle it here.
+                
+                // If the value is null or undefined, we might want to send empty string or skip
+                if (value === null || value === undefined) {
+                    // Decide whether to send null or skip. Usually API handles null.
+                    // formData.append(key, ""); 
+                } else {
+                    formData.append(key, value);
+                }
             });
 
             console.log(`UpdateUser: Sending POST to ${baseURL}/users/${id} with token`, token);
+            // Log formData keys for debugging
+            for (var pair of formData.entries()) {
+                console.log(pair[0]+ ', ' + pair[1]); 
+            }
 
             // Using POST with FormData and Authorization header
             const response = await axios.post(`${baseURL}/users/${id}`, formData, {

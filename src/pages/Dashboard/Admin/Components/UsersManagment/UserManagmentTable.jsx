@@ -10,6 +10,7 @@ import EyeIcon from '../../../../../assets/eyeIcon.svg';
 import UserPlaceholder from '../../../../../assets/userIcon.svg';
 import SkeletonTable from '../../Skeletons/SkeletonTable';
 import UserDetailsDialog from './UserDetailsDialog';
+import UpdateUserDialog from './UpdateUserDialog';
 import DeleteCategoryAlert from '../Category/DeleteCategoryAlert';
 import { Spinner } from '../../../../../components/ui/spinner';
 
@@ -33,6 +34,7 @@ const UserManagmentTable = ({ filters }) => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const [viewDialogOpen, setViewDialogOpen] = useState(false);
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
     const [updatingId, setUpdatingId] = useState(null);
@@ -90,6 +92,11 @@ const UserManagmentTable = ({ filters }) => {
     const handleViewClick = (user) => {
         setSelectedUser(user);
         setViewDialogOpen(true);
+    };
+
+    const handleEditClick = (user) => {
+        setSelectedUser(user);
+        setEditDialogOpen(true);
     };
 
     const handleDeleteClick = (id) => {
@@ -166,14 +173,20 @@ const UserManagmentTable = ({ filters }) => {
 
     return (
         <div ref={tableRef}>
-            {/* Dialog */}
+            {/* Dialogs */}
             <UserDetailsDialog
+                user={selectedUser}
                 open={viewDialogOpen}
                 onOpenChange={setViewDialogOpen}
+            />
+            
+            <UpdateUserDialog
                 user={selectedUser}
+                open={editDialogOpen}
+                onOpenChange={setEditDialogOpen}
             />
 
-            {/* Alerts */}
+            {/* Alert for Delete */}
             {deleteSuccess && (
                 <div className="mb-4">
                     <DeleteCategoryAlert
@@ -311,7 +324,7 @@ const UserManagmentTable = ({ filters }) => {
                                                     disabled={updateLoading && updatingId === user.id}
                                                 >
                                                     {updateLoading && updatingId === user.id ? (
-                                                        <Spinner size="sm" className="mx-auto text-white" />
+                                                        <Spinner className="mx-auto text-white w-4 h-4" />
                                                     ) : (
                                                         <h1 className='px-5 py-1 text-xs rounded-full text-white'>
                                                             {user.is_active ? "Active" : "Inactive"}
@@ -334,7 +347,7 @@ const UserManagmentTable = ({ filters }) => {
                                         {activeColumn === "actions" && (
                                             <div className="flex gap-3 items-center">
                                                 {deleteLoading && deletingId === user.id ? (
-                                                    <Spinner size="sm" />
+                                                    <Spinner />
                                                 ) : (
                                                     <img
                                                         src={TrashIcon}
@@ -343,7 +356,12 @@ const UserManagmentTable = ({ filters }) => {
                                                         onClick={() => handleDeleteClick(user.id)}
                                                     />
                                                 )}
-                                                <img src={EditIcon} alt="edit" className="w-4 h-4 cursor-pointer" />
+                                                <img
+                                                    src={EditIcon}
+                                                    alt="edit"
+                                                    className="w-4 h-4 cursor-pointer"
+                                                    onClick={() => handleEditClick(user)}
+                                                />
                                                 <img
                                                     src={EyeIcon}
                                                     alt="view"
@@ -369,7 +387,7 @@ const UserManagmentTable = ({ filters }) => {
                                                 disabled={updateLoading && updatingId === user.id}
                                             >
                                                 {updateLoading && updatingId === user.id ? (
-                                                    <Spinner size="sm" className="mx-auto text-white" />
+                                                    <Spinner className="mx-auto text-white w-4 h-4" />
                                                 ) : (
                                                     <h1 className='px-5 py-1 text-xs rounded-md text-white'>
                                                         {user.is_active ? "Active" : "Inactive"}
@@ -391,7 +409,7 @@ const UserManagmentTable = ({ filters }) => {
                                     <td className="hidden lg:table-cell px-4 py-3">
                                         <div className="flex gap-3 items-center">
                                             {deleteLoading && deletingId === user.id ? (
-                                                <Spinner size="sm" />
+                                                <Spinner className="w-4 h-4" />
                                             ) : (
                                                 <img
                                                     src={TrashIcon}
@@ -400,7 +418,12 @@ const UserManagmentTable = ({ filters }) => {
                                                     onClick={() => handleDeleteClick(user.id)}
                                                 />
                                             )}
-                                            <img src={EditIcon} alt="edit" className="w-4 h-4 cursor-pointer" />
+                                            <img
+                                                src={EditIcon}
+                                                alt="edit"
+                                                className="w-4 h-4 cursor-pointer"
+                                                onClick={() => handleEditClick(user)}
+                                            />
                                             <img
                                                 src={EyeIcon}
                                                 alt="view"
