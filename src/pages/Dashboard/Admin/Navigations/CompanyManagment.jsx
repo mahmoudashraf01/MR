@@ -1,6 +1,6 @@
 import { memo} from 'react';
 import SearchBtn from '../../../../assets/search.svg';
-import DropDownArrow from '../../../../assets/dropdownArrow.svg';
+import DropDownArrow from '../../../../assets/dropDownArrow.svg';
 import CompanyManagmentTable from '../CompaniesManagments/CompanyManagmentTable';
 
 const CompanyManagment = () => {
