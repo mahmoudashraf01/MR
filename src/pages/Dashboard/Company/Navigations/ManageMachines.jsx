@@ -1,10 +1,9 @@
 import { memo, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchBtn from '../../../../assets/search.svg';
-import DropDownArrow from '../../../../assets/dropdownArrow.svg';
+import DropDownArrow from '../../../../assets/dropDownArrow.svg';
 import ManageMachinesTable from './Components/ManageMachines/ManageMachinesTable';
 import { NavLink } from 'react-router-dom';
-import { fetchCategories } from '../../../../slices/Categories/GetAllCategoriesByPage';
 import { fetchPrivateMachines } from '../../../../slices/Machines/GetPrivateMachines';
 
 
