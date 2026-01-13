@@ -126,7 +126,7 @@ const FilteredMachineCard = ({ machine }) => {
                         </div>
 
                         <NavLink to={`/viewDetails/${machine.id}`} onClick={(e) => e.stopPropagation()}>
-                            <button className='flex items-center gap-1.5 px-4 py-2 bg-primaryBtn text-white rounded-lg font-semibold shadow-sm hover:shadow-md hover:opacity-90 transition-all duration-200 text-xs whitespace-nowrap group/btn'>
+                            <button className='flex items-center gap-1.5 px-4 py-2 bg-primaryBtn cursor-pointer text-white rounded-lg font-semibold shadow-sm hover:shadow-md hover:opacity-90 transition-all duration-200 text-xs whitespace-nowrap group/btn'>
                                 <span>View Details</span>
                                 <FaArrowRight className='text-xs group-hover/btn:translate-x-0.5 transition-transform duration-200' />
                             </button>

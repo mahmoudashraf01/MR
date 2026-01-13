@@ -17,6 +17,17 @@ const TechnicalSpecifications = () => {
         }
     }
 
+    // Ensure specs is always an array to prevent "flatMap is not a function" error
+    if (!Array.isArray(specs)) {
+        if (typeof specs === 'object' && specs !== null) {
+            // If it's a single object (and not null), wrap it in an array
+            specs = [specs];
+        } else {
+            // If it's neither array nor object, default to empty array
+            specs = [];
+        }
+    }
+
     if (!specs || specs.length === 0) {
         return (
             <div className="w-full flex flex-col gap-6">

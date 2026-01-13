@@ -45,7 +45,7 @@ const FilteredMachines = () => {
     }, [currentPage]);
 
     return (
-        <div className='w-full bg-equipmentBg pb-16 pt-10'>
+        <div id="filtered-machines-section" className='w-full bg-equipmentBg pb-16 pt-10'>
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                 <div className='flex flex-col lg:flex-row gap-6 lg:gap-8'>
                     {/* Filter Sidebar */}
@@ -140,10 +140,22 @@ const FilteredMachines = () => {
                                     Array.from({ length: 6 }).map((_, i) => (
                                         <FilteredMachineCardShimmer key={`shimmer-${i}`} />
                                     ))
-                                ) : (
+                                ) : machines && machines.length > 0 ? (
                                     machines.map((machine) => (
                                         <FilteredMachineCards key={machine.id} machine={machine} />
                                     ))
+                                ) : (
+                                    <div className="col-span-full flex flex-col items-center justify-center py-12 text-center bg-white rounded-xl border border-gray-100 shadow-sm">
+                                        <div className="bg-gray-50 p-4 rounded-full mb-4">
+                                            <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                            </svg>
+                                        </div>
+                                        <h3 className="text-lg font-bold text-gray-900 mb-1">No Machines Found</h3>
+                                        <p className="text-sm text-gray-500 max-w-xs mx-auto">
+                                            We couldn't find any machines matching your criteria. Try adjusting your filters or search terms.
+                                        </p>
+                                    </div>
                                 )}
                             </div>
 

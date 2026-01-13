@@ -10,6 +10,7 @@ import EditIcon from '../../../../assets/editIcon.svg';
 import EyeIcon from '../../../../assets/eyeIcon.svg';
 import Machine from '../../../../assets/machine2.jpeg';
 import SkeletonTable from '../Skeletons/SkeletonTable';
+import AdminCompanyDetailsDialog from './AdminCompanyDetailsDialog';
 
 
 const columns = [
@@ -26,6 +27,8 @@ const CompanyManagmentTable = () => {
     const [activeColumn, setActiveColumn] = useState("city");
     const [menuOpen, setMenuOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    const [viewDialogOpen, setViewDialogOpen] = useState(false);
+    const [selectedCompany, setSelectedCompany] = useState(null);
 
     useEffect(() => {
         dispatch(fetchPublicMachines(currentPage));
@@ -97,6 +100,11 @@ const CompanyManagmentTable = () => {
     };
     return (
         <div ref={tableRef}>
+            <AdminCompanyDetailsDialog
+                open={viewDialogOpen}
+                onOpenChange={setViewDialogOpen}
+                company={selectedCompany}
+            />
             {/* Mobile Column Menu */}
             <div className="relative mb-3 lg:hidden">
                 <button
@@ -200,7 +208,15 @@ const CompanyManagmentTable = () => {
                                             <div className="flex gap-3">
                                                 <img src={TrashIcon} alt="delete" className="w-4 h-4" />
                                                 <img src={EditIcon} alt="edit" className="w-4 h-4" />
-                                                <img src={EyeIcon} alt="view" className="w-4 h-4" />
+                                                <button
+                                                    onClick={() => {
+                                                        setSelectedCompany(company);
+                                                        setViewDialogOpen(true);
+                                                    }}
+                                                    className="hover:scale-110 transition-transform"
+                                                >
+                                                    <img src={EyeIcon} alt="view" className="w-4 h-4" />
+                                                </button>
                                             </div>
                                         )}
                                     </td>
@@ -226,7 +242,15 @@ const CompanyManagmentTable = () => {
                                         <div className="flex gap-3">
                                             <img src={TrashIcon} alt="delete" className="w-4 h-4" />
                                             <img src={EditIcon} alt="edit" className="w-4 h-4" />
-                                            <img src={EyeIcon} alt="view" className="w-4 h-4" />
+                                            <button
+                                                onClick={() => {
+                                                    setSelectedCompany(company);
+                                                    setViewDialogOpen(true);
+                                                }}
+                                                className="hover:scale-110 transition-transform"
+                                            >
+                                                <img src={EyeIcon} alt="view" className="w-4 h-4" />
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>

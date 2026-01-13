@@ -8,12 +8,47 @@ import { baseURL } from "../Helpers/const/const";
 // ------------------------
 export const fetchPublicMachines = createAsyncThunk(
     "machines/fetchPublicMachines",
-    async (page, { rejectWithValue }) => {
+    async (arg, { rejectWithValue, getState }) => {
         try {
-            const response = await axios.get(`${baseURL}/machines/public?page=${page}`);
+            const state = getState();
+            // Get existing search params from state if available, or default to empty
+            const storedParams = state.machinesByPage?.searchParams || {};
+
+            let page = 1;
+            let params = {};
+
+            // If arg is a number/string, it's just a page change; preserve existing filters
+            if (typeof arg === 'number' || typeof arg === 'string') {
+                page = arg;
+                params = { ...storedParams };
+            } 
+            // If arg is an object, it's a new search/filter; update params
+            else if (typeof arg === 'object' && arg !== null) {
+                // If page is provided in object, use it, otherwise default to 1
+                page = arg.page || 1;
+                // Exclude page from params to be stored
+                const { page: _, ...rest } = arg;
+                params = { ...rest };
+            }
+
+            // Construct query parameters
+            const queryParams = new URLSearchParams();
+            queryParams.append('page', page);
+            
+            if (params.search) queryParams.append('search', params.search);
+            if (params.category_id) queryParams.append('category_id', params.category_id);
+            if (params.location_city) queryParams.append('location_city', params.location_city);
+            if (params.sort) queryParams.append('sort', params.sort);
+
+            const response = await axios.get(`${baseURL}/machines/public?${queryParams.toString()}`);
 
             console.log("Fetched machines by page:", response.data);
-            return response.data;
+            
+            // Return data along with the params used, so we can update state
+            return {
+                ...response.data,
+                params: params
+            };
 
         } catch (error) {
             return rejectWithValue(
@@ -37,9 +72,14 @@ const machinesSlice = createSlice({
         totalPages: 1,
         loading: false,
         error: null,
+        searchParams: {}, // Store current search filters
     },
 
-    reducers: {},
+    reducers: {
+        clearSearchParams: (state) => {
+            state.searchParams = {};
+        }
+    },
 
     extraReducers: (builder) => {
         builder
@@ -55,6 +95,12 @@ const machinesSlice = createSlice({
                 state.machines = action.payload.data || [];
                 state.totalMachines = action.payload.meta.total || 1;
                 state.totalPages = Math.ceil(action.payload.meta.total / 10) || 1;
+                
+                // Update search params in state
+                if (action.payload.params) {
+                    state.searchParams = action.payload.params;
+                }
+
                 // Extract all categories from all machines
                 state.categories = action.payload.data?.flatMap(machine => machine.category || []) || [];
                 console.log('MachineCategories', state.categories)
@@ -71,4 +117,5 @@ const machinesSlice = createSlice({
 });
 
 
+export const { clearSearchParams } = machinesSlice.actions;
 export const getPublicMachinesByPage = machinesSlice.reducer;

@@ -5,11 +5,20 @@ import { baseURL } from '../Helpers/const/const';
 
 export const getAllMachinesThunk = createAsyncThunk(
     "machines/getAllMachines",
-    async (_, thunkAPI) => {
+    async (params = {}, thunkAPI) => {
         try {
             // const baseURL = import.meta.env.VITE_BASE_URL;
 
+            const { search, category_id, location_city, from_date, to_date } = params;
+
             const response = await axios.get(`${baseURL}/machines/public`, {
+                params: {
+                    search,
+                    category_id,
+                    location_city,
+                    from_date,
+                    to_date
+                },
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -17,12 +26,17 @@ export const getAllMachinesThunk = createAsyncThunk(
 
             let machines = response.data.data || [];
 
-            machines = machines
-                .sort(
-                    (a, b) =>
-                        new Date(b.created_at) - new Date(a.created_at)
-                )
-                .slice(0, 6);
+            // Only slice if no search params are provided (default landing page behavior)
+            const isSearch = search || category_id || location_city || from_date || to_date;
+            
+            if (!isSearch) {
+                machines = machines
+                    .sort(
+                        (a, b) =>
+                            new Date(b.created_at) - new Date(a.created_at)
+                    )
+                    .slice(0, 6);
+            }
 
             return machines;
         } catch (error) {

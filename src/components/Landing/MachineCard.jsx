@@ -19,12 +19,13 @@ const MachineCard = ({ machine }) => {
 
 
     return (
-        <div className='relative w-full max-w-sm mx-auto overflow-hidden h-[475px] bg-primary rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100'>
+        <div className='group relative w-full max-w-sm mx-auto overflow-hidden h-[475px] bg-primary rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100'>
             <div className='w-full h-[305px] rounded-t-2xl relative flex items-center justify-center overflow-hidden'>
                 <img
                     src={imageSrc}
                     alt={title}
-                    className="absolute top-0 left-0 w-full h-full object-cover object-center"
+                    loading='lazy'
+                    className="absolute top-0 left-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
                 <div className="absolute inset-0 bg-black/20"></div>
             </div>
@@ -68,7 +69,7 @@ const MachineCard = ({ machine }) => {
 
                 <Link to={`/viewDetails/${machine.id}`}>
 
-                    <button className='w-32 h-9 border-2 border-primaryBtn rounded-lg font-medium text-primaryBtn hover:bg-primaryBtn hover:text-primary transition-all duration-200 shadow-sm'>
+                    <button className='w-32 h-9 border-2 border-primaryBtn rounded-lg cursor-pointer font-medium text-primaryBtn hover:bg-primaryBtn hover:text-primary transition-all duration-200 shadow-sm'>
                         View Details
                     </button>
                 </Link>

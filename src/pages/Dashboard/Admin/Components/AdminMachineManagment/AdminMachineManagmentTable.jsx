@@ -1,89 +1,39 @@
 import { memo, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPrivateMachines } from '../../../../../../slices/Machines/GetPrivateMachines';
-import { deleteMachine, resetDeleteState } from '../../../../../../slices/Machines/DeleteMachine';
-import TrashIcon from '../../../../../../assets/trashIcon.svg';
-import EditIcon from '../../../../../../assets/editIcon.svg';
-import EyeIcon from '../../../../../../assets/eyeIcon.svg';
-import MachinePlaceholder from '../../../../../../assets/machine2.jpeg';
+import { fetchPublicMachines } from '../../../../../slices/GetAllmachinesByPage';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import SkeletonTable from '../../../../Admin/Skeletons/SkeletonTable';
-import MachinesDetailsDialog from './MachinesDetailsDialog';
-import UpdateMachineDialog from '../../../../Admin/Components/AdminMachineManagment/UpdateMachineDialog';
 import { FaArrowRight } from 'react-icons/fa';
-import DeleteCategoryAlert from '../../../../Admin/Components/Category/DeleteCategoryAlert';
-import { Spinner } from '@/components/ui/spinner';
+import DisabledIcon from '../../../../../assets/desabledIcon.svg';
+import EditIcon from '../../../../../assets/editIcon.svg';
+import EyeIcon from '../../../../../assets/eyeIcon.svg';
+import Machine from '../../../../../assets/machine2.jpeg';
+import SkeletonTable from '../../Skeletons/SkeletonTable';
+import MachinesDetailsDialog from '../../../Company/Navigations/Components/ManageMachines/MachinesDetailsDialog';
+import UpdateMachineDialog from './UpdateMachineDialog';
 
 const columns = [
     { key: "category", label: "Category" },
-    { key: "rates", label: "Rates" },
+    { key: "city", label: "City" },
+    { key: "owner_company", label: "Owner Company" },
     { key: "status", label: "Status" },
     { key: "actions", label: "Actions" },
 ];
-
-const ManageMachinesTable = () => {
+const AdminMachineManagmentTable = () => {
     const dispatch = useDispatch();
-    const { machines, loading, totalPages } = useSelector((state) => state.privateMachines);
-    const { loading: deleteLoading, error: deleteError, success: deleteSuccess } = useSelector((state) => state.deleteMachine);
+    const { machines, loading, totalPages } = useSelector((state) => state.machinesByPage);
     const tableRef = useRef(null);
 
     const [activeColumn, setActiveColumn] = useState("category");
     const [menuOpen, setMenuOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+
+    const [viewDialogOpen, setViewDialogOpen] = useState(false);
+    const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
     const [selectedMachine, setSelectedMachine] = useState(null);
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
-    const [deletingId, setDeletingId] = useState(null);
-    const [alertInfo, setAlertInfo] = useState({ show: false, title: "", type: "", color: "", borderColor: "" });
-
-    const handleView = (machine) => {
-        setSelectedMachine(machine);
-        setIsDialogOpen(true);
-    };
-
-    const handleUpdate = (machine) => {
-        setSelectedMachine(machine);
-        setIsUpdateDialogOpen(true);
-    };
-
-    const handleDelete = (id) => {
-        setDeletingId(id);
-        dispatch(deleteMachine(id));
-    };
 
     useEffect(() => {
-        dispatch(fetchPrivateMachines(currentPage));
+        dispatch(fetchPublicMachines(currentPage));
     }, [dispatch, currentPage]);
-
-    useEffect(() => {
-        if (deleteSuccess) {
-            setAlertInfo({
-                show: true,
-                title: "Machine deleted successfully",
-                type: "success",
-                color: "#68BB5FCC",
-                borderColor: "#22C55E33"
-            });
-            setDeletingId(null);
-            dispatch(resetDeleteState());
-            dispatch(fetchPrivateMachines(currentPage));
-            const timer = setTimeout(() => setAlertInfo(prev => ({ ...prev, show: false })), 3000);
-            return () => clearTimeout(timer);
-        }
-        if (deleteError) {
-            setAlertInfo({
-                show: true,
-                title: typeof deleteError === 'string' ? deleteError : "Failed to delete machine",
-                type: "error",
-                color: "#EF5350CC",
-                borderColor: "#EF535033"
-            });
-            setDeletingId(null);
-            dispatch(resetDeleteState());
-            const timer = setTimeout(() => setAlertInfo(prev => ({ ...prev, show: false })), 3000);
-            return () => clearTimeout(timer);
-        }
-    }, [deleteSuccess, deleteError, dispatch, currentPage]);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -94,6 +44,9 @@ const ManageMachinesTable = () => {
 
     const renderPaginationButtons = () => {
         const buttons = [];
+        const maxVisibleButtons = 3;
+
+        // Helper function to create button
         const createButton = (pageNum) => (
             <button
                 key={`page-${pageNum}`}
@@ -111,6 +64,7 @@ const ManageMachinesTable = () => {
                 buttons.push(createButton(i));
             }
         } else {
+            // Logic for more than 4 pages
             let startPage = Math.max(1, currentPage - 1);
             let endPage = Math.min(totalPages, currentPage + 1);
 
@@ -120,6 +74,7 @@ const ManageMachinesTable = () => {
                 startPage = totalPages - 2;
             }
 
+            // Always show first page if not in range
             if (startPage > 1) {
                 buttons.push(createButton(1));
                 if (startPage > 2) {
@@ -131,6 +86,7 @@ const ManageMachinesTable = () => {
                 buttons.push(createButton(i));
             }
 
+            // Always show last page if not in range
             if (endPage < totalPages) {
                 if (endPage < totalPages - 1) {
                     buttons.push(<span key="ellipsis-end" className='px-2 text-xs text-gray-400 font-medium'>...</span>);
@@ -140,19 +96,19 @@ const ManageMachinesTable = () => {
         }
         return buttons;
     };
-
     return (
         <div ref={tableRef}>
-            {alertInfo.show && (
-                <div className="mb-4">
-                    <DeleteCategoryAlert
-                        alertTitle={alertInfo.title}
-                        alertColor={alertInfo.color}
-                        borderColor={alertInfo.borderColor}
-                        type={alertInfo.type}
-                    />
-                </div>
-            )}
+            <MachinesDetailsDialog
+                open={viewDialogOpen}
+                onOpenChange={setViewDialogOpen}
+                machine={selectedMachine}
+            />
+            <UpdateMachineDialog
+                open={updateDialogOpen}
+                onOpenChange={setUpdateDialogOpen}
+                machine={selectedMachine}
+                onSuccess={() => dispatch(fetchPublicMachines(currentPage))}
+            />
             {/* Mobile Column Menu */}
             <div className="relative mb-3 lg:hidden">
                 <button
@@ -186,7 +142,7 @@ const ManageMachinesTable = () => {
             </div>
 
             {/* Table */}
-            <div className="bg-white rounded-lg overflow-x-auto">
+            <div className="bg-white rounded-lg  overflow-x-auto">
                 <table className="w-full border-collapse">
                     <thead className="bg-[#D2D2D2]/5 shadow">
                         <tr>
@@ -207,7 +163,8 @@ const ManageMachinesTable = () => {
 
                             {/* Desktop Columns */}
                             <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Category</th>
-                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Rates</th>
+                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">City</th>
+                            <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Owner Company</th>
                             <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Status</th>
                             <th className="hidden lg:table-cell text-sm font-medium px-4 py-3 text-left">Actions</th>
                         </tr>
@@ -217,15 +174,11 @@ const ManageMachinesTable = () => {
                         {loading ? (
                             <SkeletonTable rows={8} />
                         ) : (
-                            machines.map((machine) => (
+                            machines?.map((machine) => (
                                 <tr key={machine.id} className="border-t border-gray-300 hover:bg-blue-50 transition-colors">
-                                    {/* Title & Image */}
+                                    {/* Title */}
                                     <td className="px-4 py-3 flex items-center gap-3">
-                                        <img
-                                            src={machine.images?.[0] || MachinePlaceholder}
-                                            alt={machine.title}
-                                            className="w-8 h-8 rounded-md object-cover"
-                                        />
+                                        <img src={machine.images[0] || Machine} alt={machine.title} className="w-8 h-8 rounded-md" />
                                         <span className="text-sm font-medium">
                                             {machine.title}
                                         </span>
@@ -239,41 +192,45 @@ const ManageMachinesTable = () => {
                                             </span>
                                         )}
 
-                                        {activeColumn === "rates" && (
+                                        {activeColumn === "city" && (
                                             <span className="text-gray-500 text-sm">
-                                                ${machine.daily_rate} / Day
+                                                {machine.location_city || "N/A"}
+                                            </span>
+                                        )}
+
+                                        {activeColumn === "owner_company" && (
+                                            <span className="text-gray-500 text-sm">
+                                                {machine.company?.company_name || "N/A"}
                                             </span>
                                         )}
 
                                         {activeColumn === "status" && (
-                                            <span className={`px-3 py-1 text-xs rounded-full text-white ${machine.availability_status === 'available' ? 'bg-primaryBtn' : 'bg-red-500'}`}>
+                                            <span className={`px-3 py-1 text-xs rounded-full ${machine.availability_status === 'available' ? 'bg-[#68BB5FCC]' : 'bg-[#EF5350CC]'} text-white`}>
                                                 {machine.availability_status}
                                             </span>
                                         )}
 
                                         {activeColumn === "actions" && (
                                             <div className="flex gap-3">
-                                                <img
-                                                    src={TrashIcon}
-                                                    alt="delete"
-                                                    className="w-4 h-4 cursor-pointer"
-                                                    onClick={() => handleDelete(machine.id)}
-                                                />
-
+                                                <img src={DisabledIcon} alt="delete" className="w-4 h-4 cursor-not-allowed opacity-50" />
                                                 <button
                                                     onClick={() => {
-                                                        handleUpdate(machine);
+                                                        setSelectedMachine(machine);
+                                                        setUpdateDialogOpen(true);
                                                     }}
                                                     className="hover:scale-110 transition-transform"
                                                 >
                                                     <img src={EditIcon} alt="edit" className="w-4 h-4 cursor-pointer" />
                                                 </button>
-                                                <img
-                                                    src={EyeIcon}
-                                                    alt="view"
-                                                    className="w-4 h-4 cursor-pointer"
-                                                    onClick={() => handleView(machine)}
-                                                />
+                                                <button
+                                                    onClick={() => {
+                                                        setSelectedMachine(machine);
+                                                        setViewDialogOpen(true);
+                                                    }}
+                                                    className="hover:scale-110 transition-transform"
+                                                >
+                                                    <img src={EyeIcon} alt="view" className="w-4 h-4 cursor-pointer" />
+                                                </button>
                                             </div>
                                         )}
                                     </td>
@@ -283,40 +240,37 @@ const ManageMachinesTable = () => {
                                         {machine.category?.name || "N/A"}
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3 text-gray-500">
-                                        ${machine.daily_rate} / Day
+                                        {machine.location_city || "N/A"}
+                                    </td>
+                                    <td className="hidden lg:table-cell px-4 py-3 text-gray-500">
+                                        {machine.company?.company_name || "N/A"}
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3">
-                                        <span className={`px-3 py-1 text-xs rounded-full text-white ${machine.availability_status === 'available' ? 'bg-primaryBtn' : 'bg-red-500'}`}>
+                                        <span className={`px-3 py-1 text-xs rounded-full ${machine.availability_status === 'available' ? 'bg-[#68BB5FCC]' : 'bg-[#EF5350CC]'} text-white`}>
                                             {machine.availability_status}
                                         </span>
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3">
                                         <div className="flex gap-3">
-                                            {deleteLoading && deletingId === machine.id ? (
-                                                <Spinner className='text-primaryBtn' />
-                                            ) : (
-                                                <img
-                                                    src={TrashIcon}
-                                                    alt="delete"
-                                                    className="w-4 h-4 cursor-pointer"
-                                                    onClick={() => handleDelete(machine.id)}
-                                                />
-                                            )}
+                                            <img src={DisabledIcon} alt="delete" className="w-4 h-4 cursor-not-allowed opacity-50" />
                                             <button
                                                 onClick={() => {
-                                                    handleUpdate(machine);
+                                                    setSelectedMachine(machine);
+                                                    setUpdateDialogOpen(true);
                                                 }}
                                                 className="hover:scale-110 transition-transform"
                                             >
                                                 <img src={EditIcon} alt="edit" className="w-4 h-4 cursor-pointer" />
                                             </button>
-
-                                            <img
-                                                src={EyeIcon}
-                                                alt="view"
-                                                className="w-4 h-4 cursor-pointer"
-                                                onClick={() => handleView(machine)}
-                                            />
+                                            <button
+                                                onClick={() => {
+                                                    setSelectedMachine(machine);
+                                                    setViewDialogOpen(true);
+                                                }}
+                                                className="hover:scale-110 transition-transform"
+                                            >
+                                                <img src={EyeIcon} alt="view" className="w-4 h-4 cursor-pointer" />
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -325,18 +279,6 @@ const ManageMachinesTable = () => {
                     </tbody>
                 </table>
             </div>
-
-            <MachinesDetailsDialog
-                open={isDialogOpen}
-                onOpenChange={setIsDialogOpen}
-                machine={selectedMachine}
-            />
-            <UpdateMachineDialog
-                open={isUpdateDialogOpen}
-                onOpenChange={setIsUpdateDialogOpen}
-                machine={selectedMachine}
-                onSuccess={() => dispatch(fetchPrivateMachines(currentPage))}
-            />
             <div className='flex justify-end pt-5'>
                 {/* Pagination */}
                 <nav className='flex justify-center items-center gap-1.5 mt-8 bg-white p-3 rounded-xl shadow-sm border border-gray-100' aria-label="Pagination">
@@ -367,4 +309,4 @@ const ManageMachinesTable = () => {
     );
 };
 
-export default memo(ManageMachinesTable);
+export default memo(AdminMachineManagmentTable);
