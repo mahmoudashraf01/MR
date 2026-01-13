@@ -9,6 +9,8 @@ import OverviewIcon from '../../../assets/overviewIcon.svg';
 import ActiveOverviewIcon from '../../../assets/activeOverview.svg';
 import BookingIcon from '../../../assets/bookingIcon.svg';
 import ActiveBookingIcon from '../../../assets/activeBookingIcon.svg';
+import AnaliticsIcon from '../../../assets/analyticsIcon.svg';
+import ActiveAnaliticsIcon from '../../../assets/activeAnalyticsIcon.svg';
 import ProfileIcon from '../../../assets/profileIcon.svg';
 import ActiveProfileIcon from '../../../assets/activeProfileIcon.svg';
 import SettingIcon from '../../../assets/SettingIcon.svg';
@@ -39,6 +41,7 @@ const CompanyDashBoardSideBar = () => {
                     <NavItem to="/companyDashboard/manageMachines" icon={ManageMachinesIcon} activeIcon={ActiveManageMachinesIcon} text="Manage Machines" />
                     <NavItem to="/companyDashboard/addMachines" icon={PlusIcon} activeIcon={ActivePlusIcon} text="Add Machines" />
                     <NavItem to="/companyDashboard/companyBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="Bookings" />
+                    <NavItem to="/companyDashboard/companyAnalitics" icon={AnaliticsIcon} activeIcon={ActiveAnaliticsIcon} text="Analitics" />
                     <NavItem to="/companyDashboard/companyprofile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />
                     <NavItem to="/companyDashboard/companysettings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
                 </div>

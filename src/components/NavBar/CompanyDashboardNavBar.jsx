@@ -18,6 +18,12 @@ import ProfileIcon from '../../assets/profileIcon.svg';
 import ActiveProfileIcon from '../../assets/activeProfileIcon.svg';
 import SettingIcon from '../../assets/SettingIcon.svg';
 import ActiveSettingIcon from '../../assets/activeSettingIcon.svg';
+import ActiveAnaliticsIcon from '../../assets/activeAnalyticsIcon.svg';
+import ActiveManageMachinesIcon from '../../assets/ActiveManageMachineIcon.svg';
+import ActivePlusIcon from '../../assets/ActivePlusIcon.svg';
+import PlusIcon from '../../assets/plusIcon.svg';
+import AnaliticsIcon from '../../assets/analyticsIcon.svg';
+import ManageMachinesIcon from '../../assets/manageMachineIcon.svg';
 
 
 const CompanyDashboardNavBar = () => {
@@ -123,17 +129,37 @@ const CompanyDashboardNavBar = () => {
                             <AiOutlineClose size={20} className='text-white' />
                         </button>
                     </div>
-                    <li className='p-4 border-gray-700'>
-                        <NavItem to="/renterDashboard" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" end={true} />
+
+                    {/* <div className='px-5 py-8'>
+                        <NavItem to="/companyDashboard" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" end={true} />
+                        <NavItem to="/companyDashboard/manageMachines" icon={ManageMachinesIcon} activeIcon={ActiveManageMachinesIcon} text="Manage Machines" />
+                        <NavItem to="/companyDashboard/addMachines" icon={PlusIcon} activeIcon={ActivePlusIcon} text="Add Machines" />
+                        <NavItem to="/companyDashboard/companyBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="Bookings" />
+                        <NavItem to="/companyDashboard/companyAnalitics" icon={AnaliticsIcon} activeIcon={ActiveAnaliticsIcon} text="Analitics" />
+                        <NavItem to="/companyDashboard/companyprofile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />
+                        <NavItem to="/companyDashboard/companysettings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
+                    </div> */}
+
+                    <li className='px-4 py-2 border-gray-700'>
+                        <NavItem to="/companyDashboard" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" end={true} />
                     </li>
-                    <li className='p-4 border-gray-700'>
-                        <NavItem to="/renterDashboard/myBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="My Bookings" />
+                    <li className='px-4 py-2 border-gray-700'>
+                        <NavItem to="/companyDashboard/manageMachines" icon={ManageMachinesIcon} activeIcon={ActiveManageMachinesIcon} text="Manage Machines" end={true} />
                     </li>
-                    <li className='p-4 border-gray-700'>
-                        <NavItem to="/renterDashboard/profile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />
+                    <li className='px-4 py-2 border-gray-700'>
+                        <NavItem to="/companyDashboard/addMachines" icon={PlusIcon} activeIcon={ActivePlusIcon} text="Add Machine" end={true} />
                     </li>
-                    <li className='p-4 border-gray-700'>
-                        <NavItem to="/renterDashboard/settings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
+                    <li className='px-4 py-2 border-gray-700'>
+                        <NavItem to="/companyDashboard/companyAnalitics" icon={AnaliticsIcon} activeIcon={ActiveAnaliticsIcon} text="Analitics" />
+                    </li>
+                    <li className='px-4 py-2 border-gray-700'>
+                        <NavItem to="/companyDashboard/companyBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="My Bookings" />
+                    </li>
+                    <li className='px-4 py-2 border-gray-700'>
+                        <NavItem to="/companyDashboard/companyprofile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />
+                    </li>
+                    <li className='px-4 py-2 border-gray-700'>
+                        <NavItem to="/companyDashboard/companysettings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
                     </li>
                     {!token ? (
                         <>
@@ -151,9 +177,9 @@ const CompanyDashboardNavBar = () => {
                     ) : (
                         <>
                             <li className='p-4 border-gray-700'>
-                                <div className='flex px-2 gap-4 rounded-md justify-start items-center hover:bg-primaryBtn'>
+                                <div className='flex px-2 gap-4 rounded-md justify-start items-center'>
                                     <MdLogout />
-                                    <button onClick={() => { handleNav(); handleLogout(); }} className=' block py-2 transition-colors font-medium text-primary duration-200'>
+                                    <button onClick={() => { handleNav(); handleLogout(); }} className=' block py-2 hover:text-blue-400 hover:text-[17px] hover cursor-pointer transition-colors font-medium text-primary duration-200'>
                                         Logout
                                     </button>
                                 </div>

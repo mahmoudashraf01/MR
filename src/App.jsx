@@ -36,6 +36,7 @@ import AdminMachinesManagment from './pages/Dashboard/Admin/Navigations/AdminMac
 import AdminSettings from './pages/Dashboard/Admin/Navigations/AdminSettings'
 import UsersManagment from './pages/Dashboard/Admin/Navigations/UsersManagment'
 import RenterOverview from './pages/Dashboard/Renter/Navigations/RenterOverview'
+import CompanyAnalysis from './pages/Dashboard/Company/Navigations/CompanyAnalysis'
 
 
 
@@ -78,6 +79,7 @@ function App() {
         { path: 'manageMachines', element: <ManageMachines /> },
         { path: 'addMachines', element: <AddMachines /> },
         { path: 'companyBookings', element: <Bookings /> },
+        { path: 'companyAnalitics', element: <CompanyAnalysis /> },
         { path: 'companyprofile', element: <CompanyProfile /> },
         { path: 'companysettings', element: <CompanySettings /> },
       ],
