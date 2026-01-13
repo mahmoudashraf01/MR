@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'sonner';
 import { Spinner } from '@/components/ui/spinner';
 import { changePassword, resetChangePasswordState } from '../../../../slices/Auth/ChangePassword';
-import DropDownArrow from '../../../../assets/minusArrow.svg';
 import {
     Dialog,
     DialogContent,

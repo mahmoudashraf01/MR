@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import CardInfo from '../../Components/CardInfo';
 import ActiveBookingsIcon from '../../../../assets/activeBookinsIcon.svg';
 import greendDollarIcon from '../../../../assets/greenDollarIcon.svg';
 import yellowDollarIcon from '../../../../assets/yellowDoollarIcon.svg';
@@ -9,7 +8,6 @@ import DecreaseArrow from '../../../../assets/decreaseArrow.svg';
 import DropDownArrow from '../../../../assets/minusArrow.svg';
 import FilterIcon from '../../../../assets/filterIcon.svg';
 import CompanyCardInfo from './Components/OverView/CompanyCardInfo';
-import AdminMonthlyRevenue from '../../Admin/Components/Overview/AdminMonthlyRevenue';
 import MonthlyRevenueChart from './Components/OverView/MonthlyRevenueChart';
 import CategoryUtaliztionChart from './Components/Analitics/CategoryUtaliztionChart';
 import ProgressBar from './Components/OverView/ProgressBar';

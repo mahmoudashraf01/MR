@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import CardInfo from '../../Components/CardInfo';
 import RenterActiveBookingsIcon from '../../../../assets/renterActiveBookingsIcon.svg';
 import CompletedRentalsIcon from '../../../../assets/completedRentalsIcon.svg';
 import CanceledRentalsIcon from '../../../../assets/canceledRentalsIcon.svg';

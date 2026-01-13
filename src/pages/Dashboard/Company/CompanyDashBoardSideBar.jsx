@@ -1,6 +1,5 @@
 import { memo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../../slices/SaveTokenSlice';
 import LeftArrowIcon from '../../../assets/leftArrowIcon.svg';
