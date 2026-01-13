@@ -6,7 +6,6 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import CompanyPlaceholder from '../../../../assets/CompaniesIcon.svg';
-import MachinePlaceholder from '../../../../assets/machine2.jpeg';
 
 const DetailRow = ({ label, value, isStatus, className = "" }) => (
     <div className={`flex justify-between items-center py-2 border-b border-gray-100 last:border-0 ${className}`}>
@@ -16,7 +15,7 @@ const DetailRow = ({ label, value, isStatus, className = "" }) => (
                 {value === true ? "Verified" : value === false ? "Non-Verified" : value}
             </span>
         ) : (
-            <span className="text-sm font-semibold text-gray-800 text-right max-w-[60%] break-words">{value || "N/A"}</span>
+            <span className="text-sm font-semibold text-gray-800 text-right max-w-[60%] wrap-break-words">{value || "N/A"}</span>
         )}
     </div>
 );

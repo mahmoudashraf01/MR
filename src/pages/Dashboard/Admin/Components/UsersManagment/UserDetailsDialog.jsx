@@ -20,7 +20,7 @@ const DetailRow = ({ label, value, isStatus, isVerified, className = "" }) => (
                 {value}
             </span>
         ) : (
-            <span className="text-sm font-semibold text-gray-800 text-right max-w-[60%] break-words">{value || "N/A"}</span>
+            <span className="text-sm font-semibold text-gray-800 text-right max-w-[60%] wrap-break-words">{value || "N/A"}</span>
         )}
     </div>
 );

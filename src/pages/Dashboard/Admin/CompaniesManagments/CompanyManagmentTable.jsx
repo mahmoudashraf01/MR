@@ -1,10 +1,8 @@
 import { memo, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPublicMachines } from '../../../../slices/GetAllmachinesByPage';
-import SearchBtn from '../../../../assets/search.svg';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { FaArrowRight } from 'react-icons/fa';
-import DropDownArrow from '../../../../assets/dropdownArrow.svg';
 import TrashIcon from '../../../../assets/trashIcon.svg';
 import EditIcon from '../../../../assets/editIcon.svg';
 import EyeIcon from '../../../../assets/eyeIcon.svg';

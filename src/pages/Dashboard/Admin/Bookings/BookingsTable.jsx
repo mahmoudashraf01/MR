@@ -4,7 +4,7 @@ import { memo, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllBookings } from '../../../../slices/Bookings/getAllBookings';
 import { updateBookingStatus } from '../../../../slices/Bookings/ChangeBookingStatus';
-import DropDownArrow from '../../../../assets/dropdownArrow.svg';
+import DropDownArrow from '../../../../assets/dropDownArrow.svg';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { FaArrowRight } from 'react-icons/fa';
 import SkeletonTable from '../Skeletons/SkeletonTable';
