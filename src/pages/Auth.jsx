@@ -2,12 +2,13 @@ import { memo } from 'react';
 import AuthImg from '../assets/auth.png'
 import CompnyRegisterLayout from '../layouts/CompnyRegisterLayout';
 import Logo from '../assets/logo2.svg'
+import BackArrowIcon from '../assets/backArrowIcon.svg'
+import { NavLink } from 'react-router-dom';
 
 const Auth = () => {
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen bg-[#F4F5F7]">
-            <div className="relative hidden lg:flex items-center justify-center rounded-r-3xl overflow-hidden">
-                {/* الصورة */}
+        <div className="relative grid grid-cols-1 justify-center xl:grid-cols-[1.2fr_1fr] min-h-screen bg-[#F4F5F7]">
+            <div className="relative hidden xl:flex items-center justify-center rounded-r-3xl overflow-hidden">
                 <img
                     src={AuthImg}
                     alt="Auth background"
@@ -24,7 +25,17 @@ const Auth = () => {
                     </p>
                 </div>
             </div>
-            <CompnyRegisterLayout />
+            <NavLink to={'/'} className={`absolute top-4 right-4`}>
+                <button className='flex gap-2 hover:scale-105 cursor-pointer justify-center items-center top-4 right-4'>
+                    <img src={BackArrowIcon} alt="" />
+                    <h1 className='text-secondary'>
+                        Back to Home
+                    </h1>
+                </button>
+            </NavLink>
+            <div className='w-full flex mt-10 justify-center items-center'> 
+                <CompnyRegisterLayout />
+            </div>
         </div>
     );
 };

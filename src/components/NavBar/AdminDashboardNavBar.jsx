@@ -18,6 +18,13 @@ import ProfileIcon from '../../assets/profileIcon.svg';
 import ActiveProfileIcon from '../../assets/activeProfileIcon.svg';
 import SettingIcon from '../../assets/SettingIcon.svg';
 import ActiveSettingIcon from '../../assets/activeSettingIcon.svg';
+import CategoryIcon from '../../assets/categoryIcon.svg';
+import ActiveCategoryIcon from '../../assets/activeCategoryIcon.svg';
+import ActiveCompaniesIcon from '../../assets/activeCompaniesIcon.svg';
+import CompaniesIcon from '../../assets/CompaniesIcon.svg';
+import ActiveManageMachinesIcon from '../../assets/ActiveManageMachineIcon.svg';
+import ManageMachinesIcon from '../../assets/manageMachineIcon.svg';
+
 
 const AdminDashboardNavBar = () => {
     const [nav, setNav] = useState(true);
@@ -122,17 +129,27 @@ const AdminDashboardNavBar = () => {
                             <AiOutlineClose size={20} className='text-white' />
                         </button>
                     </div>
-                    <li className='p-4 border-gray-700'>
-                        <NavItem to="/renterDashboard" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" end={true} />
+
+                    <li className='px-4 py-2 border-gray-700'>
+                        <NavItem to="/adminDashboard" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" end={true} />
                     </li>
-                    <li className='p-4 border-gray-700'>
-                        <NavItem to="/renterDashboard/myBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="My Bookings" />
+                    <li className='px-4 py-2 border-gray-700'>
+                        <NavItem to="/adminDashboard/companyManagment" icon={CompaniesIcon} activeIcon={ActiveCompaniesIcon} text="Companies" />
                     </li>
-                    <li className='p-4 border-gray-700'>
-                        <NavItem to="/renterDashboard/profile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />
+                    <li className='px-4 py-2 border-gray-700'>
+                        <NavItem to="/adminDashboard/machineManagment" icon={ManageMachinesIcon} activeIcon={ActiveManageMachinesIcon} text="Machines" />
                     </li>
-                    <li className='p-4 border-gray-700'>
-                        <NavItem to="/renterDashboard/settings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
+                    <li className='px-4 py-2 border-gray-700'>
+                        <NavItem to="/adminDashboard/categoryManagment" icon={CategoryIcon} activeIcon={ActiveCategoryIcon} text="Categories" />
+                    </li>
+                    <li className='px-4 py-2 border-gray-700'>
+                        <NavItem to="/adminDashboard/adminBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="Bookings" />
+                    </li>
+                    <li className='px-4 py-2 border-gray-700'>
+                        <NavItem to="/adminDashboard/allUsers" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Users" />
+                    </li>
+                    <li className='px-4 py-2 border-gray-700'>
+                        <NavItem to="/adminDashboard/adminSettings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
                     </li>
                     {!token ? (
                         <>
@@ -150,9 +167,9 @@ const AdminDashboardNavBar = () => {
                     ) : (
                         <>
                             <li className='p-4 border-gray-700'>
-                                <div className='flex px-2 gap-4 rounded-md justify-start items-center hover:bg-primaryBtn'>
+                                <div className='flex px-2 gap-4 rounded-md justify-start items-center '>
                                     <MdLogout />
-                                    <button onClick={() => { handleNav(); handleLogout(); }} className=' block py-2 transition-colors font-medium text-primary duration-200'>
+                                    <button onClick={() => { handleNav(); handleLogout(); }} className='block py-2 hover:text-blue-400 hover:text-[17px] hover cursor-pointer transition-colors font-medium text-primary duration-200'>
                                         Logout
                                     </button>
                                 </div>

@@ -18,8 +18,6 @@ import ActiveProfileIcon from '../../../assets/activeProfileIcon.svg';
 import SettingIcon from '../../../assets/SettingIcon.svg';
 import ActiveSettingIcon from '../../../assets/activeSettingIcon.svg';
 import ActiveManageMachinesIcon from '../../../assets/ActiveManageMachineIcon.svg';
-import ActivePlusIcon from '../../../assets/ActivePlusIcon.svg';
-import PlusIcon from '../../../assets/plusIcon.svg';
 import ManageMachinesIcon from '../../../assets/manageMachineIcon.svg';
 
 import LogOutIcon from '../../../assets/LogOutIcon.svg';
@@ -41,7 +39,7 @@ const AdminDashBoardSideBar = () => {
                 <div className='px-5 py-8'>
                     <NavItem to="/adminDashboard" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" end={true} />
                     <NavItem to="/adminDashboard/companyManagment" icon={CompaniesIcon} activeIcon={ActiveCompaniesIcon} text="Companies" />
-                    <NavItem to="/adminDashboard/cmachineManagment" icon={ManageMachinesIcon} activeIcon={ActiveManageMachinesIcon} text="Machines" />
+                    <NavItem to="/adminDashboard/machineManagment" icon={ManageMachinesIcon} activeIcon={ActiveManageMachinesIcon} text="Machines" />
                     <NavItem to="/adminDashboard/categoryManagment" icon={CategoryIcon} activeIcon={ActiveCategoryIcon} text="Categories" />
                     <NavItem to="/adminDashboard/adminBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="Bookings" />
                     <NavItem to="/adminDashboard/allUsers" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Users" />

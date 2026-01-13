@@ -92,7 +92,7 @@ function App() {
         { index: true, element: <AdminOverView /> },
         { path: 'companyManagment', element: <CompanyManagment /> },
         { path: 'categoryManagment', element: <CategoryManagment /> },
-        { path: 'cmachineManagment', element: <AdminMachinesManagment /> },
+        { path: 'machineManagment', element: <AdminMachinesManagment /> },
         { path: 'adminBookings', element: <AdminBookings /> },
         { path: 'allUsers', element: <UsersManagment /> },
         { path: 'adminSettings', element: <AdminSettings /> },

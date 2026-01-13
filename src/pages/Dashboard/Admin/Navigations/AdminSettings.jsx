@@ -1,10 +1,18 @@
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'sonner';
 import { Spinner } from '@/components/ui/spinner';
 import { changePassword, resetChangePasswordState } from '../../../../slices/Auth/ChangePassword';
 import DropDownArrow from '../../../../assets/minusArrow.svg';
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription,
+    DialogFooter,
+} from "@/components/ui/dialog";
 
 const labelBase = "block text-sm font-medium text-navColor mb-1";
 
@@ -14,6 +22,8 @@ const selectBase =
 const AdminSettings = () => {
     const dispatch = useDispatch();
     const { loading, success, error } = useSelector((state) => state.changePassword);
+    const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+    const [isErrorOpen, setIsErrorOpen] = useState(false);
 
     const {
         register,
@@ -45,18 +55,12 @@ const AdminSettings = () => {
             });
         }
         if (success) {
-            toast("Password changed successfully", {
-                icon: <span className="text-lg">✅</span>,
-                className: "text-green-600",
-            });
+            setIsSuccessOpen(true);
             reset(); // Clear inputs
             dispatch(resetChangePasswordState());
         }
         if (error) {
-            toast(error, {
-                icon: <span className="text-lg">❌</span>,
-                className: "text-red-600",
-            });
+            setIsErrorOpen(true);
             dispatch(resetChangePasswordState());
         }
     }, [loading, success, error, dispatch, reset]);
@@ -152,7 +156,7 @@ const AdminSettings = () => {
                                 className={`w-full sm:w-57 px-10 py-2 text-white rounded-md transition duration-200
                                     ${(!isDirty || !isValid || loading)
                                         ? 'bg-blue-300 cursor-not-allowed opacity-70'
-                                        : 'bg-primaryBtn hover:bg-blue-500'
+                                        : 'bg-primaryBtn hover:bg-blue-500 cursor-pointer'
                                     }`}
                             >
                                 {loading ? (
@@ -166,29 +170,60 @@ const AdminSettings = () => {
                             </button>
                         </div>
                     </form>
-
-                    {/* Language Settings */}
-                    <div className="mb-10">
-                        <h3 className="text-lg font-medium mb-3">
-                            Language Settings
-                        </h3>
-
-                        <div className="relative">
-                            <label className={labelBase}>Language</label>
-                            <select className={selectBase}>
-                                <option>English</option>
-                                <option>Arabic</option>
-                                <option>Frensh</option>
-                            </select>
-                            <img
-                                src={DropDownArrow}
-                                alt="arrow"
-                                className="absolute right-3 top-9 w-4 h-4 pointer-events-none"
-                            />
-                        </div>
-                    </div>
                 </div>
             </div>
+
+            {/* Success Dialog */}
+            <Dialog open={isSuccessOpen} onOpenChange={setIsSuccessOpen}>
+                <DialogContent className="sm:max-w-md bg-white">
+                    <DialogHeader>
+                        <DialogTitle className="text-center text-xl">Success</DialogTitle>
+                    </DialogHeader>
+                    <div className="flex flex-col items-center justify-center space-y-4 py-4">
+                        <div className="rounded-full bg-green-100 p-3">
+                            <span className="text-4xl">✅</span>
+                        </div>
+                        <p className="text-center text-gray-600">
+                            Password changed successfully
+                        </p>
+                    </div>
+                    <DialogFooter className="sm:justify-center">
+                        <button
+                            type="button"
+                            onClick={() => setIsSuccessOpen(false)}
+                            className="bg-primaryBtn md:w-50 text-white px-8 py-2 rounded-md hover:opacity-90 transition-opacity cursor-pointer"
+                        >
+                            Okay
+                        </button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* Error Dialog */}
+            <Dialog open={isErrorOpen} onOpenChange={setIsErrorOpen}>
+                <DialogContent className="sm:max-w-md bg-white">
+                    <DialogHeader>
+                        <DialogTitle className="text-center text-xl text-red-600">Error</DialogTitle>
+                    </DialogHeader>
+                    <div className="flex flex-col items-center justify-center space-y-4 py-4">
+                        <div className="rounded-full bg-red-100 p-3">
+                            <span className="text-4xl">❌</span>
+                        </div>
+                        <p className="text-center text-gray-600">
+                            {typeof error === 'string' ? error : "Failed to change password"}
+                        </p>
+                    </div>
+                    <DialogFooter className="sm:justify-center">
+                        <button
+                            type="button"
+                            onClick={() => setIsErrorOpen(false)}
+                            className="bg-[#EF5350] md:w-50 cursor-pointer text-white px-8 py-2 rounded-md hover:opacity-90 transition-opacity"
+                        >
+                            Close
+                        </button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };

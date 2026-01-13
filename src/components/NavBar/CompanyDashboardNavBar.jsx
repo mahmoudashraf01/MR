@@ -130,16 +130,6 @@ const CompanyDashboardNavBar = () => {
                         </button>
                     </div>
 
-                    {/* <div className='px-5 py-8'>
-                        <NavItem to="/companyDashboard" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" end={true} />
-                        <NavItem to="/companyDashboard/manageMachines" icon={ManageMachinesIcon} activeIcon={ActiveManageMachinesIcon} text="Manage Machines" />
-                        <NavItem to="/companyDashboard/addMachines" icon={PlusIcon} activeIcon={ActivePlusIcon} text="Add Machines" />
-                        <NavItem to="/companyDashboard/companyBookings" icon={BookingIcon} activeIcon={ActiveBookingIcon} text="Bookings" />
-                        <NavItem to="/companyDashboard/companyAnalitics" icon={AnaliticsIcon} activeIcon={ActiveAnaliticsIcon} text="Analitics" />
-                        <NavItem to="/companyDashboard/companyprofile" icon={ProfileIcon} activeIcon={ActiveProfileIcon} text="Profile" />
-                        <NavItem to="/companyDashboard/companysettings" icon={SettingIcon} activeIcon={ActiveSettingIcon} text="Settings" />
-                    </div> */}
-
                     <li className='px-4 py-2 border-gray-700'>
                         <NavItem to="/companyDashboard" icon={OverviewIcon} activeIcon={ActiveOverviewIcon} text="Overview" end={true} />
                     </li>

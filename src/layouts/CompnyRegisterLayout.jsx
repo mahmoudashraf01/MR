@@ -20,7 +20,7 @@ const CompanyRegisterLayout = () => {
     );
 
     return (
-        <div className="flex items-center justify-center min-h-[calc(100vh-6rem)] p-6">
+        <div className="w-full flex items-center justify-center min-h-[calc(100vh-6rem)] p-6">
             <div className="w-full md:mx-20 lg:max-w-lg bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 animate-[fadeIn_0.5s_ease-out]">
 
                 {/* Tabs */}

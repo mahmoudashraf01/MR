@@ -135,21 +135,25 @@ const NavBar = () => {
                                 <div className="p-4">
                                     {displayRole && (
                                         <div className='mb-3'>
-                                            <span className='text-xs text-white bg-secondary hover:bg-secondary/80 px-2 py-1 rounded'>
-                                                {
-                                                    displayRole.toLowerCase() === 'renter' ?
-                                                        <NavLink to="/renterDashboard" className="text-navColor ">
+                                            <div className='flex justify-center items-center text-xs text-navColor font-semibold w-full text-center bg-secondary hover:bg-secondary/80 px-2 py-1 rounded'>
+                                            {
+                                                displayRole.toLowerCase() === 'renter' ?
+                                                    <NavLink to="/renterDashboard" className="w-full">
+                                                        <h1 className="text-center w-full">
+                                                            Go to Dashboard
+                                                        </h1>
+                                                    </NavLink>
+                                                    : displayRole.toLowerCase() === 'admin'
+                                                        ? <NavLink to="/adminDashboard" className="text-center w-full">
                                                             Go to Dashboard
                                                         </NavLink>
-                                                        : displayRole.toLowerCase() === 'admin'
-                                                            ? <NavLink to="/adminDashboard" className="text-navColor ">
+                                                        : <NavLink to="/companyDashboard" className="w-full">
+                                                            <h1 className="text-center w-full">
                                                                 Go to Dashboard
-                                                            </NavLink>
-                                                            : <NavLink to="/companyDashboard" className="text-navColor ">
-                                                                Go to Dashboard
-                                                            </NavLink>
-                                                }
-                                            </span>
+                                                            </h1>
+                                                        </NavLink>
+                                            }
+                                        </div>
                                         </div>
                                     )}
                                     <div className=" flex gap-2 text-xs mb-3 leading-relaxed">

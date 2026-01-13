@@ -151,9 +151,9 @@ const RenterDashboardNavBar = () => {
                     ) : (
                         <>
                             <li className='p-4 border-gray-700'>
-                                <div className='flex px-2 gap-4 rounded-md justify-start items-center hover:bg-primaryBtn'>
+                                <div className='flex px-2 gap-4 rounded-md justify-start items-center'>
                                     <MdLogout />
-                                    <button onClick={() => { handleNav(); handleLogout(); }} className=' block py-2 transition-colors font-medium text-primary duration-200'>
+                                    <button onClick={() => { handleNav(); handleLogout(); }} className='block py-2 hover:text-blue-400 hover:text-[17px] hover cursor-pointer transition-colors font-medium text-primary duration-200'>
                                         Logout
                                     </button>
                                 </div>
