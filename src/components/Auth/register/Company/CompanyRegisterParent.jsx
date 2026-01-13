@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { registerCompany } from "../../../../slices/RegisterCompanySlice";
 
 import CompanyDataForm1 from "./components/CompanyDataForm1";
@@ -8,6 +9,7 @@ import CompanyDataForm3 from "./components/CompanyDataForm3";
 
 const CompanyRegisterParent = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // Redux state
     const { loading, data, error } = useSelector((state) => state.registerCompany);
@@ -41,6 +43,7 @@ const CompanyRegisterParent = () => {
 
         if (registerCompany.fulfilled.match(result)) {
             alert("🎉 Company registered successfully!");
+            navigate("/login");
         }
 
         if (registerCompany.rejected.match(result)) {

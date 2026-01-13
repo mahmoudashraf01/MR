@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { registerRenter } from "../../../../slices/RegisterRenterSlice";
 import RenterDataForm1 from "./components/RenterDataForm1";
 import RenterDataForm2 from "./components/RenterDataForm2";
 
 const RenterRegisterParent = () => {
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     // Redux state
     const { loading, data, error } = useSelector((state) => state.registerRenter);
 
@@ -38,6 +39,7 @@ const RenterRegisterParent = () => {
 
         if (registerRenter.fulfilled.match(result)) {
             alert("🎉 Company registered successfully!");
+            navigate("/login");
         }
 
         if (registerRenter.rejected.match(result)) {
