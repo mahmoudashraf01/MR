@@ -19,7 +19,7 @@ import ActivePlusIcon from '../../../assets/ActivePlusIcon.svg';
 import PlusIcon from '../../../assets/plusIcon.svg';
 import ManageMachinesIcon from '../../../assets/manageMachineIcon.svg';
 
-import LogOutIcon from '../../../assets/LogOutIcon.svg';
+import LogOutIcon from '../../../assets/logOutIcon.svg';
 
 
 

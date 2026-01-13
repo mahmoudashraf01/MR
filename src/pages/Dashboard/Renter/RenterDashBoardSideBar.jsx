@@ -14,8 +14,7 @@ import ProfileIcon from '../../../assets/profileIcon.svg';
 import ActiveProfileIcon from '../../../assets/activeProfileIcon.svg';
 import SettingIcon from '../../../assets/settingIcon.svg';
 import ActiveSettingIcon from '../../../assets/activeSettingIcon.svg';
-import LogOutIcon from '../../../assets/LogOutIcon.svg';
-import MyBookings from './Navigations/MyBookings';
+import LogOutIcon from '../../../assets/logOutIcon.svg';
 
 
 const RenterDashBoardSideBar = () => {
