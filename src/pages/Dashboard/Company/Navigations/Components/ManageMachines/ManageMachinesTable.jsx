@@ -23,7 +23,7 @@ const columns = [
 
 const ManageMachinesTable = () => {
     const dispatch = useDispatch();
-    const { machines, loading, totalPages } = useSelector((state) => state.privateMachines);
+    const { machines, loading, totalPages, searchParams } = useSelector((state) => state.privateMachines);
     const { loading: deleteLoading, error: deleteError, success: deleteSuccess } = useSelector((state) => state.deleteMachine);
     const tableRef = useRef(null);
 
@@ -52,7 +52,17 @@ const ManageMachinesTable = () => {
     };
 
     useEffect(() => {
-        dispatch(fetchPrivateMachines(currentPage));
+        setCurrentPage(1);
+    }, [searchParams.search, searchParams.category_id, searchParams.status, searchParams.location_city]);
+
+    useEffect(() => {
+        dispatch(fetchPrivateMachines({
+            page: currentPage,
+            search: searchParams.search || undefined,
+            category_id: searchParams.category_id || undefined,
+            status: searchParams.status || undefined,
+            location_city: searchParams.location_city || undefined,
+        }));
     }, [dispatch, currentPage]);
 
     useEffect(() => {
@@ -66,7 +76,13 @@ const ManageMachinesTable = () => {
             });
             setDeletingId(null);
             dispatch(resetDeleteState());
-            dispatch(fetchPrivateMachines(currentPage));
+            dispatch(fetchPrivateMachines({
+                page: currentPage,
+                search: searchParams.search || undefined,
+                category_id: searchParams.category_id || undefined,
+                status: searchParams.status || undefined,
+                location_city: searchParams.location_city || undefined,
+            }));
             const timer = setTimeout(() => setAlertInfo(prev => ({ ...prev, show: false })), 3000);
             return () => clearTimeout(timer);
         }
@@ -247,7 +263,7 @@ const ManageMachinesTable = () => {
 
                                         {activeColumn === "status" && (
                                             <span className={`px-3 py-1 text-xs rounded-full text-white ${machine.availability_status === 'available' ? 'bg-primaryBtn' : 'bg-red-500'}`}>
-                                                {machine.availability_status}
+                                                {(machine.availability_status).charAt(0).toUpperCase() + (machine.availability_status).slice(1)}
                                             </span>
                                         )}
 
@@ -286,9 +302,14 @@ const ManageMachinesTable = () => {
                                         ${machine.daily_rate} / Day
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3">
-                                        <span className={`px-3 py-1 text-xs rounded-full text-white ${machine.availability_status === 'available' ? 'bg-primaryBtn' : 'bg-red-500'}`}>
-                                            {machine.availability_status}
-                                        </span>
+                                        <button className={`w-30 h-8 text-xs rounded-xl
+                                        ${machine.availability_status === 'rented' ? "bg-primaryBtn" : machine.availability_status === 'available' ? 'bg-[#68BB5FCC]' : "bg-[#EF5350CC]"}`}>
+                                            <h1
+                                                className=' px-5 py-1 text-xs rounded-full text-white'
+                                            >
+                                                {(machine.availability_status).charAt(0).toUpperCase() + (machine.availability_status).slice(1)}
+                                            </h1>
+                                        </button>
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3">
                                         <div className="flex gap-3">

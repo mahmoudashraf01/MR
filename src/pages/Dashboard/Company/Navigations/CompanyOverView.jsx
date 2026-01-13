@@ -12,6 +12,7 @@ import DropDownArrow from '../../../../assets/minusArrow.svg';
 import ProgressBar from './Components/OverView/ProgressBar';
 import MonthlyRevenueChart from './Components/OverView/MonthlyRevenueChart';
 import MachineUtaliztionChart from './Components/OverView/MachineUtaliztionChart';
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -178,24 +179,30 @@ const CompanyOverView = () => {
                 </div>
 
                 <div className='flex flex-col gap-4 border border-[#3A86FF26] p-5 rounded-2xl'>
-                    <div className='flex gap-2'>
-                        <img src={AddMachineIcon} alt="" />
+                    <div className='flex gap-2 hover:bg-blue-100 p-2 rounded-2xl'>
+                        <NavLink to={'/companyDashboard/addMachines'}>
+                            <img src={AddMachineIcon} alt="" className='hover: cursor-pointer' />
+                        </NavLink>
                         <div className='flex flex-col gap-2'>
                             <h1 className='font-semibold text-navColor'>Add Machine</h1>
                             <h1 className='font-medium text-[10px] text-[#16163199]'>Add a new machine to your inventory</h1>
                         </div>
                     </div>
 
-                    <div className='flex gap-2'>
-                        <img src={ViewBookingsIcon} alt="" />
+                    <div className='flex gap-2 hover:bg-blue-100 p-2 rounded-2xl'>
+                        <NavLink to={'/companyDashboard/companyBookings'}>
+                            <img src={ViewBookingsIcon} alt="" className='cursor-pointer' />
+                        </NavLink>
                         <div className='flex flex-col gap-2'>
                             <h1 className='font-semibold text-navColor'>View Bookings</h1>
                             <h1 className='font-medium text-[10px] text-[#16163199]'>Manage and review all bookings</h1>
                         </div>
                     </div>
 
-                    <div className='flex gap-2'>
-                        <img src={ManageIcon} alt="" />
+                    <div className='flex gap-2 hover:bg-blue-100 p-2 rounded-2xl'>
+                        <NavLink to={'/companyDashboard/manageMachines'}>
+                            <img src={ManageIcon} alt="" className='cursor-pointer'/>
+                        </NavLink>
                         <div className='flex flex-col gap-2'>
                             <h1 className='font-semibold text-navColor'>Manage Inventory</h1>
                             <h1 className='font-medium text-[10px] text-[#16163199]'>View and update machine inventory</h1>
