@@ -21,7 +21,7 @@ import CategoryIcon from '../../assets/categoryIcon.svg';
 import ActiveCategoryIcon from '../../assets/activeCategoryIcon.svg';
 import ActiveCompaniesIcon from '../../assets/activeCompaniesIcon.svg';
 import CompaniesIcon from '../../assets/CompaniesIcon.svg';
-import ActiveManageMachinesIcon from '../../assets/ActiveManageMachineIcon.svg';
+import ActiveManageMachinesIcon from '../../assets/activeManageMachineIcon.svg';
 import ManageMachinesIcon from '../../assets/manageMachineIcon.svg';
 
 
