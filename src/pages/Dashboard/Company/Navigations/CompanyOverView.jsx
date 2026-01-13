@@ -2,7 +2,7 @@ import { memo } from 'react';
 import TotalMachinesIcon from '../../../../assets/totalMachiensIcon.svg';
 import TotalBookingsIcon from '../../../../assets/totalBookingsIcon.svg';
 import ActivelMachinesIcon from '../../../../assets/activeMachinesIcon.svg';
-import UnderMaintanceIcon from '../../../../assets/underMaintanceIcon.svg';
+import UnderMaintanceIcon from '../../../../assets/underMaintenanceIcon.svg';
 import AddMachineIcon from '../../../../assets/addMachineIcon.svg';
 import ViewBookingsIcon from '../../../../assets/viewBookingsIcon.svg';
 import ManageIcon from '../../../../assets/manageIcon.svg';
