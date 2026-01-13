@@ -120,6 +120,18 @@ const RenterProfile = () => {
 
                             <div>
                                 <label className="block text-sm text-gray-600 mb-1">
+                                    Email
+                                </label>
+                                <input
+                                    type="text"
+                                    defaultValue={user.email}
+                                    placeholder='****************'
+                                    className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm text-gray-600 mb-1">
                                     Phone
                                 </label>
                                 <input
@@ -189,8 +201,10 @@ const RenterProfile = () => {
                                     className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
                             </div>
+                        </div>
 
-                            <div>
+                        <div className='flex flex-col justify-center items-start gap-2 mt-5'>
+                            <div className='w-full'>
                                 <label className="block text-sm text-gray-600 mb-1">
                                     Address
                                 </label>
