@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import MachineImg from '../../assets/machineImg.png'
-import machine1 from '../../assets/machine2.jpeg'
 import machine2 from '../../assets/machine3.jpeg'
 import machine3 from '../../assets/machine4.jpeg'
 import FilledStar from '../../assets/filledStar.svg'

@@ -3,7 +3,6 @@ import { useState, useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createBooking, resetCreateBookingState } from "../../slices/Bookings/CreateBookings";
 import { fetchDistanceKm, resetDistance } from "../../slices/Bookings/CalcDistance";
-import DropDownArrow from '../../assets/dropdownArrow.svg';
 import PikcupIcon from '../../assets/pikcupIcon.svg';
 import DeliveryIcon from '../../assets/delivery.svg';
 import EmailLocationyIcon from '../../assets/emailLocation.svg';
