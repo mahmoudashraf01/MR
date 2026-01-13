@@ -1,7 +1,7 @@
 import { memo, useState, useEffect } from 'react';
 import DropDownArrow from '../../../../assets/dropDownArrow.svg';
 import SearchBtn from '../../../../assets/search.svg';
-import UserManagmentTable from '../Components/UsersManagment/UserMAnagmentTable';
+import UserManagmentTable from '../Components/UsersManagment/UserManagementTable';
 
 
 const UsersManagment = () => {

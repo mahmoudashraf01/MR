@@ -34,7 +34,7 @@ import CategoryManagment from './pages/Dashboard/Admin/Navigations/CategoryManag
 import AdminBookings from './pages/Dashboard/Admin/Navigations/AdminBookings'
 import AdminMachinesManagment from './pages/Dashboard/Admin/Navigations/AdminMachinesManagment'
 import AdminSettings from './pages/Dashboard/Admin/Navigations/AdminSettings'
-import UsersManagment from './pages/Dashboard/Admin/Navigations/UsersManagment'
+import UsersManagment from './pages/Dashboard/Admin/Navigations/UserManagement'
 import RenterOverview from './pages/Dashboard/Renter/Navigations/RenterOverview'
 import CompanyAnalysis from './pages/Dashboard/Company/Navigations/CompanyAnalysis'
 
