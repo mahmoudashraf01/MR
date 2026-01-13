@@ -5,7 +5,7 @@ import Logo from '../../assets/logo2.svg';
 import ProfileImg from '../../assets/contact.jpeg'
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../slices/SaveTokenSlice';
-import DropDownArrow from '../../assets/dropdownArrow.svg';
+import DropDownArrow from '../../assets/dropDownArrow.svg';
 import UserLocationIcon from '../../assets/location2.svg';
 import LogOutIcon from '../../assets/LogOutIcon.svg';
 
