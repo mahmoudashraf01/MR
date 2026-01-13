@@ -15,7 +15,7 @@ import ActiveProfileIcon from '../../../assets/activeProfileIcon.svg';
 import SettingIcon from '../../../assets/settingIcon.svg';
 import ActiveSettingIcon from '../../../assets/activeSettingIcon.svg';
 import ActiveManageMachinesIcon from '../../../assets/activeManageMachineIcon.svg';
-import ActivePlusIcon from '../../../assets/ActivePlusIcon.svg';
+import ActivePlusIcon from '../../../assets/activePlusIcon.svg';
 import PlusIcon from '../../../assets/plusIcon.svg';
 import ManageMachinesIcon from '../../../assets/manageMachineIcon.svg';
 

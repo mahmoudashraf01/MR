@@ -19,7 +19,7 @@ import SettingIcon from '../../assets/settingIcon.svg';
 import ActiveSettingIcon from '../../assets/activeSettingIcon.svg';
 import ActiveAnaliticsIcon from '../../assets/activeAnalyticsIcon.svg';
 import ActiveManageMachinesIcon from '../../assets/ActiveManageMachineIcon.svg';
-import ActivePlusIcon from '../../assets/ActivePlusIcon.svg';
+import ActivePlusIcon from '../../assets/activePlusIcon.svg';
 import PlusIcon from '../../assets/plusIcon.svg';
 import AnaliticsIcon from '../../assets/analyticsIcon.svg';
 import ManageMachinesIcon from '../../assets/manageMachineIcon.svg';
