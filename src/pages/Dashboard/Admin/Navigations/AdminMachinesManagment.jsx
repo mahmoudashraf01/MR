@@ -1,26 +1,9 @@
 
 
-import { memo, useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPublicMachines } from '../../../../slices/GetAllmachinesByPage';
+import { memo} from 'react';
 import SearchBtn from '../../../../assets/search.svg';
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import { FaArrowRight } from 'react-icons/fa';
-import DropDownArrow from '../../../../assets/dropdownArrow.svg';
-import TrashIcon from '../../../../assets/trashIcon.svg';
-import EditIcon from '../../../../assets/editIcon.svg';
-import EyeIcon from '../../../../assets/eyeIcon.svg';
-import Machine from '../../../../assets/machine2.jpeg';
-import SkeletonTable from '../Skeletons/SkeletonTable';
+import DropDownArrow from '../../../../assets/dropDownArrow.svg';
 import AdminMachineManagmentTable from '../Components/AdminMachineManagment/AdminMachineManagmentTable';
-
-const columns = [
-    { key: "category", label: "Category" },
-    { key: "city", label: "City" },
-    { key: "owner_company", label: "Owner Company" },
-    { key: "status", label: "Status" },
-    { key: "actions", label: "Actions" },
-];
 
 const AdminMachinesManagment = () => {
 
