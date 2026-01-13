@@ -1,5 +1,5 @@
 import { memo, useRef } from 'react';
-import DropDownArrow from '../../../../assets/dropdownArrow.svg';
+import DropDownArrow from '../../../../assets/dropDownArrow.svg';
 import SearchBtn from '../../../../assets/search.svg';
 import DateIcon from '../../../../assets/dateIcon.svg';
 import BookingsTable from '../Bookings/BookingsTable';
