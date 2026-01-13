@@ -1,7 +1,6 @@
 import { memo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import DropDownArrow from '../../../../../assets/dropdownArrow.svg';
 import TrashIcon from '../../../../../assets/trashIcon.svg';
 import EditIcon from '../../../../../assets/editIcon.svg';
 import EyeIcon from '../../../../../assets/eyeIcon.svg';

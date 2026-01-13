@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import Machine from '../../../../../assets/machine2.jpeg';
 import { updateCategory, resetUpdateCategory } from '../../../../../slices/Categories/UpdateCateogry';
-import { Spinner } from '../../../../../components/ui/spinner';
 import DeleteCategoryAlert from './DeleteCategoryAlert';
 
 const UpdateCategoryDialog = ({ open, onOpenChange, category }) => {
