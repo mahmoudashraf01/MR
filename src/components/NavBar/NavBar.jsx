@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../slices/SaveTokenSlice';
 import DropDownArrow from '../../assets/dropDownArrow.svg';
 import UserLocationIcon from '../../assets/location2.svg';
-import LogOutIcon from '../../assets/LogOutIcon.svg';
+import LogOutIcon from '../../assets/logOutIcon.svg';
 
 
 const NavBar = () => {
