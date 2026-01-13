@@ -7,7 +7,7 @@ import { SkeletonField, SkeletonAvatar, SkeletonButton } from '../../Components/
 
 const RenterProfile = () => {
     const dispatch = useDispatch();
-    const { profile, loading } = useSelector((state) => state.profile);
+    const { profile, loading, error } = useSelector((state) => state.profile);
 
     useEffect(() => {
         dispatch(getProfile());
@@ -16,7 +16,7 @@ const RenterProfile = () => {
     const user = profile || {};
     console.log("Renter Profile Data:", user);
 
-    if (loading) {
+    if (loading || (!profile && !error)) {
         return (
             <div className='bg-white rounded-[40px] border border-[#B2B2B2]'>
                 <div className="max-w-6xl mx-auto p-6">
@@ -79,6 +79,14 @@ const RenterProfile = () => {
         );
     }
 
+    if (error) {
+        return (
+            <div className='bg-white rounded-[40px] border border-[#B2B2B2] p-10 flex justify-center items-center'>
+                <p className="text-red-500">Error loading profile: {typeof error === 'string' ? error : 'Unknown error'}</p>
+            </div>
+        );
+    }
+
     return (
         <div className='bg-white rounded-[40px]  border border-[#B2B2B2]'>
             <div className="max-w-6xl mx-auto p-6">
@@ -88,7 +96,7 @@ const RenterProfile = () => {
                     <div className="flex flex-col items-center order-1 lg:order-2">
                         <div className="w-32 h-32 rounded-full bg-gray-200 overflow-hidden mb-4">
                             <img
-                                src={user.renter.image || profileImg}
+                                src={user?.renter?.image || profileImg}
                                 alt="profile"
                                 className="w-full h-full object-cover"
                             />
@@ -112,7 +120,7 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    defaultValue={user.renter.renter_name}
+                                    defaultValue={user?.renter?.renter_name}
                                     placeholder='****************'
                                     className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
@@ -124,7 +132,7 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    defaultValue={user.email}
+                                    defaultValue={user?.email}
                                     placeholder='****************'
                                     className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
@@ -136,7 +144,7 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    defaultValue={user.renter.phone}
+                                    defaultValue={user?.renter?.phone}
                                     placeholder='****************'
                                     className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
@@ -148,7 +156,7 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    defaultValue={user.renter.contact_person}
+                                    defaultValue={user?.renter?.contact_person}
                                     placeholder='****************'
                                     className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
@@ -160,7 +168,7 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    defaultValue={user.renter.city}
+                                    defaultValue={user?.renter?.city}
                                     placeholder='****************'
                                     className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
@@ -172,7 +180,7 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    defaultValue={user.renter.region}
+                                    defaultValue={user?.renter?.region}
                                     placeholder='****************'
                                     className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
@@ -184,7 +192,7 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    defaultValue={user.renter.house_number}
+                                    defaultValue={user?.renter?.house_number}
                                     placeholder='****************'
                                     className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
@@ -196,7 +204,7 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    defaultValue={user.renter.postalcode}
+                                    defaultValue={user?.renter?.postalcode}
                                     placeholder='****************'
                                     className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
@@ -210,7 +218,7 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    defaultValue={user.renter.address}
+                                    defaultValue={user?.renter?.address}
                                     placeholder='****************'
                                     className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
