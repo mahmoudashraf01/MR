@@ -12,7 +12,7 @@ import AnaliticsIcon from '../../../assets/analyticsIcon.svg';
 import ActiveAnaliticsIcon from '../../../assets/activeAnalyticsIcon.svg';
 import ProfileIcon from '../../../assets/profileIcon.svg';
 import ActiveProfileIcon from '../../../assets/activeProfileIcon.svg';
-import SettingIcon from '../../../assets/SettingIcon.svg';
+import SettingIcon from '../../../assets/settingIcon.svg';
 import ActiveSettingIcon from '../../../assets/activeSettingIcon.svg';
 import ActiveManageMachinesIcon from '../../../assets/ActiveManageMachineIcon.svg';
 import ActivePlusIcon from '../../../assets/ActivePlusIcon.svg';

@@ -12,7 +12,7 @@ import BookingIcon from '../../../assets/bookingIcon.svg';
 import ActiveBookingIcon from '../../../assets/activeBookingIcon.svg';
 import ProfileIcon from '../../../assets/profileIcon.svg';
 import ActiveProfileIcon from '../../../assets/activeProfileIcon.svg';
-import SettingIcon from '../../../assets/SettingIcon.svg';
+import SettingIcon from '../../../assets/settingIcon.svg';
 import ActiveSettingIcon from '../../../assets/activeSettingIcon.svg';
 import LogOutIcon from '../../../assets/LogOutIcon.svg';
 import MyBookings from './Navigations/MyBookings';
