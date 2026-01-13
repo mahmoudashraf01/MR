@@ -1,7 +1,84 @@
-import { memo } from 'react';
-import profile from '../../../../assets/contact.jpeg';
+import { memo, useEffect } from 'react';
+import profileImg from '../../../../assets/userIcon.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProfile } from '../../../../slices/Auth/Profile';
+import { SkeletonField, SkeletonAvatar, SkeletonButton } from '../../Components/ui/Skeletons';
+
 
 const RenterProfile = () => {
+    const dispatch = useDispatch();
+    const { profile, loading } = useSelector((state) => state.profile);
+
+    useEffect(() => {
+        dispatch(getProfile());
+    }, [dispatch]);
+
+    const user = profile || {};
+    console.log("Renter Profile Data:", user);
+
+    if (loading) {
+        return (
+            <div className='bg-white rounded-[40px] border border-[#B2B2B2]'>
+                <div className="max-w-6xl mx-auto p-6">
+                    {/* Top Section */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        {/* Image Section */}
+                        <div className="flex flex-col lg:pt-20 gap-5 items-center order-1 lg:order-2">
+                            <div className='flex justify-center items-start'>
+                                <h1 className='pr-10 text-[20px] font-semibold'>Company Logo</h1>
+                            </div>
+                            <div className='flex'>
+                                <div className="mb-4">
+                                    <SkeletonAvatar size={128} />
+                                </div>
+                            </div>
+
+                            <SkeletonButton />
+                        </div>
+
+                        {/* Profile Information */}
+                        <div className="lg:col-span-2 order-2 lg:order-1">
+                            <h2 className="text-xl font-semibold mb-6">
+                                renter Profile
+                            </h2>
+
+                            <div className="space-y-4 w-full">
+                                <div className='grid lg:grid-cols-2 grid-cols-1 gap-4'>
+                                    <SkeletonField />
+                                    <SkeletonField />
+                                </div>
+
+                                <div className='grid lg:grid-cols-2 grid-cols-1 gap-4'>
+                                    <SkeletonField />
+                                    <SkeletonField />
+                                </div>
+
+                                <div>
+                                    <SkeletonField />
+                                </div>
+
+                                <div className='grid lg:grid-cols-2 grid-cols-1 gap-4'>
+                                    <SkeletonField />
+                                    <SkeletonField />
+                                </div>
+
+                                <div className='grid lg:grid-cols-2 grid-cols-1 gap-4'>
+                                    <SkeletonField />
+                                    <SkeletonField />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Edit Button */}
+                    <div className="mt-10 flex justify-center lg:justify-end">
+                        <SkeletonButton />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className='bg-white rounded-[40px]  border border-[#B2B2B2]'>
             <div className="max-w-6xl mx-auto p-6">
@@ -11,7 +88,7 @@ const RenterProfile = () => {
                     <div className="flex flex-col items-center order-1 lg:order-2">
                         <div className="w-32 h-32 rounded-full bg-gray-200 overflow-hidden mb-4">
                             <img
-                                src={profile}
+                                src={user.renter.image || profileImg}
                                 alt="profile"
                                 className="w-full h-full object-cover"
                             />
@@ -28,14 +105,16 @@ const RenterProfile = () => {
                             Profile information
                         </h2>
 
-                        <div className="space-y-4">
+                        <div className="grid md:grid-cols-2 grid-cols-1 gap-4 w-full">
                             <div>
                                 <label className="block text-sm text-gray-600 mb-1">
                                     Full Name
                                 </label>
                                 <input
                                     type="text"
-                                    className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
+                                    defaultValue={user.renter.renter_name}
+                                    placeholder='****************'
+                                    className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
                             </div>
 
@@ -45,17 +124,69 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
+                                    defaultValue={user.renter.phone}
+                                    placeholder='****************'
+                                    className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
                             </div>
 
                             <div>
                                 <label className="block text-sm text-gray-600 mb-1">
-                                    Phone
+                                    Contact Person
                                 </label>
                                 <input
                                     type="text"
-                                    className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
+                                    defaultValue={user.renter.contact_person}
+                                    placeholder='****************'
+                                    className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm text-gray-600 mb-1">
+                                    City
+                                </label>
+                                <input
+                                    type="text"
+                                    defaultValue={user.renter.city}
+                                    placeholder='****************'
+                                    className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm text-gray-600 mb-1">
+                                    Region
+                                </label>
+                                <input
+                                    type="text"
+                                    defaultValue={user.renter.region}
+                                    placeholder='****************'
+                                    className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm text-gray-600 mb-1">
+                                    House Number
+                                </label>
+                                <input
+                                    type="text"
+                                    defaultValue={user.renter.house_number}
+                                    placeholder='****************'
+                                    className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm text-gray-600 mb-1">
+                                    Postal Code
+                                </label>
+                                <input
+                                    type="text"
+                                    defaultValue={user.renter.postalcode}
+                                    placeholder='****************'
+                                    className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
                             </div>
 
@@ -65,7 +196,9 @@ const RenterProfile = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    className="w-full border border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
+                                    defaultValue={user.renter.address}
+                                    placeholder='****************'
+                                    className="w-full border focus:outline-primaryBtn border-[#D2D2D2] rounded-md px-4 py-2 bg-white"
                                 />
                             </div>
 
