@@ -14,7 +14,6 @@ import MonthlyRevenueChart from './Components/OverView/MonthlyRevenueChart';
 import MachineUtaliztionChart from './Components/OverView/MachineUtaliztionChart';
 
 
-const labelBase = "block text-sm font-medium text-navColor mb-1";
 
 const selectBase =
     "w-full border rounded-md px-4 py-2 text-sm focus:outline-none appearance-none text-[#9CA3AF] border-[#D2D2D2] bg-white";

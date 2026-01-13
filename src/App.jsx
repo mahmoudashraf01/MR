@@ -35,6 +35,7 @@ import AdminBookings from './pages/Dashboard/Admin/Navigations/AdminBookings'
 import AdminMachinesManagment from './pages/Dashboard/Admin/Navigations/AdminMachinesManagment'
 import AdminSettings from './pages/Dashboard/Admin/Navigations/AdminSettings'
 import UsersManagment from './pages/Dashboard/Admin/Navigations/UsersManagment'
+import RenterOverview from './pages/Dashboard/Renter/Navigations/RenterOverview'
 
 
 
@@ -62,7 +63,7 @@ function App() {
       path: '/renterDashboard',
       element: <RenterDashboardLayout />,
       children: [
-        { index: true, element: <div className="p-8"><h1>Overview</h1><p>Welcome to your dashboard overview.</p></div> },
+        { index: true, element: <RenterOverview /> },
         { path: 'myBookings', element: <MyBookings /> },
         { path: 'profile', element: <RenterProfile /> },
         { path: 'settings', element: <RenterSettings /> },

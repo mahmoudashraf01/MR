@@ -1,23 +1,15 @@
 import { memo } from 'react';
 import ActiveBookingsIcon from '../../../../assets/activeBookinsIcon.svg';
 import VerifiedCompaniesIcon from '../../../../assets/verifiedCompaniesIcon.svg';
-import UnderMaintanceIcon from '../../../../assets/underMaintanceIcon.svg';
-import AddMachineIcon from '../../../../assets/addMachineIcon.svg';
-import ViewBookingsIcon from '../../../../assets/viewBookingsIcon.svg';
 import TotalCompaniesIcon from '../../../../assets/totalCompaniesIcon.svg';
 import TotalMachinesIcon from '../../../../assets/totalMachinesIcon.svg';
-import ManageIcon from '../../../../assets/manageIcon.svg';
 import IncreaseArrow from '../../../../assets/increaseArrow.svg';
 import DecreaseArrow from '../../../../assets/decreaseArrow.svg';
 import DropDownArrow from '../../../../assets/minusArrow.svg';
 import AdminMonthlyRevenue from '../Components/Overview/AdminMonthlyRevenue';
 import AdminMachineUtilization from '../Components/Overview/AdminVerificationUtaliztionChart';
-import AdminProgressBar from '../Components/Overview/AdminProgressBar';
 import CardInfo from '../../Components/CardInfo';
 import CompaniesApproval from '../Components/Overview/CompaniesApproval';
-
-
-const labelBase = "block text-sm font-medium text-navColor mb-1";
 
 const selectBase =
   "w-full border rounded-md px-4 py-2 text-sm focus:outline-none appearance-none text-[#9CA3AF] border-[#D2D2D2] bg-white";
