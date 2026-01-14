@@ -1,14 +1,18 @@
 import { memo, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPublicMachines } from '../../../../slices/GetAllmachinesByPage';
+import { fetchUsers } from '../../../../slices/UsersManagment/ListUsers';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { FaArrowRight } from 'react-icons/fa';
 import TrashIcon from '../../../../assets/trashIcon.svg';
 import EditIcon from '../../../../assets/editIcon.svg';
 import EyeIcon from '../../../../assets/eyeIcon.svg';
 import Machine from '../../../../assets/machine2.jpeg';
+import CompanyIcon from '../../../../assets/CompaniesIcon.svg';
 import SkeletonTable from '../Skeletons/SkeletonTable';
 import AdminCompanyDetailsDialog from './AdminCompanyDetailsDialog';
+import { deleteUser, resetDeleteUser } from '../../../../slices/UsersManagment/DeleteUsers';
+import DeleteCategoryAlert from '../Components/Category/DeleteCategoryAlert';
+import { Spinner } from '../../../../components/ui/spinner';
 
 
 const columns = [
@@ -19,7 +23,8 @@ const columns = [
 ];
 const CompanyManagmentTable = () => {
     const dispatch = useDispatch();
-    const { companies, loading, totalPages } = useSelector((state) => state.machinesByPage);
+    const { users, loading, totalPages } = useSelector((state) => state.listUsers);
+    const { loading: deleteLoading, success: deleteSuccess, error: deleteError } = useSelector((state) => state.deleteUser);
     const tableRef = useRef(null);
 
     const [activeColumn, setActiveColumn] = useState("city");
@@ -27,10 +32,29 @@ const CompanyManagmentTable = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [viewDialogOpen, setViewDialogOpen] = useState(false);
     const [selectedCompany, setSelectedCompany] = useState(null);
+    const [deletingId, setDeletingId] = useState(null);
 
     useEffect(() => {
-        dispatch(fetchPublicMachines(currentPage));
+        dispatch(fetchUsers({ page: currentPage, role: "company" }));
     }, [dispatch, currentPage]);
+
+    useEffect(() => {
+        if (deleteSuccess) {
+            dispatch(fetchUsers({ page: currentPage, role: "company" }));
+            const timer = setTimeout(() => {
+                dispatch(resetDeleteUser());
+                setDeletingId(null);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+        if (deleteError) {
+            const timer = setTimeout(() => {
+                dispatch(resetDeleteUser());
+                setDeletingId(null);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [deleteSuccess, deleteError, dispatch, currentPage]);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -39,9 +63,18 @@ const CompanyManagmentTable = () => {
         }
     };
 
-    const uniqueCompanies = companies?.filter((company, index, self) =>
+    const companies =
+        users?.map((user) => user.company).filter((company) => !!company) || [];
+
+    const uniqueCompanies = companies.filter((company, index, self) =>
         index === self.findIndex((c) => c.id === company.id)
-    ) || [];
+    );
+
+    const handleDeleteClick = (company) => {
+        if (!company?.user_id) return;
+        setDeletingId(company.user_id);
+        dispatch(deleteUser(company.user_id));
+    };
 
     const renderPaginationButtons = () => {
         const buttons = [];
@@ -98,6 +131,26 @@ const CompanyManagmentTable = () => {
     };
     return (
         <div ref={tableRef}>
+            {deleteSuccess && (
+                <div className="mb-4">
+                    <DeleteCategoryAlert
+                        alertTitle="Company deleted successfully"
+                        alertColor='#68BB5FCC'
+                        borderColor='#22C55E33'
+                        type="success"
+                    />
+                </div>
+            )}
+            {deleteError && (
+                <div className="mb-4">
+                    <DeleteCategoryAlert
+                        alertTitle={typeof deleteError === 'string' ? deleteError : "Failed to delete company"}
+                        alertColor='#EF5350CC'
+                        borderColor='#EF535033'
+                        type="error"
+                    />
+                </div>
+            )}
             <AdminCompanyDetailsDialog
                 open={viewDialogOpen}
                 onOpenChange={setViewDialogOpen}
@@ -170,9 +223,9 @@ const CompanyManagmentTable = () => {
                             uniqueCompanies.map((company) => (
                                 <tr key={company.id} className="border-t border-gray-300 hover:bg-blue-50 transition-colors">
                                     {/* Company Name & Image */}
-                                    <td className="px-4 py-3 flex items-center gap-3">
-                                        <img src={company.image || Machine} alt={company.company_name} className="w-8 h-8 rounded-md" />
-                                        <span className="text-sm font-medium">
+                                    <td className="px-4 py-3 flex items-center w-60 gap-3">
+                                        <img src={company.image || CompanyIcon} alt={company.company_name} className="w-8 h-8 rounded-md" />
+                                        <span className="truncate text-sm font-medium">
                                             {company.company_name}
                                         </span>
                                     </td>
@@ -203,15 +256,24 @@ const CompanyManagmentTable = () => {
                                         )}
 
                                         {activeColumn === "actions" && (
-                                            <div className="flex gap-3">
-                                                <img src={TrashIcon} alt="delete" className="w-4 h-4" />
+                                            <div className="flex gap-3 items-center">
+                                                {deleteLoading && deletingId === company.user_id ? (
+                                                    <Spinner className="w-4 h-4" />
+                                                ) : (
+                                                    <img
+                                                        src={TrashIcon}
+                                                        alt="delete"
+                                                        className="w-4 h-4 cursor-pointer"
+                                                        onClick={() => handleDeleteClick(company)}
+                                                    />
+                                                )}
                                                 <img src={EditIcon} alt="edit" className="w-4 h-4" />
                                                 <button
                                                     onClick={() => {
                                                         setSelectedCompany(company);
                                                         setViewDialogOpen(true);
                                                     }}
-                                                    className="hover:scale-110 transition-transform"
+                                                    className="hover:scale-110 transition-transform cursor-pointer"
                                                 >
                                                     <img src={EyeIcon} alt="view" className="w-4 h-4" />
                                                 </button>
@@ -237,15 +299,24 @@ const CompanyManagmentTable = () => {
                                         </button>
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3">
-                                        <div className="flex gap-3">
-                                            <img src={TrashIcon} alt="delete" className="w-4 h-4" />
+                                        <div className="flex gap-3 items-center">
+                                            {deleteLoading && deletingId === company.user_id ? (
+                                                <Spinner className="w-4 h-4" />
+                                            ) : (
+                                                <img
+                                                    src={TrashIcon}
+                                                    alt="delete"
+                                                    className="w-4 h-4 cursor-pointer"
+                                                    onClick={() => handleDeleteClick(company)}
+                                                />
+                                            )}
                                             <img src={EditIcon} alt="edit" className="w-4 h-4" />
                                             <button
                                                 onClick={() => {
                                                     setSelectedCompany(company);
                                                     setViewDialogOpen(true);
                                                 }}
-                                                className="hover:scale-110 transition-transform"
+                                                className="hover:scale-110 transition-transform cursor-pointer"
                                             >
                                                 <img src={EyeIcon} alt="view" className="w-4 h-4" />
                                             </button>
