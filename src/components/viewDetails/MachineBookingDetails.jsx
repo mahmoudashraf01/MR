@@ -235,13 +235,7 @@ const MachineBookingDetails = ({ id }) => {
                         {/* Button */}
                         <button
                             onClick={() => {
-                                // if user is logged in (token exists) open booking dialog
-                                if (token) {
-                                    setOpenDialog(true);
-                                } else {
-                                    // otherwise redirect to login page
-                                    navigate('/auth/login');
-                                }
+                                setOpenDialog(true);
                             }}
                             className="bg-primaryBtn cursor-pointer text-white py-4 rounded-xl mt-4 w-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
                         >

@@ -1,6 +1,7 @@
 // BookingDialog.jsx
 import { useState, useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import { createBooking, resetCreateBookingState } from "../../slices/Bookings/CreateBookings";
 import { fetchDistanceKm, resetDistance } from "../../slices/Bookings/CalcDistance";
 import PikcupIcon from '../../assets/pikcupIcon.svg';
@@ -17,12 +18,14 @@ import {
 } from "@/components/ui/dialog";
 
 export default function BookingDialog({ open, onOpenChange, machine }) {
+    const navigate = useNavigate();
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [openSummary, setOpenSummary] = useState(false);
     const [notes, setNotes] = useState("");
     const [userAddress, setUserAddress] = useState("");
     const [selectedDeliveryOption, setSelectedDeliveryOption] = useState(null); // 'pickup' or 'delivery'
+    const [showLoginAlert, setShowLoginAlert] = useState(false);
 
     const dispatch = useDispatch();
     const { token, user } = useSelector((state) => state.saveToken || {});
@@ -112,6 +115,7 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
     const finalTotal = subtotal + taxAndFees + deliveryCost;
 
     return (
+        <>
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[60%] w-full bg-white rounded-2xl border border-gray-100 shadow-xl py-px px-0">
 
@@ -310,6 +314,10 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
                 <DialogFooter className="p-6">
                     <button
                         onClick={() => {
+                            if (!token) {
+                                setShowLoginAlert(true);
+                                return;
+                            }
                             const bookingData = {
                                 machine_id: machine?.id,
                                 owner_company_id: machine?.company?.id,
@@ -324,12 +332,44 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
                             dispatch(createBooking(bookingData));
                         }}
                         disabled={!startDate || !endDate || isLoading}
-                        className="w-full bg-primaryBtn text-white py-3 rounded-xl font-semibold text-center hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-primaryBtn text-white py-3 rounded-xl font-semibold text-center hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                     >
                         {isLoading ? "Creating..." : "Confirm Booking"}
                     </button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
+
+        <Dialog open={showLoginAlert} onOpenChange={setShowLoginAlert}>
+            <DialogContent className="sm:max-w-[400px] w-full bg-white rounded-2xl border border-gray-100 shadow-2xl p-6">
+                <DialogHeader className="flex flex-col items-center text-center gap-2">
+                    <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-2">
+                        <span className="text-2xl">🔒</span>
+                    </div>
+                    <DialogTitle className="text-xl font-bold text-gray-900">
+                        Authentication Required
+                    </DialogTitle>
+                    <DialogDescription className="text-center text-gray-500">
+                        You must be logged in to complete your booking. <br />
+                        Please sign in to your account to continue.
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="grid grid-cols-2 gap-3 mt-6">
+                    <button
+                        onClick={() => setShowLoginAlert(false)}
+                        className="w-full py-2.5 px-4 rounded-xl bg-[#EF5350] text-white font-semibold hover:bg-[#EF5350]/90 transition duration-200 cursor-pointer"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={() => navigate('/auth/login')}
+                        className="w-full py-2.5 px-4 rounded-xl bg-primaryBtn text-white font-semibold hover:opacity-90 shadow-lg hover:shadow-xl transition duration-200 cursor-pointer"
+                    >
+                        Login
+                    </button>
+                </div>
+            </DialogContent>
+        </Dialog>
+        </>
     );
 }
