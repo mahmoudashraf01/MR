@@ -39,6 +39,8 @@ export const fetchPublicMachines = createAsyncThunk(
             if (params.category_id) queryParams.append('category_id', params.category_id);
             if (params.location_city) queryParams.append('location_city', params.location_city);
             if (params.sort) queryParams.append('sort', params.sort);
+            if (params.min_rate !== undefined) queryParams.append('min_rate', params.min_rate);
+            if (params.max_rate !== undefined) queryParams.append('max_rate', params.max_rate);
             if (params.company_id) queryParams.append('company_id', params.company_id);
 
             const response = await axios.get(`${baseURL}/machines/public?${queryParams.toString()}`);
