@@ -8,6 +8,7 @@ import { logout } from '../../slices/SaveTokenSlice';
 import DropDownArrow from '../../assets/dropDownArrow.svg';
 import UserLocationIcon from '../../assets/location2.svg';
 import LogOutIcon from '../../assets/logOutIcon.svg';
+import UserImg from '../../assets/userIcon.svg'
 
 
 const NavBar = () => {
@@ -114,8 +115,8 @@ const NavBar = () => {
                                 className="flex gap-5 justify-between items-center text-sm font-medium cursor-pointer py-2"
                             >
                                 <div className='flex justify-center items-center gap-2'>
-                                    <div className='w-8 h-8 bg-primaryBtn rounded-full overflow-hidden'>
-                                        <img src={ProfileImg} alt="profileImg" className='w-full h-full object-cover' />
+                                    <div className='w-8 h-8 bg-white rounded-full overflow-hidden'>
+                                        <img src={user?.image || UserImg} alt="profileImg" className='w-full h-full object-cover' />
                                     </div>
                                     <div className='flex flex-col justify-center items-center'>
                                         {displayName}
@@ -230,15 +231,19 @@ const NavBar = () => {
                             <div className='flex flex-col border-t border-gray-700 py-3 px-2 transition-colors font-medium text-white mt-auto'>
                                 <div className='flex justify-between items-center'>
                                     <div className='flex justify-center items-center gap-2'>
-                                        <div className='w-8 h-8 bg-primaryBtn rounded-full'></div>
+                                        <div className='w-8 h-8 bg-white rounded-full'>
+                                            <img src={user?.image || UserImg} alt="profileImg" className='w-full h-full object-cover' />
+                                        </div>
                                         <div className='flex flex-col justify-center items-start'>
-                                            {displayName}
+                                            <h1 className='text-xs'>
+                                                {displayName}
+                                            </h1>
                                             <div className=' text-[10px] text-[#D4D4D4]'>{displayRole.toLowerCase() === 'renter' ? user?.renter?.city : displayRole.toLowerCase() === 'company' ? user?.company?.city : user?.admin?.city}</div>
                                         </div>
                                     </div>
                                     {
                                         displayRole && (
-                                            <span className='text-xs text-white bg-secondary hover:bg-yellow-300 cursor-pointer ml-2 px-2 py-2 rounded'>
+                                            <span className='text-xs max-xs:text-[8px] text-white bg-secondary hover:bg-yellow-300 cursor-pointer ml-2 px-2 py-2 rounded'>
                                                 {
                                                     displayRole.toLowerCase() === 'renter' ?
                                                         <NavLink to={'/renterDashboard'}>

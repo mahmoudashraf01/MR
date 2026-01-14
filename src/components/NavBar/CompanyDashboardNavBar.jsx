@@ -68,7 +68,9 @@ const CompanyDashboardNavBar = () => {
                                 className="flex gap-5 justify-between items-center text-sm font-medium cursor-pointer py-2"
                             >
                                 <div className='flex justify-center items-center gap-2'>
-                                    <div className='w-8 h-8 bg-primaryBtn rounded-full'></div>
+                                    <div className='w-8 h-8 bg-white rounded-full'>
+                                        <img src={user?.image || UserImg} alt="profileImg" className='w-full h-full object-cover' />
+                                    </div>
                                     <div className='flex flex-col justify-center items-center'>
                                         {displayName}
                                     </div>
@@ -176,7 +178,9 @@ const CompanyDashboardNavBar = () => {
                             <div className='flex flex-col border-t border-gray-700 py-3 px-2 transition-colors font-medium text-white mt-auto'>
                                 <div className='flex justify-between items-center'>
                                     <div className='flex justify-center items-center gap-2'>
-                                        <div className='w-8 h-8 bg-primaryBtn rounded-full'></div>
+                                        <div className='w-8 h-8 bg-white rounded-full overflow-hidden'>
+                                            <img src={user?.image || UserImg} alt="profileImg" className='w-full h-full object-cover' />
+                                        </div>
                                         <div className='flex flex-col justify-center items-start'>
                                             {displayName}
                                             <div className=' text-[10px] text-[#D4D4D4]'>{displayRole.toLowerCase() === 'renter' ? user?.renter?.city : displayRole.toLowerCase() === 'company' ? user?.company?.city : user?.admin?.city}</div>
