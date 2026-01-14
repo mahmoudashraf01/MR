@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 const ViewDetails = () => {
     const { id } = useParams();
 
-    console.log("Machine ID from params:", id); // المفروض يظهر هنا
+    console.log("Machine ID from params:", id);   
     return (
         <>
             <MachineDetails id={id} />

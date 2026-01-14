@@ -17,7 +17,6 @@ const FilteredMachineCard = ({ machine }) => {
         rating,
         reviews_count,
         year,
-        technical_specifications,
         availability_status
     } = machine;
 
@@ -96,13 +95,6 @@ const FilteredMachineCard = ({ machine }) => {
                             <span className='text-xs text-gray-700 font-medium'>{year}</span>
                         </div>
                     )}
-
-                    {/* {technical_specifications && (
-                        <div className='px-2.5 py-1 bg-gray-50 rounded-md border border-gray-100'>
-                            <span className='text-xs text-gray-700 font-medium'>{power} HP</span>
-                        </div>
-                    )} */}
-
                     <div className={`px-2.5 py-1 rounded-md border ${availability_status ? "bg-green-50 border-green-100" : "bg-red-50 border-red-100"
                         }`}>
                         <span className={`text-xs font-semibold ${availability_status ? "text-green-700" : "text-red-700"

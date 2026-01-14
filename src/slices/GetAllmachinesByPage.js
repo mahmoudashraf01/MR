@@ -21,7 +21,7 @@ export const fetchPublicMachines = createAsyncThunk(
             if (typeof arg === 'number' || typeof arg === 'string') {
                 page = arg;
                 params = { ...storedParams };
-            } 
+            }
             // If arg is an object, it's a new search/filter; update params
             else if (typeof arg === 'object' && arg !== null) {
                 // If page is provided in object, use it, otherwise default to 1
@@ -34,16 +34,17 @@ export const fetchPublicMachines = createAsyncThunk(
             // Construct query parameters
             const queryParams = new URLSearchParams();
             queryParams.append('page', page);
-            
+
             if (params.search) queryParams.append('search', params.search);
             if (params.category_id) queryParams.append('category_id', params.category_id);
             if (params.location_city) queryParams.append('location_city', params.location_city);
             if (params.sort) queryParams.append('sort', params.sort);
+            if (params.company_id) queryParams.append('company_id', params.company_id);
 
             const response = await axios.get(`${baseURL}/machines/public?${queryParams.toString()}`);
 
             console.log("Fetched machines by page:", response.data);
-            
+
             // Return data along with the params used, so we can update state
             return {
                 ...response.data,
@@ -95,7 +96,7 @@ const machinesSlice = createSlice({
                 state.machines = action.payload.data || [];
                 state.totalMachines = action.payload.meta.total || 1;
                 state.totalPages = Math.ceil(action.payload.meta.total / 10) || 1;
-                
+
                 // Update search params in state
                 if (action.payload.params) {
                     state.searchParams = action.payload.params;
