@@ -5,8 +5,6 @@ import { FaArrowRight } from 'react-icons/fa';
 import MachineImg from '../../assets/machineImg.png'
 import machine2 from '../../assets/machine3.jpeg'
 import machine3 from '../../assets/machine4.jpeg'
-import FilledStar from '../../assets/filledStar.svg'
-import EmptyStar from '../../assets/emptyStar.svg'
 import Verified from '../../assets/verifyVector.svg'
 import Location from '../../assets/location2.svg'
 import LeftArrow from '../../assets/leftArrow.svg'
@@ -33,11 +31,6 @@ const MachineBookingDetails = ({ id }) => {
     const imagesArray = machine?.images?.length > 0 ? machine.images : [MachineImg, machine2, machine3];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [openDialog, setOpenDialog] = useState(false);
-
-    const navigate = useNavigate();
-    const { token } = useSelector((state) => state.saveToken || {});
-
-
 
     const nextImage = () => {
         setCurrentImageIndex((prev) =>
@@ -159,23 +152,9 @@ const MachineBookingDetails = ({ id }) => {
                             )}
                         </div>
 
-                        {/* Brand + ID */}
-                        <div className="text-sm text-gray-500 font-medium">
-                            {machine?.brand} | ID: {machine?.id}
-                        </div>
 
                         {/* Rating + Location */}
                         <div className="flex items-center gap-4 text-sm">
-
-                            <div className="flex items-center gap-1.5">
-                                <img src={FilledStar} className="w-5 h-5" />
-                                <img src={FilledStar} className="w-5 h-5" />
-                                <img src={FilledStar} className="w-5 h-5" />
-                                <img src={FilledStar} className="w-5 h-5" />
-                                <img src={EmptyStar} className="w-5 h-5" />
-                                <span className="text-gray-700 font-medium ml-1">4.8 (24 reviews)</span>
-                            </div>
-
                             {/* Location */}
                             <div className="flex items-center gap-1.5">
                                 <img src={Location} alt="loc" className="w-5 h-5" />
@@ -195,20 +174,12 @@ const MachineBookingDetails = ({ id }) => {
                             >
                                 {machine?.availability_status}
                             </span>
-
-                            {/* Example discount - static for now */}
-                            <span className="bg-red-100 rounded-full text-red-600 px-4 py-1.5 text-xs font-semibold">
-                                {Math.floor(Number(machine?.daily_rate) / Number(machine?.daily_rate + 50) * 100)}% OFF
-                            </span>
                         </div>
 
                         {/* Price */}
                         <div className="py-2">
                             <div className="text-xl font-bold text-gray-900">
                                 Price from ${machine?.daily_rate} / day
-                            </div>
-                            <div className="text-gray-400 line-through text-sm mt-1">
-                                was ${Number(machine?.daily_rate) + 50}
                             </div>
                         </div>
 

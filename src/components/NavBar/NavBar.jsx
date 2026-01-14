@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import Logo from '../../assets/logo2.svg';
 import ProfileImg from '../../assets/contact.jpeg'
@@ -13,6 +13,7 @@ import LogOutIcon from '../../assets/logOutIcon.svg';
 const NavBar = () => {
     const [nav, setNav] = useState(true);
     const [openSummary, setOpenSummary] = useState(false);
+    const location = useLocation();
 
     const handleNav = () => {
         setNav(!nav);
@@ -94,7 +95,11 @@ const NavBar = () => {
             <div className='hidden lg:flex  justify-between gap-3 items-center'>
                 {!token ? (
                     <>
-                        <NavLink to='/auth/login' className=' h-10 px-4 py-2.5 r text-[18px] font-medium text-primary  transition-all duration-200 hover:text-secondary hover:underline hover:decoration-secondary hover:underline-offset-4 hover:text-[20px]'>
+                        <NavLink
+                            to='/auth/login'
+                            state={{ from: location.pathname + location.search }}
+                            className=' h-10 px-4 py-2.5 r text-[18px] font-medium text-primary  transition-all duration-200 hover:text-secondary hover:underline hover:decoration-secondary hover:underline-offset-4 hover:text-[20px]'
+                        >
                             Login
                         </NavLink>
                         <NavLink to='/auth' className=' h-10 px-4 py-2.5 r text-[18px] font-medium text-primary  transition-all duration-200 hover:text-secondary hover:underline hover:decoration-secondary hover:underline-offset-4 hover:text-[20px]'>
@@ -136,36 +141,36 @@ const NavBar = () => {
                                     {displayRole && (
                                         <div className='mb-3'>
                                             <div className='flex justify-center items-center text-xs text-navColor font-semibold w-full text-center bg-secondary hover:bg-secondary/80 px-2 py-1 rounded'>
-                                            {
-                                                displayRole.toLowerCase() === 'renter' ?
-                                                    <NavLink to="/renterDashboard" className="w-full">
-                                                        <h1 className="text-center w-full">
-                                                            Go to Dashboard
-                                                        </h1>
-                                                    </NavLink>
-                                                    : displayRole.toLowerCase() === 'admin'
-                                                        ? <NavLink to="/adminDashboard" className="text-center w-full">
-                                                            Go to Dashboard
-                                                        </NavLink>
-                                                        : <NavLink to="/companyDashboard" className="w-full">
+                                                {
+                                                    displayRole.toLowerCase() === 'renter' ?
+                                                        <NavLink to="/renterDashboard" className="w-full">
                                                             <h1 className="text-center w-full">
                                                                 Go to Dashboard
                                                             </h1>
                                                         </NavLink>
-                                            }
-                                        </div>
+                                                        : displayRole.toLowerCase() === 'admin'
+                                                            ? <NavLink to="/adminDashboard" className="text-center w-full">
+                                                                Go to Dashboard
+                                                            </NavLink>
+                                                            : <NavLink to="/companyDashboard" className="w-full">
+                                                                <h1 className="text-center w-full">
+                                                                    Go to Dashboard
+                                                                </h1>
+                                                            </NavLink>
+                                                }
+                                            </div>
                                         </div>
                                     )}
                                     <div className=" flex gap-2 text-xs mb-3 leading-relaxed">
                                         <div className='text-[10px] text-gray-700'>{displayRole.toLowerCase() === 'renter' ? user?.renter?.city : displayRole.toLowerCase() === 'company' ? user?.company?.city : user?.admin?.city || 'Location'}</div>
                                         <img src={UserLocationIcon} alt="" />
                                     </div>
-                                    <div className='flex items-center border-t'>
-                                        <button onClick={handleLogout} className='text-left hover:text-[15px] w-full px-3 py-2 text-sm text-black rounded transition-colors'>
+                                    <button onClick={handleLogout} className='w-full hover:scale-105 flex items-center border-t cursor-pointer pt-2 border-gray-200 gap-2'>
+                                        <div className='text-left w-full px-3 py-2 text-sm text-black rounded transition-colors'>
                                             Logout
-                                        </button>
+                                        </div>
                                         <img className='w-5' src={LogOutIcon} alt="" />
-                                    </div>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -200,7 +205,12 @@ const NavBar = () => {
                     {!token ? (
                         <>
                             <li className='p-4 border-b border-gray-700'>
-                                <NavLink to='/auth/login' onClick={handleNav} className=' block py-2 transition-colors font-medium text-primary duration-200 hover:text-secondary'>
+                                <NavLink
+                                    to='/auth/login'
+                                    state={{ from: location.pathname + location.search }}
+                                    onClick={handleNav}
+                                    className=' block py-2 transition-colors font-medium text-primary duration-200 hover:text-secondary'
+                                >
                                     Login
                                 </NavLink>
                             </li>

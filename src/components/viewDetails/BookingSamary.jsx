@@ -1,7 +1,7 @@
 // BookingDialog.jsx
 import { useState, useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { createBooking, resetCreateBookingState } from "../../slices/Bookings/CreateBookings";
 import { fetchDistanceKm, resetDistance } from "../../slices/Bookings/CalcDistance";
 import PikcupIcon from '../../assets/pikcupIcon.svg';
@@ -19,6 +19,7 @@ import {
 
 export default function BookingDialog({ open, onOpenChange, machine }) {
     const navigate = useNavigate();
+    const location = useLocation();
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [openSummary, setOpenSummary] = useState(false);
@@ -362,7 +363,7 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
                         Cancel
                     </button>
                     <button
-                        onClick={() => navigate('/auth/login')}
+                        onClick={() => navigate('/auth/login', { state: { from: location.pathname + location.search } })}
                         className="w-full py-2.5 px-4 rounded-xl bg-primaryBtn text-white font-semibold hover:opacity-90 shadow-lg hover:shadow-xl transition duration-200 cursor-pointer"
                     >
                         Login

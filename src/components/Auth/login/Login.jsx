@@ -7,7 +7,7 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { loginUser } from '../../../slices/Auth/LoginSlice'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -15,6 +15,7 @@ const Login = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const {
         register,
@@ -22,12 +23,12 @@ const Login = () => {
         formState: { errors },
     } = useForm();
 
-    // Handle Submit
     const onSubmit = async (data) => {
         const result = await dispatch(loginUser(data));
+        const redirectTo = location.state?.from || "/";
 
         if (result.meta.requestStatus === "fulfilled") {
-            navigate("/");
+            navigate(redirectTo, { replace: true });
             console.log("LOGIN RESPONSE:", result.payload);
         } else {
             alert("❌ Invalid email or password");
