@@ -94,7 +94,7 @@ const MightLikeMachines = ({ id }) => {
             {/* Pagination */}
             <nav className='flex justify-center items-center gap-1.5 mt-8 bg-white p-3 rounded-xl shadow-sm border border-gray-100' aria-label="Pagination">
                 <button
-                    className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed'
+                    className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center gap-1.5'
                     disabled={currentPage === 1}
                     aria-label="Previous page"
                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
@@ -112,7 +112,7 @@ const MightLikeMachines = ({ id }) => {
                             <button
                                 key={`page-${pageNum}`}
                                 onClick={() => setCurrentPage(pageNum)}
-                                className={`px-3 py-2 rounded-lg text-xs font-semibold ${isActive ? 'bg-primaryBtn text-white shadow-sm' : 'border border-gray-200 text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
+                                className={`px-3 py-2 rounded-lg text-xs font-semibold ${isActive ? 'bg-primaryBtn text-white shadow-sm' : 'border border-gray-200 cursor-pointer text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
                                 aria-label={`Page ${pageNum}`}
                                 aria-current={isActive ? 'page' : undefined}
                             >
@@ -129,7 +129,7 @@ const MightLikeMachines = ({ id }) => {
                                 <button
                                     key={`page-${pageNum}`}
                                     onClick={() => setCurrentPage(pageNum)}
-                                    className={`px-3 py-2 rounded-lg text-xs font-semibold ${isActive ? 'bg-primaryBtn text-white shadow-sm' : 'border border-gray-200 text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
+                                    className={`px-3 py-2 rounded-lg text-xs font-semibold ${isActive ? 'bg-primaryBtn text-white shadow-sm' : 'border border-gray-200 cursor-pointer text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
                                     aria-label={`Page ${pageNum}`}
                                     aria-current={isActive ? 'page' : undefined}
                                 >
@@ -153,7 +153,7 @@ const MightLikeMachines = ({ id }) => {
                 )}
 
                 <button
-                    className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 disabled:opacity-50 transition-all duration-200 font-semibold flex items-center gap-1.5'
+                    className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 disabled:opacity-50 transition-all duration-200 font-semibold flex items-center gap-1.5 disabled:cursor-not-allowed cursor-pointer'
                     aria-label="Next page"
                     disabled={currentPage === totalPages}
                     onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}

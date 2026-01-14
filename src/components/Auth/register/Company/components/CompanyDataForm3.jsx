@@ -66,7 +66,7 @@ const CompanyDataForm3 = ({ data, setData, prevStep, handleSubmit, loading }) =>
                     <button
                         type="submit"
                         disabled={loading}
-                        className={`w-full bg-primaryBtn text-white py-3.5 rounded-xl transition shadow-lg ${loading ? "opacity-60 cursor-not-allowed" : "hover:opacity-90"
+                        className={`w-full bg-primaryBtn cursor-pointer text-white py-3.5 rounded-xl transition shadow-lg ${loading ? "opacity-60 cursor-not-allowed" : "hover:opacity-90"
                             }`}
                     >
                         {loading ? "Creating account..." : "Create Account"}

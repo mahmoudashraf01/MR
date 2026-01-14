@@ -48,16 +48,16 @@ const SearchMachine = () => {
     };
 
     return (
-        <div className='w-full px-4 md:px-8'>
+        <div className='w-full flex justify-center items-center px-4 md:px-8'>
             <form 
                 onSubmit={handleSubmit(onSubmit)}
                 className="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-md p-4 md:p-5 border border-gray-100"
             >
-                <div className="grid sm:grid-cols-2 md:grid-cols-5 gap-3">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-5 grid-cols-1 justify-center items-center gap-3">
                     {/* Keyword */}
                     <div className="w-full">
                         <div className="relative flex items-center gap-2 border border-gray-200 rounded-lg px-3 py-2.5 hover:border-primaryBtn/50 transition-all duration-200 focus-within:border-primaryBtn focus-within:ring-2 focus-within:ring-primaryBtn/10 bg-white">
-                            <img src={Search} alt="search" className="w-4 h-4 flex-shrink-0" />
+                            <img src={Search} alt="search" className="w-4 h-4 shrink-0" />
                             <input
                                 type="text"
                                 placeholder="Search by keyword"
@@ -93,7 +93,7 @@ const SearchMachine = () => {
                     {/* Location */}
                     <div className="w-full">
                         <div className="relative flex items-center gap-2 border border-gray-200 rounded-lg px-3 py-2.5 hover:border-primaryBtn/50 transition-all duration-200 focus-within:border-primaryBtn focus-within:ring-2 focus-within:ring-primaryBtn/10 bg-white">
-                            <img src={Location} alt="location" className="w-4 h-4 flex-shrink-0" />
+                            <img src={Location} alt="location" className="w-4 h-4 shrink-0" />
                             <input
                                 type="text"
                                 placeholder="Location"
@@ -123,7 +123,7 @@ const SearchMachine = () => {
                     </div>
 
                     {/* Search Button */}
-                    <div className="flex justify-center items-center">
+                    <div className="w-full">
                         <button 
                             type="submit"
                             disabled={isFormEmpty}

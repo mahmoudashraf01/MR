@@ -80,7 +80,7 @@ const CompanyRegisterParent = () => {
                         setData={setFormData}
                         prevStep={prevStep}
                         handleSubmit={handleSubmit}
-                        loading={loading}   // 👈 مهم جدًا
+                        loading={loading}    
                     />
                 );
 

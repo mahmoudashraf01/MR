@@ -215,7 +215,7 @@ const MachineBookingDetails = ({ id }) => {
                         <hr className="border-gray-200" />
 
                         {/* Pricing Plans */}
-                        <div className="grid xl:grid-cols-3 grid-cols-2 gap-3 mt-2">
+                        <div className="grid xl:grid-cols-3 max-xs:grid-cols-1 grid-cols-2 gap-3 mt-2">
                             <div className="border-2 border-gray-200 hover:border-primaryBtn transition-colors cursor-pointer rounded-xl px-5 py-3 text-center flex-1 min-w-[100px]">
                                 <div className="text-xs text-gray-600 mb-1">Daily Rate</div>
                                 <div className="font-bold text-secondary text-lg">${machine?.daily_rate}</div>
@@ -243,7 +243,7 @@ const MachineBookingDetails = ({ id }) => {
                                     navigate('/auth/login');
                                 }
                             }}
-                            className="bg-primaryBtn text-white py-4 rounded-xl mt-4 w-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                            className="bg-primaryBtn cursor-pointer text-white py-4 rounded-xl mt-4 w-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
                         >
                             <span>Book Now</span>
                             <FaArrowRight className="text-sm" />

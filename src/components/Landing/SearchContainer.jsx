@@ -51,13 +51,13 @@ const SearchContainer = () => {
     };
 
     return (
-        <div className="w-full px-4 md:px-10">
+        <div className="w-full md:px-10">
             <form 
                 onSubmit={handleSubmit(onSubmit)}
                 className="w-full bg-white shadow-xl rounded-2xl p-6 md:p-8 flex flex-col gap-6 border border-gray-100 hover:shadow-2xl transition-shadow duration-300"
             >
                 {/* Desktop & Large Screens */}
-                <div className="grid lg:grid-cols-5 md:grid-cols-4 gap-4 items-end">
+                <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 items-end">
                     {/* Equipment Name */}
                     <div className="flex flex-col gap-2 w-full group">
                         <label className="font-semibold text-gray-800 flex items-center gap-2 text-sm">
