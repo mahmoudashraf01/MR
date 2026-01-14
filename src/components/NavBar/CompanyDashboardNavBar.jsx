@@ -123,7 +123,7 @@ const CompanyDashboardNavBar = () => {
             <ul className={!nav ? 'lg:hidden fixed left-0 top-0 w-[70%] sm:w-[60%] border-r border-r-gray-900 h-full z-50 bg-navColor ease-in-out duration-300 shadow-2xl' : 'fixed -left-full top-0 w-[70%] sm:w-[60%] border-r border-r-gray-900 h-full bg-navColor z-50 ease-in-out duration-300'}>
                 <div className={`${token ? 'flex flex-col justify-between h-full' : 'flex flex-col justify-between '}`} >
                     <div className='flex items-center justify-between py-6 px-6 border-b border-gray-700'>
-                        <img src={Logo} alt="Logo" className='h-10' />
+                        <img src={Logo} alt="Logo" className='h-10 max-xs:h-8' />
                         <button onClick={handleNav} className='p-2 hover:bg-white/10 rounded-lg'>
                             <AiOutlineClose size={20} className='text-white' />
                         </button>
