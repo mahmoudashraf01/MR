@@ -26,6 +26,7 @@ import { createMachineReducer } from "../slices/Machines/CreateMachine";
 import { updateMachineReducer } from "../slices/Machines/UpdateMachine";
 import { deleteMachineReducer } from "../slices/Machines/DeleteMachine";
 import { profileReducer } from "../slices/Auth/Profile";
+import { updateProfileReducer } from "../slices/Auth/UpdateProfile";
 
 
 
@@ -36,6 +37,7 @@ export const store = configureStore({
     login: loginReducer,
     saveToken: saveTokenReducer,
     profile: profileReducer,
+    updateProfile: updateProfileReducer,
     machines: getAllMachinesReducer,
     machinesByPage: getPublicMachinesByPage,
     privateMachines: getPrivateMachinesReducer,

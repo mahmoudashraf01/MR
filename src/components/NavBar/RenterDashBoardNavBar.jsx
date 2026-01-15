@@ -17,6 +17,7 @@ import ProfileIcon from '../../assets/profileIcon.svg';
 import ActiveProfileIcon from '../../assets/activeProfileIcon.svg';
 import SettingIcon from '../../assets/settingIcon.svg';
 import ActiveSettingIcon from '../../assets/activeSettingIcon.svg';
+import UserImg from '../../assets/userIcon.svg';
 
 
 const RenterDashboardNavBar = () => {
@@ -62,7 +63,7 @@ const RenterDashboardNavBar = () => {
                                 className="flex gap-5 justify-between items-center text-sm font-medium cursor-pointer py-2"
                             >
                                 <div className='flex justify-center items-center gap-2'>
-                                    <div className='w-8 h-8 bg-white rounded-full'>
+                                    <div className='w-8 h-8 bg-white rounded-full overflow-hidden'>
                                         <img src={user?.image || UserImg} alt="profileImg" className='w-full h-full object-cover' />
                                     </div>
                                     <div className='flex flex-col justify-center items-center'>

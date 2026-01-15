@@ -37,6 +37,7 @@ import AdminSettings from './pages/Dashboard/Admin/Navigations/AdminSettings'
 import UsersManagment from './pages/Dashboard/Admin/Navigations/UserManagement'
 import RenterOverview from './pages/Dashboard/Renter/Navigations/RenterOverview'
 import CompanyAnalysis from './pages/Dashboard/Company/Navigations/CompanyAnalysis'
+import AdminProfile from './pages/Dashboard/Admin/Navigations/AdminProfile'
 
 
 
@@ -95,6 +96,7 @@ function App() {
         { path: 'machineManagment', element: <AdminMachinesManagment /> },
         { path: 'adminBookings', element: <AdminBookings /> },
         { path: 'allUsers', element: <UsersManagment /> },
+        { path: 'adminProfile', element: <AdminProfile /> },
         { path: 'adminSettings', element: <AdminSettings /> },
       ],
     },
