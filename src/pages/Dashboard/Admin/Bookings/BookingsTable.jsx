@@ -90,7 +90,7 @@ const BookingsTable = ({ filters = {} }) => {
 
     const handleStatusUpdate = async (bookingId, newStatus) => {
         setActiveDropdown(null);
-        await dispatch(updateBookingStatus({ bookingId, status: newStatus }));
+       await dispatch(updateBookingStatus({ bookingId, status: newStatus }));
         dispatch(fetchAllBookings({ page: currentPage, search, status, city, booking_date }));
     };
     const calculatePeriod = (start, end) => {
@@ -114,6 +114,7 @@ const BookingsTable = ({ filters = {} }) => {
     const renderStatusCell = (booking) => (
         <div className={`relative status-dropdown-container w-30 h-8 text-xs rounded-xl ${getStatusColor(booking.status)}`}>
             <button
+                type='button'
                 onClick={(e) => {
                     e.stopPropagation();
                     setActiveDropdown(activeDropdown === booking.id ? null : booking.id);
@@ -135,6 +136,7 @@ const BookingsTable = ({ filters = {} }) => {
                 >
                     {bookingStatuses.map((status) => (
                         <button
+                            type='button'
                             key={status}
                             onClick={(e) => {
                                 e.stopPropagation();

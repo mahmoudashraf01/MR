@@ -322,7 +322,7 @@ export default function BookingDialog({ open, onOpenChange, machine }) {
                             const bookingData = {
                                 machine_id: machine?.id,
                                 owner_company_id: machine?.company?.id,
-                                renter_id: user?.id,
+                                renter_id: user.role === 'renter'? user?.renter?.id :user.role === 'admin'? user?.admin?.id : user.role === 'company'?  user?.company?.id : null,
                                 start_date: startDate,
                                 end_date: endDate,
                                 notes: notes,

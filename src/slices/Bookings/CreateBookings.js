@@ -21,6 +21,8 @@ export const createBooking = createAsyncThunk(
         return rejectWithValue("User not authenticated");
       }
 
+      console.log("Creating booking with data:", bookingData);
+      console.log("Using token:", token);
       const response = await axios.post(
         BASE_URL,
         bookingData,
