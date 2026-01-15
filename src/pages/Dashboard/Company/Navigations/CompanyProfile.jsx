@@ -1,20 +1,46 @@
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../../../../slices/Auth/Profile';
+import { resetUpdateState } from '../../../../slices/Auth/UpdateProfile';
 import defaultProfile from '../../../../assets/contact.jpeg';
 import VerifiedCompany from '../../../../assets/verifiedCompanyIcon.svg';
 import { SkeletonField, SkeletonAvatar, SkeletonButton } from '../../Components/ui/Skeletons';
+import UpdateCompanyDialog from './Components/CompanyProfile/UpdateCompanyDialog';
+import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogFooter,
+} from '../../../../components/ui/dialog';
 
 const CompanyProfile = () => {
     const dispatch = useDispatch();
     const { profile, loading } = useSelector((state) => state.profile);
+    const { success: updateSuccess, error: updateError } = useSelector((state) => state.updateProfile || {});
+    const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
 
     useEffect(() => {
         dispatch(getProfile());
     }, [dispatch]);
 
+    useEffect(() => {
+        if (updateSuccess) {
+            dispatch(getProfile());
+        }
+    }, [updateSuccess, dispatch]);
+
     const company = profile?.company || {};
     const user = profile || {};
+
+    const handleSuccessDialogClose = () => {
+        dispatch(resetUpdateState());
+    };
+
+    const handleErrorDialogClose = () => {
+        dispatch(resetUpdateState());
+    };
 
     if (loading) {
         return (
@@ -98,17 +124,13 @@ const CompanyProfile = () => {
                                 />
                             </div>
                             {company.verified === 1 && (
-                                <img 
+                                <img
                                     src={VerifiedCompany}
                                     alt="Verified"
                                     className='w-8 h-8 ml-2'
                                 />
                             )}
                         </div>
-
-                        <button className="px-10 py-2 bg-primaryBtn text-white rounded-md hover:bg-primaryBtn transition">
-                            Update Image
-                        </button>
                     </div>
 
                     {/* Profile Information */}
@@ -125,9 +147,10 @@ const CompanyProfile = () => {
                                     </label>
                                     <input
                                         type="text"
-                                        defaultValue={company.company_name || ''}
+                                        value={company.company_name || ''}
+                                        readOnly
                                         placeholder="****************"
-                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-white"
+                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-gray-50"
                                     />
                                 </div>
                                 <div>
@@ -136,9 +159,10 @@ const CompanyProfile = () => {
                                     </label>
                                     <input
                                         type="text"
-                                        defaultValue={company.contact_person || ''}
+                                        value={company.contact_person || ''}
+                                        readOnly
                                         placeholder="****************"
-                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-white"
+                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-gray-50"
                                     />
                                 </div>
                             </div>
@@ -150,9 +174,10 @@ const CompanyProfile = () => {
                                     </label>
                                     <input
                                         type="text"
-                                        defaultValue={company.phone || ''}
+                                        value={company.phone || ''}
+                                        readOnly
                                         placeholder="****************"
-                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-white"
+                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-gray-50"
                                     />
                                 </div>
                                 <div>
@@ -161,9 +186,10 @@ const CompanyProfile = () => {
                                     </label>
                                     <input
                                         type="text"
-                                        defaultValue={user.email || ''}
+                                        value={user.email || ''}
+                                        readOnly
                                         placeholder="****************"
-                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-white"
+                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-gray-50"
                                     />
                                 </div>
                             </div>
@@ -175,9 +201,10 @@ const CompanyProfile = () => {
                                     </label>
                                     <input
                                         type="text"
-                                        defaultValue={company.address || ''}
+                                        value={company.address || ''}
+                                        readOnly
                                         placeholder="****************"
-                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-white"
+                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-gray-50"
                                     />
                                 </div>
                                 <div>
@@ -186,9 +213,10 @@ const CompanyProfile = () => {
                                     </label>
                                     <input
                                         type="text"
-                                        defaultValue={company.city || ''}
+                                        value={company.city || ''}
+                                        readOnly
                                         placeholder="****************"
-                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-white"
+                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-gray-50"
                                     />
                                 </div>
                             </div>
@@ -200,9 +228,10 @@ const CompanyProfile = () => {
                                     </label>
                                     <input
                                         type="text"
-                                        defaultValue={company.postalcode || ''}
+                                        value={company.postalcode || ''}
+                                        readOnly
                                         placeholder="****************"
-                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-white"
+                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-gray-50"
                                     />
                                 </div>
                                 <div>
@@ -211,9 +240,10 @@ const CompanyProfile = () => {
                                     </label>
                                     <input
                                         type="text"
-                                        defaultValue={company.house_number || ''}
+                                        value={company.house_number || ''}
+                                        readOnly
                                         placeholder="****************"
-                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-white"
+                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-gray-50"
                                     />
                                 </div>
                                 <div>
@@ -222,9 +252,10 @@ const CompanyProfile = () => {
                                     </label>
                                     <input
                                         type="text"
-                                        defaultValue={company.region || ''}
+                                        value={company.region || ''}
+                                        readOnly
                                         placeholder="****************"
-                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-white"
+                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-gray-50"
                                     />
                                 </div>
                                 <div>
@@ -233,9 +264,10 @@ const CompanyProfile = () => {
                                     </label>
                                     <input
                                         type="text"
-                                        defaultValue={company.tax_id || ''}
+                                        value={company.tax_id || ''}
+                                        readOnly
                                         placeholder="****************"
-                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-white"
+                                        className="w-full border border-[#D2D2D2] focus:outline-none rounded-xl px-4 py-2 bg-gray-50"
                                     />
                                 </div>
                             </div>
@@ -246,11 +278,66 @@ const CompanyProfile = () => {
 
                 {/* Edit Button */}
                 <div className=" mt-10 flex justify-center lg:justify-end">
-                    <button className="lg:w-[20%] w-[80%] px-8 py-2 bg-primaryBtn text-white rounded-md hover:bg-primaryBtn transition">
+                    <button
+                        onClick={() => setIsUpdateDialogOpen(true)}
+                        className="lg:w-[20%] w-[80%] px-8 py-2 bg-primaryBtn text-white rounded-md hover:bg-primaryBtn transition cursor-pointer"
+                    >
                         Edit
                     </button>
                 </div>
             </div>
+
+            <UpdateCompanyDialog
+                isOpen={isUpdateDialogOpen}
+                onClose={() => setIsUpdateDialogOpen(false)}
+                user={user}
+            />
+
+            <Dialog open={!!updateSuccess} onOpenChange={(open) => !open && handleSuccessDialogClose()}>
+                <DialogContent className="sm:max-w-md flex flex-col items-center gap-4 bg-white" showCloseButton={false}>
+                    <FaCheckCircle className="w-16 h-16 text-green-500" />
+                    <DialogHeader>
+                        <DialogTitle className="text-center text-lg font-medium leading-6 text-gray-900">
+                            Success
+                        </DialogTitle>
+                    </DialogHeader>
+                    <div className="text-center text-sm text-gray-500">
+                        Company profile updated successfully!
+                    </div>
+                    <DialogFooter className="sm:justify-center w-full">
+                        <button
+                            type="button"
+                            className="w-full sm:w-auto inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white bg-primaryBtn hover:bg-primaryBtn/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 cursor-pointer"
+                            onClick={handleSuccessDialogClose}
+                        >
+                            Done
+                        </button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            <Dialog open={!!updateError} onOpenChange={(open) => !open && handleErrorDialogClose()}>
+                <DialogContent className="sm:max-w-md flex flex-col items-center gap-4 bg-white" showCloseButton={false}>
+                    <FaExclamationCircle className="w-16 h-16 text-red-500" />
+                    <DialogHeader>
+                        <DialogTitle className="text-center text-lg font-medium leading-6 text-gray-900">
+                            Error
+                        </DialogTitle>
+                    </DialogHeader>
+                    <div className="text-center text-sm text-gray-500">
+                        {typeof updateError === 'string' && updateError.trim() !== '' ? updateError : 'Failed to update profile.'}
+                    </div>
+                    <DialogFooter className="sm:justify-center w-full">
+                        <button
+                            type="button"
+                            className="w-full sm:w-auto inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white bg-[#EF5350] hover:bg-[#EF5350]/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500 cursor-pointer"
+                            onClick={handleErrorDialogClose}
+                        >
+                            Close
+                        </button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };
