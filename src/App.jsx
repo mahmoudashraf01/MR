@@ -1,4 +1,5 @@
 import { useRoutes } from 'react-router-dom'
+import { Toaster } from "@/components/ui/sonner"
 import Landing from './pages/Landing'
 import Login from './components/Auth/login/Login'
 import NavbarLayout from './layouts/Layout'
@@ -137,7 +138,12 @@ function App() {
 
   let routesElement = useRoutes(routesArray)
 
-  return <div>{routesElement}</div>
+  return (
+    <div>
+      {routesElement}
+      <Toaster />
+    </div>
+  )
 }
 
 export default App

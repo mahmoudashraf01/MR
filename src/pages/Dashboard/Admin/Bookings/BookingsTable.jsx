@@ -10,6 +10,7 @@ import { FaArrowRight } from 'react-icons/fa';
 import SkeletonTable from '../Skeletons/SkeletonTable';
 import Machine from '../../../../assets/machine2.jpeg';
 import BookingDetailsDialog from './BookingDetailsDialog';
+import DeleteCategoryAlert from '../Components/Category/DeleteCategoryAlert';
 
 const columns = [
     { key: "owner_company", label: "Owner Company" },
@@ -38,6 +39,7 @@ const BookingsTable = ({ filters = {} }) => {
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [selectedBooking, setSelectedBooking] = useState(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [alertInfo, setAlertInfo] = useState({ show: false, title: "", type: "", color: "", borderColor: "" });
 
     const { search, status, city, booking_date } = filters || {};
 
@@ -90,8 +92,40 @@ const BookingsTable = ({ filters = {} }) => {
 
     const handleStatusUpdate = async (bookingId, newStatus) => {
         setActiveDropdown(null);
-       await dispatch(updateBookingStatus({ bookingId, status: newStatus }));
-        dispatch(fetchAllBookings({ page: currentPage, search, status, city, booking_date }));
+
+        const resultAction = await dispatch(updateBookingStatus({ bookingId, status: newStatus }));
+
+        if (updateBookingStatus.fulfilled.match(resultAction)) {
+            const backendMessage = resultAction.payload?.data?.message || "Status updated successfully";
+
+            setAlertInfo({
+                show: true,
+                title: backendMessage,
+                type: "success",
+                color: "#68BB5FCC",
+                borderColor: "#22C55E33"
+            });
+
+            dispatch(fetchAllBookings({ page: currentPage, search, status, city, booking_date }));
+
+            setTimeout(() => {
+                setAlertInfo(prev => ({ ...prev, show: false }));
+            }, 3000);
+        } else {
+            const errorMessage = resultAction.payload || "Failed to update status";
+
+            setAlertInfo({
+                show: true,
+                title: errorMessage,
+                type: "error",
+                color: "#EF5350CC",
+                borderColor: "#EF535033"
+            });
+
+            setTimeout(() => {
+                setAlertInfo(prev => ({ ...prev, show: false }));
+            }, 3000);
+        }
     };
     const calculatePeriod = (start, end) => {
         if (!start || !end) return "N/A";
@@ -119,7 +153,7 @@ const BookingsTable = ({ filters = {} }) => {
                     e.stopPropagation();
                     setActiveDropdown(activeDropdown === booking.id ? null : booking.id);
                 }}
-                className={`px-2 py-1 text-xs rounded-full text-white flex items-center gap-2 transition-all hover:opacity-80`}
+                className={`px-2 py-1 text-xs rounded-full text-white flex items-center gap-2 transition-all cursor-pointer hover:opacity-80`}
             >
                 <div
                     className='flex  justify-center items-center gap-2 px-5 py-1 text-xs rounded-full text-white'
@@ -142,7 +176,7 @@ const BookingsTable = ({ filters = {} }) => {
                                 e.stopPropagation();
                                 handleStatusUpdate(booking.id, status);
                             }}
-                            className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors capitalize
+                            className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors capitalize cursor-pointer
                                 ${booking.status?.toLowerCase() === status ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'}
                             `}
                         >
@@ -205,6 +239,16 @@ const BookingsTable = ({ filters = {} }) => {
     };
     return (
         <div ref={tableRef}>
+            {alertInfo.show && (
+                <div className="mb-4">
+                    <DeleteCategoryAlert
+                        alertTitle={alertInfo.title}
+                        alertColor={alertInfo.color}
+                        borderColor={alertInfo.borderColor}
+                        type={alertInfo.type}
+                    />
+                </div>
+            )}
             <BookingDetailsDialog
                 open={isDialogOpen}
                 onOpenChange={setIsDialogOpen}

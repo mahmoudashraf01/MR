@@ -14,16 +14,15 @@ export const updateBookingStatus = createAsyncThunk(
                 return rejectWithValue("No authentication token found");
             }
 
-            const response = await axios.patch(
-                `${baseURL}/bookings/${bookingId}/status`,
-                { status },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await axios.request({
+                method: 'PATCH',
+                url: `${baseURL}/bookings/${bookingId}/status`,
+                data: { status },
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
 
             return { bookingId, status, data: response.data };
         } catch (error) {
