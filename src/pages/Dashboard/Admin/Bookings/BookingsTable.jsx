@@ -21,8 +21,14 @@ const columns = [
 
 const bookingStatuses = ['approved', 'pending', 'in_progress', 'rejected', 'cancelled', 'completed'];
 
+const formatStatusLabel = (value) => {
+    if (!value) return "";
+    const str = String(value).replace('_', '');
+    return str.charAt(0).toUpperCase() + str.slice(1);
+};
 
-const BookingsTable = () => {
+
+const BookingsTable = ({ filters = {} }) => {
     const dispatch = useDispatch();
     const { bookings, loading, totalPages } = useSelector((state) => state.getAllBookings);
     const tableRef = useRef(null);
@@ -33,14 +39,20 @@ const BookingsTable = () => {
     const [selectedBooking, setSelectedBooking] = useState(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+    const { search, status, city, booking_date } = filters || {};
+
     const handleRowClick = (booking) => {
         setSelectedBooking(booking);
         setIsDialogOpen(true);
     };
 
     useEffect(() => {
-        dispatch(fetchAllBookings(currentPage));
-    }, [dispatch, currentPage]);
+        setCurrentPage(1);
+    }, [search, status, city, booking_date]);
+
+    useEffect(() => {
+        dispatch(fetchAllBookings({ page: currentPage, search, status, city, booking_date }));
+    }, [dispatch, currentPage, search, status, city, booking_date]);
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -79,7 +91,7 @@ const BookingsTable = () => {
     const handleStatusUpdate = async (bookingId, newStatus) => {
         setActiveDropdown(null);
         await dispatch(updateBookingStatus({ bookingId, status: newStatus }));
-        dispatch(fetchAllBookings(currentPage));
+        dispatch(fetchAllBookings({ page: currentPage, search, status, city, booking_date }));
     };
     const calculatePeriod = (start, end) => {
         if (!start || !end) return "N/A";
@@ -106,12 +118,12 @@ const BookingsTable = () => {
                     e.stopPropagation();
                     setActiveDropdown(activeDropdown === booking.id ? null : booking.id);
                 }}
-                className={`px-3 py-1 text-xs rounded-full text-white flex items-center gap-2 transition-all hover:opacity-80`}
+                className={`px-2 py-1 text-xs rounded-full text-white flex items-center gap-2 transition-all hover:opacity-80`}
             >
                 <div
-                    className='flex justify-center items-center gap-2 px-5 py-1 text-xs rounded-full text-white'
+                    className='flex  justify-center items-center gap-2 px-5 py-1 text-xs rounded-full text-white'
                 >
-                    {booking.status}
+                    {formatStatusLabel(booking.status)}
                     <img src={DropDownArrow} alt="arrow" className={`w-4 h-4 brightness-0 invert transition-transform ${activeDropdown === booking.id ? 'rotate-180' : ''}`} />
                 </div>
             </button>
@@ -132,7 +144,7 @@ const BookingsTable = () => {
                                 ${booking.status?.toLowerCase() === status ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'}
                             `}
                         >
-                            {status.replace('_', ' ')}
+                            {formatStatusLabel(status)}
                         </button>
                     ))}
                 </div>
@@ -298,13 +310,7 @@ const BookingsTable = () => {
 
                                         {activeColumn === "status" && (
 
-                                            <button className={` w-30 h-8 text-xs rounded-xl ${getStatusColor(booking.status)}`}>
-                                                <h1
-                                                    className=' px-5 py-1 text-xs rounded-full text-white'
-                                                >
-                                                    {booking.status}
-                                                </h1>
-                                            </button>
+                                            renderStatusCell(booking)
                                         )}
 
                                         {activeColumn === "total_cost" && (

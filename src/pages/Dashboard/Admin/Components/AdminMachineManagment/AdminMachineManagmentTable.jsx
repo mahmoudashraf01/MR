@@ -18,6 +18,12 @@ const columns = [
     { key: "status", label: "Status" },
     { key: "actions", label: "Actions" },
 ];
+
+const formatStatusLabel = (value) => {
+    if (!value) return "";
+    const str = String(value).replace('_', ' ');
+    return str.charAt(0).toUpperCase() + str.slice(1);
+};
 const AdminMachineManagmentTable = () => {
     const dispatch = useDispatch();
     const { machines, loading, totalPages } = useSelector((state) => state.machinesByPage);
@@ -205,9 +211,19 @@ const AdminMachineManagmentTable = () => {
                                         )}
 
                                         {activeColumn === "status" && (
-                                            <span className={`px-3 py-1 text-xs rounded-full ${machine.availability_status === 'available' ? 'bg-[#68BB5FCC]' : 'bg-[#EF5350CC]'} text-white`}>
-                                                {machine.availability_status}
-                                            </span>
+                                            <button
+                                                className={`w-30 h-8 text-xs rounded-xl ${
+                                                    machine.availability_status === 'available'
+                                                        ? 'bg-[#68BB5FCC]'
+                                                        : machine.availability_status === 'rented'
+                                                            ? 'bg-primaryBtn'
+                                                            : 'bg-[#EF5350CC]'
+                                                }`}
+                                            >
+                                                <h1 className='px-5 py-1 text-xs rounded-full text-white'>
+                                                    {formatStatusLabel(machine.availability_status)}
+                                                </h1>
+                                            </button>
                                         )}
 
                                         {activeColumn === "actions" && (
@@ -246,9 +262,19 @@ const AdminMachineManagmentTable = () => {
                                         {machine.company?.company_name || "N/A"}
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3">
-                                        <span className={`px-3 py-1 text-xs rounded-full ${machine.availability_status === 'available' ? 'bg-[#68BB5FCC]' : 'bg-[#EF5350CC]'} text-white`}>
-                                            {machine.availability_status}
-                                        </span>
+                                        <button
+                                            className={`w-30 h-8 text-xs rounded-xl ${
+                                                machine.availability_status === 'available'
+                                                    ? 'bg-[#68BB5FCC]'
+                                                    : machine.availability_status === 'rented'
+                                                        ? 'bg-primaryBtn'
+                                                        : 'bg-[#EF5350CC]'
+                                            }`}
+                                        >
+                                            <h1 className='px-5 py-1 text-xs rounded-full text-white'>
+                                                {formatStatusLabel(machine.availability_status)}
+                                            </h1>
+                                        </button>
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3">
                                         <div className="flex gap-3">

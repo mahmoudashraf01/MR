@@ -7,14 +7,33 @@ import { baseURL } from "../../Helpers/const/const";
 // ------------------------
 export const fetchAllBookings = createAsyncThunk(
     "bookings/fetchAllBookings",
-    async (page, { rejectWithValue, getState }) => {
+    async (arg, { rejectWithValue, getState }) => {
         try {
             const token = getState().saveToken.token;
             if (!token) {
                 return rejectWithValue("No authentication token found");
             }
 
-            const response = await axios.get(`${baseURL}/bookings?page=${page}`, {
+            let page = 1;
+            let params = {};
+
+            if (typeof arg === "number" || typeof arg === "string") {
+                page = Number(arg) || 1;
+            } else if (typeof arg === "object" && arg !== null) {
+                page = arg.page || 1;
+                const { page: _, ...rest } = arg;
+                params = rest;
+            }
+
+            const queryParams = new URLSearchParams();
+            queryParams.append("page", page);
+
+            if (params.search) queryParams.append("search", params.search);
+            if (params.status) queryParams.append("status", params.status);
+            if (params.city) queryParams.append("city", params.city);
+            if (params.booking_date) queryParams.append("booking_date", params.booking_date);
+
+            const response = await axios.get(`${baseURL}/bookings?${queryParams.toString()}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
