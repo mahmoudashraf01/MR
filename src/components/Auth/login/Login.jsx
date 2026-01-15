@@ -7,7 +7,7 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { loginUser } from '../../../slices/Auth/LoginSlice'
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, NavLink } from "react-router-dom";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -144,12 +144,12 @@ const Login = () => {
                 {/* Footer */}
                 <p className="text-center text-sm text-gray-600 mt-8">
                     Don't have an account?{" "}
-                    <a
-                        href="/auth"
+                    <NavLink
+                        to={"/auth"}
                         className="text-primaryBtn hover:underline font-semibold"
                     >
                         Sign up
-                    </a>
+                    </NavLink>
                 </p>
 
                 {/* Animation */}
