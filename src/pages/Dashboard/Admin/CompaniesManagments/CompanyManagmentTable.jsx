@@ -10,7 +10,9 @@ import Machine from '../../../../assets/machine2.jpeg';
 import CompanyIcon from '../../../../assets/CompaniesIcon.svg';
 import SkeletonTable from '../Skeletons/SkeletonTable';
 import AdminCompanyDetailsDialog from './AdminCompanyDetailsDialog';
+import UpdateUserDialog from '../Components/UsersManagment/UpdateUserDialog';
 import { deleteUser, resetDeleteUser } from '../../../../slices/UsersManagment/DeleteUsers';
+import { resetUpdateUser } from '../../../../slices/UsersManagment/UpdateUser';
 import DeleteCategoryAlert from '../Components/Category/DeleteCategoryAlert';
 import { Spinner } from '../../../../components/ui/spinner';
 
@@ -25,6 +27,7 @@ const CompanyManagmentTable = () => {
     const dispatch = useDispatch();
     const { users, loading, totalPages } = useSelector((state) => state.listUsers);
     const { loading: deleteLoading, success: deleteSuccess, error: deleteError } = useSelector((state) => state.deleteUser);
+    const { success: updateSuccess, error: updateError } = useSelector((state) => state.updateUser);
     const tableRef = useRef(null);
 
     const [activeColumn, setActiveColumn] = useState("city");
@@ -32,6 +35,8 @@ const CompanyManagmentTable = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [viewDialogOpen, setViewDialogOpen] = useState(false);
     const [selectedCompany, setSelectedCompany] = useState(null);
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
 
     useEffect(() => {
@@ -56,6 +61,22 @@ const CompanyManagmentTable = () => {
         }
     }, [deleteSuccess, deleteError, dispatch, currentPage]);
 
+    useEffect(() => {
+        if (updateSuccess) {
+            dispatch(fetchUsers({ page: currentPage, role: "company" }));
+            const timer = setTimeout(() => {
+                dispatch(resetUpdateUser());
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+        if (updateError) {
+            const timer = setTimeout(() => {
+                dispatch(resetUpdateUser());
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [updateSuccess, updateError, dispatch, currentPage]);
+
     const handlePageChange = (page) => {
         setCurrentPage(page);
         if (tableRef.current) {
@@ -74,6 +95,14 @@ const CompanyManagmentTable = () => {
         if (!company?.user_id) return;
         setDeletingId(company.user_id);
         dispatch(deleteUser(company.user_id));
+    };
+
+    const handleEditClick = (company) => {
+        if (!company?.user_id) return;
+        const userForCompany = users?.find((u) => u.id === company.user_id) || null;
+        if (!userForCompany) return;
+        setSelectedUser(userForCompany);
+        setEditDialogOpen(true);
     };
 
     const renderPaginationButtons = () => {
@@ -155,6 +184,12 @@ const CompanyManagmentTable = () => {
                 open={viewDialogOpen}
                 onOpenChange={setViewDialogOpen}
                 company={selectedCompany}
+            />
+            <UpdateUserDialog
+                user={selectedUser}
+                open={editDialogOpen}
+                onOpenChange={setEditDialogOpen}
+                hideVerifiedField={true}
             />
             {/* Mobile Column Menu */}
             <div className="relative mb-3 lg:hidden">
@@ -267,7 +302,12 @@ const CompanyManagmentTable = () => {
                                                         onClick={() => handleDeleteClick(company)}
                                                     />
                                                 )}
-                                                <img src={EditIcon} alt="edit" className="w-4 h-4" />
+                                                <img
+                                                    src={EditIcon}
+                                                    alt="edit"
+                                                    className="w-4 h-4 cursor-pointer"
+                                                    onClick={() => handleEditClick(company)}
+                                                />
                                                 <button
                                                     onClick={() => {
                                                         setSelectedCompany(company);
@@ -310,7 +350,12 @@ const CompanyManagmentTable = () => {
                                                     onClick={() => handleDeleteClick(company)}
                                                 />
                                             )}
-                                            <img src={EditIcon} alt="edit" className="w-4 h-4" />
+                                            <img
+                                                src={EditIcon}
+                                                alt="edit"
+                                                className="w-4 h-4 cursor-pointer"
+                                                onClick={() => handleEditClick(company)}
+                                            />
                                             <button
                                                 onClick={() => {
                                                     setSelectedCompany(company);

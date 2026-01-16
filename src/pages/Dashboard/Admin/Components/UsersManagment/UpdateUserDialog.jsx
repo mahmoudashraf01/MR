@@ -9,7 +9,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 
-const UpdateUserDialog = ({ user, open, onOpenChange }) => {
+const UpdateUserDialog = ({ user, open, onOpenChange, onSuccess }) => {
     const dispatch = useDispatch();
     const { loading, success, error } = useSelector((state) => state.updateUser);
 
@@ -39,7 +39,6 @@ const UpdateUserDialog = ({ user, open, onOpenChange }) => {
                     postalcode: user.company.postalcode || '',
                     house_number: user.company.house_number || '',
                     tax_id: user.company.tax_id || '',
-                    verified: user.company.verified ? true : false,
                 });
             }
             setFormData(initialData);
@@ -65,9 +64,6 @@ const UpdateUserDialog = ({ user, open, onOpenChange }) => {
             setFormData(prev => ({ ...prev, [name]: checked }));
         } else if (type === 'file') {
             setFormData(prev => ({ ...prev, [name]: files[0] }));
-        } else if (name === 'verified') {
-            // Special handling for verified select
-            setFormData(prev => ({ ...prev, [name]: value === 'true' }));
         } else {
             setFormData(prev => ({ ...prev, [name]: value }));
         }
@@ -78,6 +74,9 @@ const UpdateUserDialog = ({ user, open, onOpenChange }) => {
     };
 
     const handleCloseAlert = () => {
+        if (showSuccessAlert && onSuccess) {
+            onSuccess();
+        }
         setShowSuccessAlert(false);
         setShowErrorAlert(false);
         dispatch(resetUpdateUser());
@@ -267,18 +266,6 @@ const UpdateUserDialog = ({ user, open, onOpenChange }) => {
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-primaryBtn focus:ring-2 focus:ring-primaryBtn/20 outline-none transition-all"
                                     />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-gray-700">Verification Status</label>
-                                    <select
-                                        name="verified"
-                                        value={formData.verified?.toString()}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-primaryBtn focus:ring-2 focus:ring-primaryBtn/20 outline-none transition-all bg-white"
-                                    >
-                                        <option value="true">Verified</option>
-                                        <option value="false">Non-Verified</option>
-                                    </select>
                                 </div>
                                 <div className="space-y-2 md:col-span-2">
                                     <label className="text-sm font-medium text-gray-700">Company Image</label>
