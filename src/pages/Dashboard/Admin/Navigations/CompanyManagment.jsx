@@ -20,13 +20,21 @@ const CompanyManagment = () => {
         return () => clearTimeout(timer);
     }, [searchTerm]);
 
-    const companies = users?.map((user) => user.company).filter((company) => !!company) || [];
-    const uniqueCities = Array.from(
-        new Set(
-            companies
-                .map((company) => company.city)
-                .filter((c) => c && c.trim() !== "")
-        )
+    const companies = useMemo(
+        () => users?.map((user) => user.company).filter((company) => !!company) || [],
+        [users]
+    );
+
+    const uniqueCities = useMemo(
+        () =>
+            Array.from(
+                new Set(
+                    companies
+                        .map((company) => company.city)
+                        .filter((c) => c && c.trim() !== "")
+                )
+            ),
+        [companies]
     );
 
     useEffect(() => {
