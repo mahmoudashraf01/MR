@@ -23,7 +23,7 @@ const columns = [
     { key: "status", label: "Status" },
     { key: "actions", label: "Actions" },
 ];
-const CompanyManagmentTable = () => {
+const CompanyManagmentTable = ({ filters }) => {
     const dispatch = useDispatch();
     const { users, loading, totalPages } = useSelector((state) => state.listUsers);
     const { loading: deleteLoading, success: deleteSuccess, error: deleteError } = useSelector((state) => state.deleteUser);
@@ -40,12 +40,17 @@ const CompanyManagmentTable = () => {
     const [deletingId, setDeletingId] = useState(null);
 
     useEffect(() => {
-        dispatch(fetchUsers({ page: currentPage, role: "company" }));
-    }, [dispatch, currentPage]);
+        if (typeof window === "undefined") return;
+        localStorage.setItem("company_city_current_page", String(currentPage));
+    }, [currentPage]);
+
+    useEffect(() => {
+        dispatch(fetchUsers({ page: currentPage, ...filters }));
+    }, [dispatch, currentPage, filters]);
 
     useEffect(() => {
         if (deleteSuccess) {
-            dispatch(fetchUsers({ page: currentPage, role: "company" }));
+            dispatch(fetchUsers({ page: currentPage, ...filters }));
             const timer = setTimeout(() => {
                 dispatch(resetDeleteUser());
                 setDeletingId(null);
@@ -59,11 +64,11 @@ const CompanyManagmentTable = () => {
             }, 3000);
             return () => clearTimeout(timer);
         }
-    }, [deleteSuccess, deleteError, dispatch, currentPage]);
+    }, [deleteSuccess, deleteError, dispatch, currentPage, filters]);
 
     useEffect(() => {
         if (updateSuccess) {
-            dispatch(fetchUsers({ page: currentPage, role: "company" }));
+            dispatch(fetchUsers({ page: currentPage, ...filters }));
             const timer = setTimeout(() => {
                 dispatch(resetUpdateUser());
             }, 3000);
@@ -75,7 +80,7 @@ const CompanyManagmentTable = () => {
             }, 3000);
             return () => clearTimeout(timer);
         }
-    }, [updateSuccess, updateError, dispatch, currentPage]);
+    }, [updateSuccess, updateError, dispatch, currentPage, filters]);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -90,6 +95,15 @@ const CompanyManagmentTable = () => {
     const uniqueCompanies = companies.filter((company, index, self) =>
         index === self.findIndex((c) => c.id === company.id)
     );
+
+    const statusFilter = filters?.verified;
+
+    const filteredCompanies =
+        statusFilter === 1
+            ? uniqueCompanies.filter((company) => company.verified)
+            : statusFilter === 0
+                ? uniqueCompanies.filter((company) => !company.verified)
+                : uniqueCompanies;
 
     const handleDeleteClick = (company) => {
         if (!company?.user_id) return;
@@ -255,7 +269,7 @@ const CompanyManagmentTable = () => {
                         {loading ? (
                             <SkeletonTable rows={8} />
                         ) : (
-                            uniqueCompanies.map((company) => (
+                            filteredCompanies.map((company) => (
                                 <tr key={company.id} className="border-t border-gray-300 hover:bg-blue-50 transition-colors">
                                     {/* Company Name & Image */}
                                     <td className="px-4 py-3 flex items-center w-60 gap-3">
