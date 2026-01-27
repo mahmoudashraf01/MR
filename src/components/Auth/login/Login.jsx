@@ -8,12 +8,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { loginUser } from '../../../slices/Auth/LoginSlice'
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription,
+    DialogFooter,
+    DialogClose
+} from "../../ui/dialog";
 
 const Login = () => {
     const dispatch = useDispatch();
     const { loading } = useSelector((state) => state.login);
 
     const [showPassword, setShowPassword] = useState(false);
+    const [isErrorOpen, setIsErrorOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -25,13 +37,17 @@ const Login = () => {
 
     const onSubmit = async (data) => {
         const result = await dispatch(loginUser(data));
-        const redirectTo = location.state?.from || "/";
+        let redirectTo = location.state?.from || "/";
 
         if (result.meta.requestStatus === "fulfilled") {
+            if (result.payload?.user?.role === "admin") {
+                redirectTo = "/adminDashboard";
+            }
             navigate(redirectTo, { replace: true });
             console.log("LOGIN RESPONSE:", result.payload);
         } else {
-            alert("❌ Invalid email or password");
+            setErrorMessage(result.payload || "❌ Invalid email or password");
+            setIsErrorOpen(true);
         }
     };
 
@@ -160,6 +176,24 @@ const Login = () => {
                     }
                 `}</style>
             </div>
+
+            <Dialog open={isErrorOpen} onOpenChange={setIsErrorOpen}>
+                <DialogContent className='flex flex-col justify-center items-center bg-white'>
+                    <DialogHeader>
+                        <DialogTitle className="text-[#EF5350] text-center">Login Failed</DialogTitle>
+                        <DialogDescription className="text-base text-gray-700 pt-2">
+                            {errorMessage}
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <DialogClose asChild>
+                            <button className=" bg-[#EF5350] hover:bg-[#EF5350]/90 cursor-pointer text-white md:px-15 px-44 py-2 rounded-md hover:bg-opacity-90 transition-colors">
+                                Close
+                            </button>
+                        </DialogClose>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };
