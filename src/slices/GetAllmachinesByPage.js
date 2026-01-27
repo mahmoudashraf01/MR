@@ -38,6 +38,7 @@ export const fetchPublicMachines = createAsyncThunk(
             if (params.search) queryParams.append('search', params.search);
             if (params.category_id) queryParams.append('category_id', params.category_id);
             if (params.location_city) queryParams.append('location_city', params.location_city);
+            if (params.availability_status) queryParams.append('availability_status', params.availability_status);
             if (params.sort) queryParams.append('sort', params.sort);
             if (params.min_rate !== undefined) queryParams.append('min_rate', params.min_rate);
             if (params.max_rate !== undefined) queryParams.append('max_rate', params.max_rate);

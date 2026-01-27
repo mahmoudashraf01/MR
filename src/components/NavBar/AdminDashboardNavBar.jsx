@@ -106,12 +106,12 @@ const AdminDashboardNavBar = () => {
                                         <div className='text-[10px] text-gray-700'>{displayRole.toLowerCase() === 'renter' ? user?.renter?.city : displayRole.toLowerCase() === 'company' ? user?.company?.city : user?.admin?.city || 'Location'}</div>
                                         <img src={UserLocationIcon} alt="" />
                                     </div>
-                                    <div className='flex items-center border-t border-gray-200'>
-                                        <button onClick={handleLogout} className='text-left hover:text-[15px] w-full px-3 py-2 text-sm text-black rounded transition-colors'>
+                                    <button onClick={handleLogout} className='w-full hover:scale-105 flex items-center border-t cursor-pointer pt-2 border-gray-200 gap-2'>
+                                        <div className='text-left w-full px-3 py-2 text-sm text-black rounded transition-colors'>
                                             Logout
-                                        </button>
+                                        </div>
                                         <img className='w-5' src={LogOutIcon} alt="" />
-                                    </div>
+                                    </button>
                                 </div>
                             </div>
                         </div>
