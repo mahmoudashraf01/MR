@@ -74,7 +74,7 @@ const AdminBookings = () => {
                 <div className="flex w-full flex-col sm:flex-row gap-4">
                     <div className="relative w-full md:w-55 ">
                         <select
-                            className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
+                            className="appearance-none cursor-pointer bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
                             value={status}
                             onChange={(e) => setStatus(e.target.value)}
                         >
@@ -93,7 +93,7 @@ const AdminBookings = () => {
                     </div>
                     <div className="relative w-full md:w-55">
                         <select
-                            className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
+                            className="appearance-none cursor-pointer bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
                         >

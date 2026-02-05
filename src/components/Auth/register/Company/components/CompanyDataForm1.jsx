@@ -224,14 +224,14 @@ const CompanyDataForm1 = ({ data, setData, nextStep }) => {
           <button
             type="button"
             onClick={() => navigate("/auth")}
-            className="text-primaryBtn w-full underline bg-white py-3.5 rounded-xl hover:bg-[#bad6ff] font-semibold"
+            className="text-primaryBtn w-full cursor-pointer underline bg-white py-3.5 rounded-xl hover:bg-[#bad6ff] font-semibold"
           >
             Back
           </button>
 
           <button
             type="submit"
-            className="w-full bg-primaryBtn text-white py-3.5 rounded-xl hover:opacity-90 transition shadow-lg"
+            className="w-full bg-primaryBtn cursor-pointer text-white py-3.5 rounded-xl hover:opacity-90 transition shadow-lg"
           >
             Next
           </button>

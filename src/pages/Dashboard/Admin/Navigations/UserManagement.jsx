@@ -55,7 +55,7 @@ const UsersManagment = () => {
                 <div className="flex w-full flex-col sm:flex-row gap-4">
                     <div className="relative w-full md:w-55 ">
                         <select 
-                            className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full outline-none focus:border-primaryBtn"
+                            className="appearance-none cursor-pointer bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full outline-none focus:border-primaryBtn"
                             value={verified}
                             onChange={(e) => setVerified(e.target.value)}
                         >
@@ -71,7 +71,7 @@ const UsersManagment = () => {
                     </div>
                     <div className="relative w-full md:w-55">
                         <select 
-                            className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full outline-none focus:border-primaryBtn"
+                            className="appearance-none cursor-pointer bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full outline-none focus:border-primaryBtn"
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                         >

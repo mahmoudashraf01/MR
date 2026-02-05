@@ -199,7 +199,7 @@ const FilteredMachines = () => {
 
                             <nav className='flex justify-center items-center gap-1.5 mt-8 bg-white p-3 rounded-xl shadow-sm border border-gray-100' aria-label="Pagination">
                                 <button
-                                    className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed'
+                                    className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
                                     disabled={currentPage === 1}
                                     aria-label="Previous page"
                                     onClick={() => {
@@ -218,7 +218,7 @@ const FilteredMachines = () => {
                                             <button
                                                 key={`page-${pageNum}`}
                                                 onClick={() => handlePageChange(pageNum)}
-                                                className={`px-3 py-2 rounded-lg text-xs font-semibold ${isActive ? 'bg-primaryBtn text-white shadow-sm' : 'border border-gray-200 text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
+                                                className={`px-3 py-2 rounded-lg text-xs font-semibold ${isActive ? 'bg-primaryBtn text-white shadow-sm' : 'border cursor-pointer border-gray-200 text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
                                                 aria-label={`Page ${pageNum}`}
                                                 aria-current={isActive ? 'page' : undefined}
                                             >
@@ -234,7 +234,7 @@ const FilteredMachines = () => {
                                                 <button
                                                     key={`page-${pageNum}`}
                                                     onClick={() => handlePageChange(pageNum)}
-                                                    className={`px-3 py-2 rounded-lg text-xs font-semibold ${isActive ? 'bg-primaryBtn text-white shadow-sm' : 'border border-gray-200 text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
+                                                    className={`px-3 py-2 rounded-lg text-xs font-semibold ${isActive ? 'bg-primaryBtn text-white shadow-sm' : 'border cursor-pointer border-gray-200 text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
                                                     aria-label={`Page ${pageNum}`}
                                                     aria-current={isActive ? 'page' : undefined}
                                                 >
@@ -248,7 +248,7 @@ const FilteredMachines = () => {
                                         <button
                                             key={`page-${totalPages}`}
                                             onClick={() => handlePageChange(totalPages)}
-                                            className={`px-3 py-2 rounded-lg text-xs font-semibold ${totalPages === currentPage ? 'bg-primaryBtn text-white shadow-sm' : 'border border-gray-200 text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
+                                            className={`px-3 py-2 rounded-lg text-xs font-semibold ${totalPages === currentPage ? 'bg-primaryBtn text-white shadow-sm' : 'border cursor-pointer border-gray-200 text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
                                             aria-label={`Page ${totalPages}`}
                                             aria-current={totalPages === currentPage ? 'page' : undefined}
                                         >

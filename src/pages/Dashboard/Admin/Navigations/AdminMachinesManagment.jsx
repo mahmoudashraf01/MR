@@ -128,7 +128,7 @@ const AdminMachinesManagment = () => {
                 <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4">
                     <div className="relative">
                         <select
-                            className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
+                            className="appearance-none cursor-pointer bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
                             value={categoryId}
                             onChange={(e) => setCategoryId(e.target.value)}
                         >
@@ -147,7 +147,7 @@ const AdminMachinesManagment = () => {
                     </div>
                     <div className="relative">
                         <select
-                            className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
+                            className="appearance-none cursor-pointer bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
                             value={status}
                             onChange={(e) => setStatus(e.target.value)}
                         >
@@ -164,7 +164,7 @@ const AdminMachinesManagment = () => {
                     </div>
                     <div className="relative">
                         <select
-                            className="appearance-none bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
+                            className="appearance-none cursor-pointer bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
                         >

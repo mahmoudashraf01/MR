@@ -8,6 +8,7 @@ import TrashIcon from '../../../../../assets/trashIcon.svg';
 import EditIcon from '../../../../../assets/editIcon.svg';
 import EyeIcon from '../../../../../assets/eyeIcon.svg';
 import UserPlaceholder from '../../../../../assets/userIcon.svg';
+import { FaArrowRight } from 'react-icons/fa';
 import SkeletonTable from '../../Skeletons/SkeletonTable';
 import UserDetailsDialog from './UserDetailsDialog';
 import UpdateUserDialog from './UpdateUserDialog';
@@ -179,7 +180,7 @@ const UserManagmentTable = ({ filters }) => {
                 open={viewDialogOpen}
                 onOpenChange={setViewDialogOpen}
             />
-            
+
             <UpdateUserDialog
                 user={selectedUser}
                 open={editDialogOpen}
@@ -207,7 +208,7 @@ const UserManagmentTable = ({ filters }) => {
                     />
                 </div>
             )}
-             {updateSuccess && (
+            {updateSuccess && (
                 <div className="mb-4">
                     <DeleteCategoryAlert
                         alertTitle="User status updated successfully"
@@ -318,7 +319,7 @@ const UserManagmentTable = ({ filters }) => {
 
                                         {activeColumn === "status" && (
                                             <div className="relative inline-block">
-                                                <button 
+                                                <button
                                                     onClick={() => handleStatusClick(user.id)}
                                                     className={`w-30 h-8 text-xs rounded-xl ${user.is_active ? "bg-primaryBtn" : "bg-[#EF5350CC]"}`}
                                                     disabled={updateLoading && updatingId === user.id}
@@ -380,8 +381,8 @@ const UserManagmentTable = ({ filters }) => {
                                         {user.role || "N/A"}
                                     </td>
                                     <td className="hidden lg:table-cell px-4 py-3">
-                                         <div className="relative inline-block">
-                                            <button 
+                                        <div className="relative inline-block">
+                                            <button
                                                 onClick={() => handleStatusClick(user.id)}
                                                 className={`w-30 h-8 text-xs rounded-xl ${user.is_active ? "bg-[#68BB5FCC]" : "bg-[#EF5350CC]"}`}
                                                 disabled={updateLoading && updatingId === user.id}
@@ -442,24 +443,75 @@ const UserManagmentTable = ({ filters }) => {
                 {/* Pagination */}
                 <nav className='flex justify-center items-center gap-1.5 mt-8 bg-white p-3 rounded-xl shadow-sm border border-gray-100' aria-label="Pagination">
                     <button
-                        className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed'
+                        className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
                         disabled={currentPage === 1}
                         aria-label="Previous page"
-                        onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                        onClick={() => {
+                            const newPage = Math.max(1, currentPage - 1);
+                            handlePageChange(newPage);
+                        }}
                     >
                         Previous
                     </button>
 
-                    {/* Page number buttons */}
-                    {renderPaginationButtons()}
+                    {totalPages <= 3 ? (
+                        Array.from({ length: totalPages }).map((_, idx) => {
+                            const pageNum = idx + 1;
+                            const isActive = pageNum === currentPage;
+                            return (
+                                <button
+                                    key={`page-${pageNum}`}
+                                    onClick={() => handlePageChange(pageNum)}
+                                    className={`px-3 py-2 rounded-lg text-xs font-semibold ${isActive ? 'bg-primaryBtn text-white shadow-sm' : 'border cursor-pointer border-gray-200 text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
+                                    aria-label={`Page ${pageNum}`}
+                                    aria-current={isActive ? 'page' : undefined}
+                                >
+                                    {pageNum}
+                                </button>
+                            );
+                        })
+                    ) : (
+                        <>
+                            {[1, 2, 3].map((pageNum) => {
+                                const isActive = pageNum === currentPage;
+                                return (
+                                    <button
+                                        key={`page-${pageNum}`}
+                                        onClick={() => handlePageChange(pageNum)}
+                                        className={`px-3 py-2 rounded-lg text-xs font-semibold ${isActive ? 'bg-primaryBtn text-white shadow-sm' : 'border cursor-pointer border-gray-200 text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
+                                        aria-label={`Page ${pageNum}`}
+                                        aria-current={isActive ? 'page' : undefined}
+                                    >
+                                        {pageNum}
+                                    </button>
+                                );
+                            })}
+
+                            <span className='px-2 text-xs text-gray-400 font-medium' aria-hidden="true">...</span>
+
+                            <button
+                                key={`page-${totalPages}`}
+                                onClick={() => handlePageChange(totalPages)}
+                                className={`px-3 py-2 rounded-lg text-xs font-semibold ${totalPages === currentPage ? 'bg-primaryBtn text-white shadow-sm' : 'border cursor-pointer border-gray-200 text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5'}`}
+                                aria-label={`Page ${totalPages}`}
+                                aria-current={totalPages === currentPage ? 'page' : undefined}
+                            >
+                                {totalPages}
+                            </button>
+                        </>
+                    )}
 
                     <button
-                        className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 disabled:opacity-50 transition-all duration-200 font-semibold flex items-center gap-1.5'
+                        className='px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 hover:border-primaryBtn hover:text-primaryBtn hover:bg-primaryBtn/5 disabled:opacity-50 transition-all duration-200 font-semibold flex items-center gap-1.5 disabled:cursor-not-allowed cursor-pointer'
                         aria-label="Next page"
                         disabled={currentPage === totalPages}
-                        onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+                        onClick={() => {
+                            const newPage = Math.min(totalPages, currentPage + 1);
+                            handlePageChange(newPage);
+                        }}
                     >
                         Next
+                        <FaArrowRight className='text-xs' />
                     </button>
                 </nav>
             </div>
