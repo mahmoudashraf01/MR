@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { FaSearch, FaPaperPlane, FaBars } from "react-icons/fa";
+import { NavLink } from 'react-router-dom';
 
 const HowItWorks = () => {
     return (
@@ -73,12 +74,12 @@ const HowItWorks = () => {
                 <h3 className="text-2xl font-bold text-gray-900 mb-8">Ready to get started?</h3>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                    <button className="bg-primaryBtn text-white px-8 py-3 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200 hover:opacity-90">
+                    <NavLink to={"/machines"} className="bg-primaryBtn text-white px-8 py-3 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200 hover:opacity-90 cursor-pointer">
                         Browse Equipment
-                    </button>
-                    <button className="border-2 border-primaryBtn text-primaryBtn px-8 py-3 rounded-lg font-medium hover:bg-primaryBtn/5 transition-all duration-200 shadow-sm">
+                    </NavLink>
+                    <NavLink to={'/about'} className="border-2 border-primaryBtn text-primaryBtn px-8 py-3 rounded-lg font-medium hover:bg-primaryBtn/5 transition-all duration-200 shadow-sm cursor-pointer">
                         Learn More
-                    </button>
+                    </NavLink>
                 </div>
             </div>
         </div>

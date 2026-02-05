@@ -133,7 +133,7 @@ const RenterForm2 = ({ data, setData, prevStep, handleSubmit, loading }) => {
           <button
             type="button"
             onClick={prevStep}
-            className="text-primaryBtn w-full underline bg-white py-3.5 rounded-xl hover:bg-[#bad6ff] font-semibold"
+            className="text-primaryBtn w-full underline bg-white py-3.5 rounded-xl hover:bg-[#bad6ff] font-semibold cursor-pointer"
           >
             Back
           </button>

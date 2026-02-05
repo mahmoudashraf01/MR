@@ -106,7 +106,7 @@ const ManageMachines = () => {
                         <select
                             value={filters.category_id || 'all'}
                             onChange={handleCategoryChange}
-                            className="appearance-none focus:outline-primaryBtn bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
+                            className="appearance-none cursor-pointer focus:outline-primaryBtn bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
                         >
                             <option value="all">All Categories</option>
                             {privateCategories?.map((cat) => (
@@ -125,7 +125,7 @@ const ManageMachines = () => {
                         <select
                             value={filters.status || 'all'}
                             onChange={handleStatusChange}
-                            className="appearance-none focus:outline-primaryBtn bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
+                            className="appearance-none cursor-pointer focus:outline-primaryBtn bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
                         >
                             <option value="all">All Status</option>
                             <option value="rented">Rented</option>
@@ -142,7 +142,7 @@ const ManageMachines = () => {
                         <select
                             value={filters.location_city || 'all'}
                             onChange={handleCityChange}
-                            className="appearance-none focus:outline-primaryBtn bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
+                            className="appearance-none cursor-pointer focus:outline-primaryBtn bg-white border text-sm text-[#9CA3AF] border-[#D2D2D2] rounded-md px-4 py-2 pr-8 w-full"
                         >
                             <option value="all">All Cities</option>
                             {cities.map((city, index) => (

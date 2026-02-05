@@ -40,7 +40,7 @@ const Serveys = () => {
                     </div>
                 </div>
                 <div className='flex justify-center items-center py-10 gap-4'>
-                    <button className='flex justify-center items-center w-10 h-10 max-sm:w-8 max-sm:h-8 border-2 border-primaryBtn rounded-full hover:bg-primaryBtn hover:text-primary transition-all duration-200 shadow-sm hover:shadow-md'>
+                    <button className='flex justify-center items-center w-10 h-10 max-sm:w-8 max-sm:h-8 border-2 border-primaryBtn rounded-full hover:bg-primaryBtn hover:text-primary transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer'>
                         <FaAngleLeft className='text-primaryBtn hover:text-primary text-sm' />
                     </button>
                     <div className='flex justify-center items-center gap-2'>
@@ -48,7 +48,7 @@ const Serveys = () => {
                         <div className='w-3 h-3 bg-gray-300 rounded-full'></div>
                         <div className='w-3 h-3 bg-gray-300 rounded-full'></div>
                     </div>
-                    <button className='flex justify-center items-center w-10 h-10 max-sm:w-8 max-sm:h-8 border-2 border-primaryBtn rounded-full hover:bg-primaryBtn hover:text-primary transition-all duration-200 shadow-sm hover:shadow-md'>
+                    <button className='flex justify-center items-center w-10 h-10 max-sm:w-8 max-sm:h-8 border-2 border-primaryBtn rounded-full hover:bg-primaryBtn hover:text-primary transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer'>
                         <FaAngleRight className='text-primaryBtn hover:text-primary text-sm' />
                     </button>
                 </div>
