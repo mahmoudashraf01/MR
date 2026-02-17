@@ -20,9 +20,5 @@ export default defineConfig(({ mode }) => {
       }
     },
     base: '/',
-    define: {
-      // Provide an explicit app-level constant derived from an env var.
-      __VITE_BASE_URL__: JSON.stringify(env.VITE_BASE_URL),
-    },
   }
 })

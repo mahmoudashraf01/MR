@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { baseURL } from '../Helpers/const/const';
 
+
 export const getAllMachinesThunk = createAsyncThunk(
     "machines/getAllMachines",
     async (params = {}, thunkAPI) => {
         try {
-            // const baseURL = import.meta.env.VITE_BASE_URL;
 
             const { search, category_id, location_city, from_date, to_date } = params;
 
