@@ -1,17 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from '../Helpers/const/const';
-
+import { publicEndpoints } from "../store/api/endPoints";
 
 export const getAllMachinesThunk = createAsyncThunk(
     "machines/getAllMachines",
     async (params = {}, thunkAPI) => {
         try {
-
             const { search, category_id, location_city, from_date, to_date } = params;
+            const landingEndpoint = publicEndpoints.get("landingEndpoint");
 
-            const response = await axios.get(`${baseURL}/machines/public`, {
+            const response = await axios.get(landingEndpoint, {
                 params: {
                     search,
                     category_id,

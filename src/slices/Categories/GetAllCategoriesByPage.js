@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
+import { publicEndpoints } from "../../store/api/endPoints";
 
 
 // ------------------------
@@ -10,7 +10,9 @@ export const fetchCategories = createAsyncThunk(
     "categpries/fetchCategories",
     async (page, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${baseURL}/categories`);
+            const categoriesPublicEndpoint = publicEndpoints.get("categoriesPublicEndpoint");
+
+            const response = await axios.get(categoriesPublicEndpoint);
 
             console.log("Fetched categories by page:", response.data);
             return response.data;
@@ -28,7 +30,9 @@ export const fetchCategoryById = createAsyncThunk(
     "categories/fetchCategoryById",
     async (id, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${baseURL}/categories/${id}`);
+            const categoriesPublicEndpoint = publicEndpoints.get("categoriesPublicEndpoint");
+
+            const response = await axios.get(`${categoriesPublicEndpoint}/${id}`);
             return response.data;
         } catch (error) {
             return rejectWithValue(

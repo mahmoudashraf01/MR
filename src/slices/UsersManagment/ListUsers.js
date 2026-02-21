@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
+import { privateEndpoints } from "../../store/api/endPoints";
 
 // ------------------------
 // Fetch Users Thunk
@@ -22,8 +22,9 @@ export const fetchUsers = createAsyncThunk(
             } else {
                 params = { page: arg };
             }
+            const usersEndpoint = privateEndpoints.get("usersEndpoint");
 
-            const response = await axios.get(`${baseURL}/users`, {
+            const response = await axios.get(usersEndpoint, {
                 params: params,
                 headers: {
                     Authorization: `Bearer ${token}`,

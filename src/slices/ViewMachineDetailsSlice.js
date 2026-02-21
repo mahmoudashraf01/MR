@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from '../Helpers/const/const';
+import { publicEndpoints } from "../store/api/endPoints";
 
 // =====================================================
 // 1) Thunk Function — Get Machine Details by ID
@@ -9,8 +9,9 @@ export const getMachineDetailsThunk = createAsyncThunk(
     "machineDetails/getMachineDetails",
     async (id, { rejectWithValue }) => {
         try {
+            const machineDetailsEndpoint = publicEndpoints.get("machineDetailsEndpoint");
 
-            const response = await axios.get(`${baseURL}/machines/public/${id}`, {
+            const response = await axios.get(`${machineDetailsEndpoint}/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
                 },

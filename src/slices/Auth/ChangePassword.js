@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
+import { privateEndpoints } from "../../store/api/endPoints";
 
 // ------------------------
 // Change Password Thunk
@@ -14,7 +14,9 @@ export const changePassword = createAsyncThunk(
                 return rejectWithValue("No authentication token found");
             }
 
-            const response = await axios.post(`${baseURL}/change-password`, passwordData, {
+            const changePasswordEndpoint = privateEndpoints.get("changePasswordEndpoint");
+
+            const response = await axios.post(changePasswordEndpoint, passwordData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
+import { privateEndpoints } from "../../store/api/endPoints";
 
 // ------------------------
 // Update Machine Thunk
@@ -22,8 +22,9 @@ export const updateMachine = createAsyncThunk(
             if (formData instanceof FormData) {
                 formData.append('token', token);
             }
+            const privateMachinesEndpoint = privateEndpoints.get("PrivateMachinesEndpoint");
 
-            const response = await axios.post(`${baseURL}/machines/${id}`, formData, {
+            const response = await axios.post(`${privateMachinesEndpoint}/${id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

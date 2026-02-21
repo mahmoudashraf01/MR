@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
+import { privateEndpoints } from "../../store/api/endPoints";
 
 // ------------------------
 // Update User Status Thunk
@@ -47,14 +47,16 @@ export const updateUserStatus = createAsyncThunk(
                 }
             });
 
-            console.log(`UpdateUser: Sending POST to ${baseURL}/users/${id} with token`, token);
+            const usersEndpoint = privateEndpoints.get("usersEndpoint");
+
+            console.log(`UpdateUser: Sending POST to ${usersEndpoint}/${id} with token`, token);
             // Log formData keys for debugging
             for (var pair of formData.entries()) {
                 console.log(pair[0]+ ', ' + pair[1]); 
             }
 
             // Using POST with FormData and Authorization header
-            const response = await axios.post(`${baseURL}/users/${id}`, formData, {
+            const response = await axios.post(`${usersEndpoint}/${id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     // Do not set Content-Type manually, let axios set it with boundary

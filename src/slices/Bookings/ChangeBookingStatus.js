@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
+import { privateEndpoints } from "../../store/api/endPoints";
 
 // ------------------------
 // Update Booking Status
@@ -14,9 +14,11 @@ export const updateBookingStatus = createAsyncThunk(
                 return rejectWithValue("No authentication token found");
             }
 
+            const bookingsEndpoint = privateEndpoints.get("bookingsEndpoint");
+
             const response = await axios.request({
                 method: 'PATCH',
-                url: `${baseURL}/bookings/${bookingId}/status`,
+                url: `${bookingsEndpoint}/${bookingId}/status`,
                 data: { status },
                 headers: {
                     Authorization: `Bearer ${token}`,

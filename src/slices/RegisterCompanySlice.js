@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../Helpers/const/const";
+import { publicEndpoints } from "../store/api/endPoints";
 import { setCredentials } from "./SaveTokenSlice";
 
 // ==========================
@@ -33,7 +33,9 @@ export const registerCompany = createAsyncThunk(
                 tax_id: formData.tax_id || formData.taxId || "",
             };
 
-            const response = await axios.post(`${baseURL}/register`, body, {
+            const registerEndpoint = publicEndpoints.get("registerEndpoint");
+
+            const response = await axios.post(registerEndpoint, body, {
                 headers: { "Content-Type": "application/json" },
             });
 

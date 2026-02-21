@@ -1,14 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
+import { privateEndpoints } from "../../store/api/endPoints";
 
 export const updateProfile = createAsyncThunk(
     "auth/updateProfile",
     async (profileData, { getState, rejectWithValue }) => {
         const { token } = getState().saveToken;
-        
+
         try {
-            const response = await axios.post(`${baseURL}/profile/update`, profileData, {
+            const profileUpdateEndpoint = privateEndpoints.get("profileUpdateEndpoint");
+
+            const response = await axios.post(profileUpdateEndpoint, profileData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     Accept: "application/json",

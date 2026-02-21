@@ -3,8 +3,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { setCredentials } from "../SaveTokenSlice";  // 👈 أهم إضافة
-
-const BASE_URL = "https://darkgray-bee-896770.hostingersite.com/api";
+import { publicEndpoints } from "../../store/api/endPoints";
 
 // ----------------------
 //  Login Thunk Function
@@ -13,7 +12,9 @@ export const loginUser = createAsyncThunk(
     "auth/loginUser",
     async ({ email, password }, thunkAPI) => {
         try {
-            const response = await axios.post(`${BASE_URL}/login`, {
+            const loginEndpoint = publicEndpoints.get("loginEndpoint");
+
+            const response = await axios.post(loginEndpoint, {
                 email,
                 password,
             });

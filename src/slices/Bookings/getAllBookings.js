@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
+import { privateEndpoints } from "../../store/api/endPoints";
 
 // ------------------------
 // Fetch All Bookings
@@ -32,8 +32,9 @@ export const fetchAllBookings = createAsyncThunk(
             if (params.status) queryParams.append("status", params.status);
             if (params.city) queryParams.append("city", params.city);
             if (params.booking_date) queryParams.append("booking_date", params.booking_date);
+            const bookingsEndpoint = privateEndpoints.get("bookingsEndpoint");
 
-            const response = await axios.get(`${baseURL}/bookings?${queryParams.toString()}`, {
+            const response = await axios.get(`${bookingsEndpoint}?${queryParams.toString()}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
+import { privateEndpoints } from "../../store/api/endPoints";
 
 export const createSubCategory = createAsyncThunk(
     "subCategories/createSubCategory",
@@ -26,8 +26,10 @@ export const createSubCategory = createAsyncThunk(
                 });
             }
 
+            const subCategoriesEndpoint = privateEndpoints.get("subCategoriesEndpoint");
+
             const response = await axios.post(
-                `${baseURL}/sub-categories`,
+                subCategoriesEndpoint,
                 formData,
                 {
                     headers: {

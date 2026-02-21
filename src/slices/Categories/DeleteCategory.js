@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
+import { privateEndpoints } from "../../store/api/endPoints";
 
 export const deleteCategory = createAsyncThunk(
     "categories/deleteCategory",
@@ -9,8 +9,9 @@ export const deleteCategory = createAsyncThunk(
             const state = getState();
             const token = state.saveToken?.token;
             console.log("TOKEN =>", token);
+            const categoriesEndpoint = privateEndpoints.get("categoriesEndpoint");
             const response = await axios.delete(
-                `${baseURL}/categories/${categoryId}`,
+                `${categoriesEndpoint}/${categoryId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

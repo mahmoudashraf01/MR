@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../Helpers/const/const";
+import { publicEndpoints } from "../store/api/endPoints";
 
 
 // ------------------------
@@ -43,8 +43,9 @@ export const fetchPublicMachines = createAsyncThunk(
             if (params.min_rate !== undefined) queryParams.append('min_rate', params.min_rate);
             if (params.max_rate !== undefined) queryParams.append('max_rate', params.max_rate);
             if (params.company_id) queryParams.append('company_id', params.company_id);
+            const publicMachinesByPageEndpoint = publicEndpoints.get("publicMachinesByPageEndpoint");
 
-            const response = await axios.get(`${baseURL}/machines/public?${queryParams.toString()}`);
+            const response = await axios.get(`${publicMachinesByPageEndpoint}?${queryParams.toString()}`);
 
             console.log("Fetched machines by page:", response.data);
 

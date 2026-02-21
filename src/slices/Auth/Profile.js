@@ -1,15 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-const BASE_URL = "https://darkgray-bee-896770.hostingersite.com/api";
+import { privateEndpoints } from "../../store/api/endPoints";
 
 export const getProfile = createAsyncThunk(
     "auth/getProfile",
     async (_, { getState, rejectWithValue }) => {
         const { token } = getState().saveToken;
-        
+
         try {
-            const response = await axios.get(`${BASE_URL}/profile`, {
+            const profileEndpoint = privateEndpoints.get("profileEndpoint");
+
+            const response = await axios.get(profileEndpoint, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     Accept: "application/json",

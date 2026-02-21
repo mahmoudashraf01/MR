@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
+import { privateEndpoints } from "../../store/api/endPoints";
 
 // ------------------------
 // Delete User Thunk
@@ -15,8 +15,9 @@ export const deleteUser = createAsyncThunk(
             if (!token) {
                 return rejectWithValue("No authentication token found");
             }
+            const usersEndpoint = privateEndpoints.get("usersEndpoint");
 
-            const response = await axios.delete(`${baseURL}/users/${id}`, {
+            const response = await axios.delete(`${usersEndpoint}/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

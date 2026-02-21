@@ -1,12 +1,7 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
-
-// ======================
-// Base URL
-// ======================
-const BASE_URL = `${baseURL}/bookings`;
+import { privateEndpoints } from "../../store/api/endPoints";
 // ======================
 // Thunk: Create Booking
 // ======================
@@ -23,8 +18,9 @@ export const createBooking = createAsyncThunk(
 
       console.log("Creating booking with data:", bookingData);
       console.log("Using token:", token);
+      const bookingsEndpoint = privateEndpoints.get("bookingsEndpoint");
       const response = await axios.post(
-        BASE_URL,
+        bookingsEndpoint,
         bookingData,
         {
           headers: {

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
+import { privateEndpoints } from "../../store/api/endPoints";
 
 export const fetchStatistics = createAsyncThunk(
   "statistics/fetchStatistics",
@@ -10,7 +10,9 @@ export const fetchStatistics = createAsyncThunk(
       if (!token) {
         return rejectWithValue("No authentication token found");
       }
-      const response = await axios.get(`${baseURL}/statistics`, {
+      const statisticsEndpoint = privateEndpoints.get("statisticsEndpoint");
+
+      const response = await axios.get(statisticsEndpoint, {
         headers: { Authorization: `Bearer ${token}` }
       });
       return response.data;

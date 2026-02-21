@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
+import { privateEndpoints } from "../../store/api/endPoints";
 
 export const fetchPrivateMachines = createAsyncThunk(
     "machines/fetchPrivateMachines",
@@ -31,8 +31,9 @@ export const fetchPrivateMachines = createAsyncThunk(
             if (params.category_id) queryParams.append("category_id", params.category_id);
             if (params.status) queryParams.append("status", params.status);
             if (params.location_city) queryParams.append("location_city", params.location_city);
+            const privateMachinesEndpoint = privateEndpoints.get("PrivateMachinesEndpoint");
 
-            const response = await axios.get(`${baseURL}/machines?${queryParams.toString()}`, {
+            const response = await axios.get(`${privateMachinesEndpoint}?${queryParams.toString()}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

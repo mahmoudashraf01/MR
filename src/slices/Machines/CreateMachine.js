@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { baseURL } from "../../Helpers/const/const";
+import { privateEndpoints } from "../../store/api/endPoints";
 
 export const createMachine = createAsyncThunk(
     "machines/createMachine",
@@ -66,7 +66,9 @@ export const createMachine = createAsyncThunk(
                 });
             }
 
-            const response = await axios.post(`${baseURL}/machines`, formData, {
+            const privateMachinesEndpoint = privateEndpoints.get("PrivateMachinesEndpoint");
+
+            const response = await axios.post(privateMachinesEndpoint, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data",
