@@ -30,11 +30,14 @@ const getEnv = (key, defaultValue = '') => {
 
 //API Configuration
 export const API_BASE_URL = getEnv('VITE_BASE_URL', 'http://localhost:5000/api');
+export const GOOGLE_MAPS_API_KEY = getEnv('VITE_GOOGLE_MAPS_API_KEY', 'YOUR_DEFAULT_GOOGLE_MAPS_API_KEY');
+
 
 console.log('API Base URL:', API_BASE_URL);
 //Export All Configurations
  export default  {
-    APP_ENV,
+    // APP_ENV,
+    GOOGLE_MAPS_API_KEY,
     API_BASE_URL,
 };
 

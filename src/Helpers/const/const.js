@@ -1,5 +1,7 @@
-const baseURL = import.meta.env.VITE_BASE_URL;;
-const apiKey = 'AIzaSyCJEeIkSkj45LdIms4SudgoW4d-Xm4lgq0';
+import { API_BASE_URL, GOOGLE_MAPS_API_KEY } from "../../config/env";
+
+const baseURL = API_BASE_URL;
+const apiKey = GOOGLE_MAPS_API_KEY;
 
 export { apiKey }
 export { baseURL };
