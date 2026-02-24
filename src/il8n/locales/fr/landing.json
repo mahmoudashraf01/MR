@@ -1,0 +1,76 @@
+{
+    "hero": {
+        "title_part1": "Louez des équipements lourds,",
+        "title_highlight": "N'importe quand,",
+        "title_part2": "N'importe où.",
+        "subtitle": "La plateforme la plus fiable pour des locations de machines sûres et efficaces.",
+        "stats_machines": "1000+ machines vérifiées",
+        "stats_suppliers": "500+ fournisseurs de confiance",
+        "stats_support": "Support 24/7"
+    },
+    "landing_search": {
+        "equipment_name": "Nom de l'équipement",
+        "equipment_name_placeholder": "Entrez le nom de l'équipement",
+        "category": "Catégorie",
+        "select_category": "Sélectionnez une catégorie",
+        "all_categories": "Toutes les catégories",
+        "location": "Emplacement",
+        "location_placeholder": "Ville ou code postal",
+        "date_from": "Date de début",
+        "date_to": "Date de fin",
+        "search_button": "Rechercher"
+    },
+    "how_it_works": {
+        "title": "Comment ça marche",
+        "subtitle": "Commencez en trois étapes faciles. Simple, rapide et fiable.",
+        "step1_title": "Rechercher des machines",
+        "step1_desc": "Parcourez notre vaste catalogue d'équipements lourds vérifiés. Filtrez par type, emplacement et disponibilité.",
+        "step2_title": "Envoyer une demande de réservation",
+        "step2_desc": "Sélectionnez vos dates et soumettez une demande de réservation. Obtenez une confirmation instantanée de fournisseurs vérifiés.",
+        "step3_title": "Commencez votre projet",
+        "step3_desc": "Recevez votre équipement à temps et commencez votre projet en toute confiance. Nous sommes là pour vous soutenir.",
+        "cta_title": "Prêt à commencer ?",
+        "cta_browse": "Parcourir l'équipement",
+        "cta_learn_more": "En savoir plus"
+    },
+    "why_choose": {
+        "title": "Pourquoi choisir MachineRentals ?",
+        "subtitle": "La plateforme la plus fiable pour la location d'équipements lourds. Conçue par des professionnels, pour des professionnels.",
+        "card1_title": "Entreprises vérifiées",
+        "card1_desc": "Tous les fournisseurs d'équipement sont soigneusement examinés et vérifiés pour votre sécurité et votre tranquillité d'esprit.",
+        "card2_title": "Réservation simple et rapide",
+        "card2_desc": "Réservez votre équipement en quelques minutes grâce à notre processus simplifié. Pas de tracas administratifs.",
+        "card3_title": "Grande variété d'équipements",
+        "card3_desc": "Accédez à des milliers de machines, des excavatrices aux grues, le tout sur une seule plateforme.",
+        "card4_title": "Support fiable",
+        "card4_desc": "Support client 24/7 pour vous aider avec toutes vos questions ou problèmes pendant votre location.",
+        "stats_machines": "Machines vérifiées",
+        "stats_suppliers": "Fournisseurs de confiance",
+        "stats_rentals": "Locations réussies",
+        "stats_support": "Service client"
+    },
+    "serveys": {
+        "title": "Ce que disent nos clients",
+        "subtitle": "Approuvé par les plus grandes entreprises de construction à travers le pays.",
+        "testimonial": "\"La variété d'équipement disponible est impressionnante. Nous pouvons trouver tout ce dont nous avons besoin en un seul endroit, des excavatrices aux grues. Fortement recommandé pour toute entreprise de construction.\"",
+        "author_role": "Entreprises vérifiées"
+    },
+    "footer": {
+        "description": "La plateforme la plus fiable pour la location d'équipements lourds, sûre et efficace. Connectant les professionnels de la construction avec des fournisseurs vérifiés dans tout le pays.",
+        "quick_links": "Liens rapides",
+        "home": "Accueil",
+        "about": "À propos",
+        "contact_us": "Contactez-nous",
+        "help_center": "Centre d'aide",
+        "machines": "Machines",
+        "excavators": "Excavatrices",
+        "cranes": "Grues",
+        "bulldozers": "Bouteurs",
+        "loaders": "Chargeurs",
+        "follow_us": "Suivez-nous",
+        "rights": "© 2025 MachineRentals – Tous droits réservés.",
+        "privacy_policy": "Politique de confidentialité",
+        "terms_of_service": "Conditions d'utilisation",
+        "cookie_policy": "Politique de cookies"
+    }
+}

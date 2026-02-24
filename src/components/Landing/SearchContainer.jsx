@@ -1,6 +1,7 @@
 import { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import EquipmentCategory from '../../assets/category_search.svg';
 import EquipmentName from '../../assets/equipmentSearch.svg';
 import SearchDataIcon from '../../assets/searchDataIcon.svg';
@@ -10,6 +11,7 @@ import { getAllMachinesThunk } from "../../slices/landingSlice";
 import { fetchCategories } from "../../slices/Categories/GetAllCategoriesByPage";
 
 const SearchContainer = () => {
+    const { t } = useTranslation('landing');
     const dispatch = useDispatch();
     const { categories } = useSelector((state) => state.categoriesByPage);
     
@@ -61,12 +63,12 @@ const SearchContainer = () => {
                     {/* Equipment Name */}
                     <div className="flex flex-col gap-2 w-full group">
                         <label className="font-semibold text-gray-800 flex items-center gap-2 text-sm">
-                            <img src={EquipmentName} alt="" /> Equipment Name
+                            <img src={EquipmentName} alt="" /> {t('landing_search.equipment_name')}
                         </label>
                         <div className="relative">
                             <input
                                 type="text"
-                                placeholder="Enter Equipment Name"
+                                placeholder={t('landing_search.equipment_name_placeholder')}
                                 {...register("search")}
                                 className="border-2 border-gray-200 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-4 focus:ring-primaryBtn/10 focus:border-primaryBtn transition-all duration-200 text-sm placeholder-gray-400 hover:border-gray-300"
                                 aria-label="Equipment name"
@@ -77,7 +79,7 @@ const SearchContainer = () => {
                     {/* Category */}
                     <div className="flex flex-col gap-2 w-full group">
                         <label className="font-semibold text-gray-800 flex items-center gap-2 text-sm">
-                            <img src={EquipmentCategory} alt="" /> Category
+                            <img src={EquipmentCategory} alt="" /> {t('landing_search.category')}
                         </label>
                         <div className="relative">
                             <select
@@ -85,8 +87,8 @@ const SearchContainer = () => {
                                 className="border-2 border-gray-200 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-4 focus:ring-primaryBtn/10 focus:border-primaryBtn transition-all duration-200 text-sm appearance-none cursor-pointer hover:border-gray-300 bg-white"
                                 aria-label="Category"
                             >
-                                <option value="" disabled>Select Category</option>
-                                <option value="all">All Categories</option>
+                                <option value="" disabled>{t('landing_search.select_category')}</option>
+                                <option value="all">{t('landing_search.all_categories')}</option>
                                 {categories?.map((cat) => (
                                     <option key={cat.id} value={cat.id}>
                                         {cat.name}
@@ -102,12 +104,12 @@ const SearchContainer = () => {
                     {/* Location */}
                     <div className="flex flex-col gap-2 w-full group">
                         <label className="font-semibold text-gray-800 flex items-center gap-2 text-sm">
-                            <img src={SearchLocationIcon} alt="" /> Location
+                            <img src={SearchLocationIcon} alt="" /> {t('landing_search.location')}
                         </label>
                         <div className="relative">
                             <input
                                 type="text"
-                                placeholder="Enter city or zip code"
+                                placeholder={t('landing_search.location_placeholder')}
                                 {...register("location_city")}
                                 className="border-2 border-gray-200 rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-4 focus:ring-primaryBtn/10 focus:border-primaryBtn transition-all duration-200 text-sm placeholder-gray-400 hover:border-gray-300"
                                 aria-label="Location"
@@ -118,7 +120,7 @@ const SearchContainer = () => {
                     {/* Date From */}
                     <div className="flex flex-col gap-2 w-full group">
                         <label className="font-semibold text-gray-800 flex items-center gap-2 text-sm">
-                            <img src={SearchDataIcon} alt="" /> Date From
+                            <img src={SearchDataIcon} alt="" /> {t('landing_search.date_from')}
                         </label>
                         <div className="relative">
                             <input
@@ -133,7 +135,7 @@ const SearchContainer = () => {
                     {/* Date To */}
                     <div className="flex flex-col gap-2 w-full group">
                         <label className="font-semibold text-gray-800 flex items-center gap-2 text-sm">
-                            <img src={SearchDataIcon} alt="" /> Date To
+                            <img src={SearchDataIcon} alt="" /> {t('landing_search.date_to')}
                         </label>
                         <div className="relative">
                             <input
@@ -159,7 +161,7 @@ const SearchContainer = () => {
                         aria-label="Search for equipment"
                     >
                         <FaSearch className="text-base" />
-                        <span>Search</span>
+                        <span>{t('landing_search.search_button')}</span>
                     </button>
                 </div>
             </form>

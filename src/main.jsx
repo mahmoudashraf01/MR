@@ -9,6 +9,7 @@ import ScrollToTop from './Helpers/ScrollToTop.js'
 import AuthProvider from './contexts/AuthContext.jsx'
 import { LoadScript } from '@react-google-maps/api'
 import { apiKey } from './Helpers/const/const'
+import "./il8n/il8n.js"
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

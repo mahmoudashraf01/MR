@@ -1,15 +1,17 @@
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaSearch, FaPaperPlane, FaBars } from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
 
 const HowItWorks = () => {
+    const { t } = useTranslation('landing');
     return (
         <div className="w-full py-20 px-6 flex flex-col items-center text-center bg-white">
             {/* Title */}
             <div className="mb-12 max-w-2xl">
-                <h2 className="text-4xl font-bold text-gray-900 mb-3">How It Works</h2>
-                <p className="text-gray-600 text-lg max-w-xl mx-auto leading-relaxed">
-                    Get started in three easy steps. Simple, fast, and reliable.
+                <h2 className="text-4xl font-bold text-gray-900 mb-3">{t('how_it_works.title')}</h2>
+                <p className="text-gray-600 text-lg max-xl:mx-auto leading-relaxed">
+                    {t('how_it_works.subtitle')}
                 </p>
             </div>
 
@@ -28,9 +30,9 @@ const HowItWorks = () => {
                         </span>
                     </div>
 
-                    <h3 className="mt-8 text-xl font-semibold text-gray-900 mb-3">Search for Machines</h3>
+                    <h3 className="mt-8 text-xl font-semibold text-gray-900 mb-3">{t('how_it_works.step1_title')}</h3>
                     <p className="text-gray-600 max-w-xs leading-relaxed text-base">
-                        Browse our extensive catalog of verified heavy equipment. Filter by type, location, and availability.
+                        {t('how_it_works.step1_desc')}
                     </p>
                 </div>
 
@@ -45,9 +47,9 @@ const HowItWorks = () => {
                         </span>
                     </div>
 
-                    <h3 className="mt-8 text-xl font-semibold text-gray-900 mb-3">Send Booking Request</h3>
+                    <h3 className="mt-8 text-xl font-semibold text-gray-900 mb-3">{t('how_it_works.step2_title')}</h3>
                     <p className="text-gray-600 max-w-xs leading-relaxed text-base">
-                        Select your dates and submit a booking request. Get instant confirmation from verified suppliers.
+                        {t('how_it_works.step2_desc')}
                     </p>
                 </div>
 
@@ -62,23 +64,23 @@ const HowItWorks = () => {
                         </span>
                     </div>
 
-                    <h3 className="mt-8 text-xl font-semibold text-gray-900 mb-3">Start Your Project</h3>
+                    <h3 className="mt-8 text-xl font-semibold text-gray-900 mb-3">{t('how_it_works.step3_title')}</h3>
                     <p className="text-gray-600 max-w-xs leading-relaxed text-base">
-                        Receive your equipment on time and start your project with confidence. We're here to support you.
+                        {t('how_it_works.step3_desc')}
                     </p>
                 </div>
             </div>
 
             {/* CTA Section */}
             <div className="mt-16 flex flex-col items-center">
-                <h3 className="text-2xl font-bold text-gray-900 mb-8">Ready to get started?</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-8">{t('how_it_works.cta_title')}</h3>
 
                 <div className="flex flex-col sm:flex-row gap-4">
                     <NavLink to={"/machines"} className="bg-primaryBtn text-white px-8 py-3 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200 hover:opacity-90 cursor-pointer">
-                        Browse Equipment
+                        {t('how_it_works.cta_browse')}
                     </NavLink>
                     <NavLink to={'/about'} className="border-2 border-primaryBtn text-primaryBtn px-8 py-3 rounded-lg font-medium hover:bg-primaryBtn/5 transition-all duration-200 shadow-sm cursor-pointer">
-                        Learn More
+                        {t('how_it_works.cta_learn_more')}
                     </NavLink>
                 </div>
             </div>

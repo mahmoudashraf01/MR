@@ -40,8 +40,6 @@ import RenterOverview from './pages/Dashboard/Renter/Navigations/RenterOverview'
 import CompanyAnalysis from './pages/Dashboard/Company/Navigations/CompanyAnalysis'
 import AdminProfile from './pages/Dashboard/Admin/Navigations/AdminProfile'
 
-
-
 function App() {
 
   const routesArray = [

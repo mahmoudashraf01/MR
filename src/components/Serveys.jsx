@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TbQuote } from 'react-icons/tb';
 import Img from '../assets/img.jpg'
 import { LiaStarSolid } from 'react-icons/lia';
@@ -6,11 +7,12 @@ import { FaAngleRight } from 'react-icons/fa6';
 import { FaAngleLeft } from 'react-icons/fa6';
 import Comma from '../assets/comma.svg';
 const Serveys = () => {
+    const { t } = useTranslation('landing');
     return (
         <div className='flex flex-col justify-center items-center my-12 py-8'>
             <div className='flex flex-col my-10 justify-center items-center gap-6 px-4 max-w-3xl'>
-                <h2 className='text-[40px] text-gray-900 font-bold text-center leading-tight max-sm:text-3xl'>What Our Clients Say</h2>
-                <p className='text-center text-gray-600 text-[20px] font-normal leading-relaxed max-sm:text-base'>Trusted by leading construction companies across the nation.</p>
+                <h2 className='text-[40px] text-gray-900 font-bold text-center leading-tight max-sm:text-3xl'>{t('serveys.title')}</h2>
+                <p className='text-center text-gray-600 text-[20px] font-normal leading-relaxed max-sm:text-base'>{t('serveys.subtitle')}</p>
             </div>
             <div className='lg:px-15 px-4 md:px-10 w-full max-w-5xl'>
                 <div className='border-2 border-gray-200 flex flex-col rounded-2xl shadow-xl w-full bg-white hover:shadow-2xl transition-shadow duration-300'>
@@ -20,7 +22,7 @@ const Serveys = () => {
                         </div>
                         <div className='max-sm:px-6 text-center py-12 px-12 md:px-16 gap-5 flex flex-col justify-center items-center'>
                             <p className='text-center text-[28px] max-sm:text-lg leading-relaxed text-gray-800 font-medium'>
-                                "The variety of equipment available is impressive. We can find everything we need in one place, from excavators to cranes. Highly recommended for any construction business."
+                                {t('serveys.testimonial')}
                             </p>
                         </div>
                         <hr className='mx-12 md:mx-20 mb-6 border-gray-200' />
@@ -28,7 +30,7 @@ const Serveys = () => {
                     <div className='flex pb-8 px-12 md:px-16 gap-4 items-center'>
                         <img className='w-14 h-14 rounded-full object-cover border-2 border-gray-200 shadow-sm' src={Img} alt="reviewer" />
                         <div className='flex flex-col gap-2'>
-                            <p className='text-[18px] max-sm:text-sm font-semibold text-gray-900'>Verified Companies</p>
+                            <p className='text-[18px] max-sm:text-sm font-semibold text-gray-900'>{t('serveys.author_role')}</p>
                             <div className='flex gap-0.5 text-secondary'>
                                 <LiaStarSolid className='text-lg' />
                                 <LiaStarSolid className='text-lg' />

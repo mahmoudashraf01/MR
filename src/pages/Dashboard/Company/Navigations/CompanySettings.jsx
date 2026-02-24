@@ -1,6 +1,7 @@
 import { memo, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Spinner } from '@/components/ui/spinner';
 import { changePassword, resetChangePasswordState } from '../../../../slices/Auth/ChangePassword';
@@ -12,13 +13,14 @@ import {
     DialogDescription,
     DialogFooter,
 } from "@/components/ui/dialog";
-
+import DropDownArrow from '../../../../assets/minusArrow.svg';
 const labelBase = "block text-sm font-medium text-navColor mb-1";
 
 const selectBase =
     "w-full border rounded-md px-4 py-2 text-sm focus:outline-none appearance-none text-[#9CA3AF] border-[#D2D2D2] bg-white";
 
 const CompanySettings = () => {
+    const { i18n } = useTranslation();
     const dispatch = useDispatch();
     const { loading, success, error } = useSelector((state) => state.changePassword);
     const [isSuccessOpen, setIsSuccessOpen] = useState(false);
@@ -145,6 +147,34 @@ const CompanySettings = () => {
                             {errors.password_confirmation && (
                                 <p className="text-xs text-red-500 mt-1">{errors.password_confirmation.message}</p>
                             )}
+                        </div>
+
+                        <div className='flex flex-col gap-5'>
+                            <h2 className="text-lg font-medium text-gray-700">
+                                Language Settings
+                            </h2>
+                            <div className='flex flex-col gap-2'>
+                                <h2 className='font-medium text-gray-700'>Language</h2>
+                                <div className="relative w-full">
+                                    <select 
+                                        className={selectBase}
+                                        value={i18n.language}
+                                        onChange={(e) => {
+                                            const newLang = e.target.value;
+                                            i18n.changeLanguage(newLang);
+                                            localStorage.setItem("i18nextLng", newLang);
+                                        }}
+                                    >
+                                        <option value="en">English</option>
+                                        <option value="fr">Frensh</option>
+                                    </select>
+                                    <img
+                                        src={DropDownArrow}
+                                        alt="arrow"
+                                        className="absolute right-3 top-3 w-4 h-4 pointer-events-none"
+                                    />
+                                </div>
+                            </div>
                         </div>
 
                         {/* Buttons inside form to handle submit */}

@@ -1,0 +1,76 @@
+{
+    "hero": {
+        "title_part1": "Rent Heavy Equipment,",
+        "title_highlight": "Anytime,",
+        "title_part2": "Anywhere.",
+        "subtitle": "The most trusted platform for reliable, safe, and efficient machine rentals.",
+        "stats_machines": "1000+ Verified Machines",
+        "stats_suppliers": "500+ Trusted Suppliers",
+        "stats_support": "24/7 Support"
+    },
+    "landing_search": {
+        "equipment_name": "Equipment Name",
+        "equipment_name_placeholder": "Enter Equipment Name",
+        "category": "Category",
+        "select_category": "Select Category",
+        "all_categories": "All Categories",
+        "location": "Location",
+        "location_placeholder": "Enter city or zip code",
+        "date_from": "Date From",
+        "date_to": "Date To",
+        "search_button": "Search"
+    },
+    "how_it_works": {
+        "title": "How It Works",
+        "subtitle": "Get started in three easy steps. Simple, fast, and reliable.",
+        "step1_title": "Search for Machines",
+        "step1_desc": "Browse our extensive catalog of verified heavy equipment. Filter by type, location, and availability.",
+        "step2_title": "Send Booking Request",
+        "step2_desc": "Select your dates and submit a booking request. Get instant confirmation from verified suppliers.",
+        "step3_title": "Start Your Project",
+        "step3_desc": "Receive your equipment on time and start your project with confidence. We're here to support you.",
+        "cta_title": "Ready to get started?",
+        "cta_browse": "Browse Equipment",
+        "cta_learn_more": "Learn More"
+    },
+    "why_choose": {
+        "title": "Why Choose MachineRentals?",
+        "subtitle": "The most trusted platform for heavy equipment rentals. Built for professionals, by professionals.",
+        "card1_title": "Verified Companies",
+        "card1_desc": "All equipment suppliers are thoroughly vetted and verified for your safety and peace of mind.",
+        "card2_title": "Fast and Simple Booking",
+        "card2_desc": "Book equipment in minutes with our streamlined process. No paperwork hassles.",
+        "card3_title": "Wide Equipment Variety",
+        "card3_desc": "Access thousands of machines from excavators to cranes, all in one platform.",
+        "card4_title": "Reliable Support",
+        "card4_desc": "24/7 customer support to help you with any questions or issues during your rental.",
+        "stats_machines": "Verified Machines",
+        "stats_suppliers": "Trusted Suppliers",
+        "stats_rentals": "Successful Rentals",
+        "stats_support": "Customer Support"
+    },
+    "serveys": {
+        "title": "What Our Clients Say",
+        "subtitle": "Trusted by leading construction companies across the nation.",
+        "testimonial": "\"The variety of equipment available is impressive. We can find everything we need in one place, from excavators to cranes. Highly recommended for any construction business.\"",
+        "author_role": "Verified Companies"
+    },
+    "footer": {
+        "description": "The most trusted platform for reliable, safe, and efficient heavy equipment rentals. Connecting construction professionals with verified suppliers nationwide.",
+        "quick_links": "Quick Links",
+        "home": "Home",
+        "about": "About",
+        "contact_us": "Contact Us",
+        "help_center": "Help Center",
+        "machines": "Machines",
+        "excavators": "Excavators",
+        "cranes": "Cranes",
+        "bulldozers": "Bulldozers",
+        "loaders": "Loaders",
+        "follow_us": "Follow Us",
+        "rights": "© 2025 MachineRentals – All rights reserved.",
+        "privacy_policy": "Privacy Policy",
+        "terms_of_service": "Terms of Service",
+        "cookie_policy": "Cookie Policy"
+    }
+}
