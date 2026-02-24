@@ -73,7 +73,7 @@ const CategoryDialog = ({ open, onOpenChange }) => {
             name: data.name,
             description: data.description,
             isActive: status === "active",
-            images, // زي ما هي (لو form-data الـ thunk بيظبطها)
+            images, 
         };
 
         console.log("Payload sent:", payload);

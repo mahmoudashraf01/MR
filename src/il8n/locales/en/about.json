@@ -1,6 +1,42 @@
 {
-    "welcome": "Bienvenue sur notre plateforme de location de machines !",
-    "description": "Découvrez une large gamme de machines pour tous vos besoins de construction, d'agriculture et plus encore. Louez facilement en quelques clics et bénéficiez d'un service fiable et rapide.",
-    "exploreButton": "Explorer les Machines",
-    "contactUs": "Contactez-nous pour plus d'informations ou pour toute question concernant nos services de location."
+    "about_hero": {
+        "title_part1": "Building Trust Through Reliable",
+        "title_part2": "Machine Rentals.",
+        "subtitle": "We connect construction companies with the equipment they need — safely, quickly, and efficiently.",
+        "find_equipment_button": "Find Equipment",
+        "list_machines_button": "List Your Machines"
+    },
+    "impact": {
+        "title": "Our Impact in Numbers",
+        "subtitle": "Trusted by construction companies worldwide to deliver quality equipment and exceptional service.",
+        "machines_available": "Machines Available",
+        "verified_companies": "Verified Companies",
+        "serving_regions": "Serving Regions",
+        "average_rating": "Average Rating",
+        "join_message": "Join thousands of satisfied customers who trust MachineRentals for their equipment needs"
+    },
+    "mission_vision": {
+        "mission_title": "Our Mission",
+        "mission_subtitle": "To simplify access to quality heavy equipment through innovation and trust.",
+        "mission_description": "We believe every construction project deserves reliable equipment and seamless rental experiences.",
+        "vision_title": "Our Vision",
+        "vision_subtitle": "To be the most reliable global marketplace for construction machinery.",
+        "vision_description": "Building a future where equipment rental is transparent, efficient, and accessible worldwide."
+    },
+    "core_values": {
+        "title": "Our Core Values?",
+        "subtitle": "The principles that guide everything we do and define who we are as a company.",
+        "ease_title": "Ease",
+        "ease_description": "Renting equipment should be simple and straightforward, with minimal steps and no complexity.",
+        "trust_title": "Trust",
+        "trust_description": "We carefully verify suppliers and equipment so customers can rely on what they get with confidence.",
+        "transparency_title": "Transparencyy",
+        "transparency_description": "Prices and details are clear from the start, with no hidden fees or unexpected charges.",
+        "reliable_support_title": "Reliable Support",
+        "reliable_support_description": "24/7 customer support to help you with any questions or issues during your rental.",
+        "variety_title": "Variety",
+        "variety_description": "A wide range of equipment from various suppliers in one place, making it easy to find what fits your needs.",
+        "support_title": "Support",
+        "support_description": "We support you every step of the way, ensuring the equipment arrives and works smoothly."
+    }
 }

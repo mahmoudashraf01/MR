@@ -1,20 +1,19 @@
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FiUsers } from "react-icons/fi";
 import { PiBasketballBold } from "react-icons/pi";
 import { CiStar } from "react-icons/ci";
 import Excavator from '../../assets/excavator.svg';
 
 
-
-
-
 const Impact = () => {
+    const { t } = useTranslation('about');
     return (
         <div className="w-full py-16 px-6 bg-gray-50 flex flex-col items-center text-center">
             {/* Title */}
-            <h2 className="text-3xl font-bold text-gray-900">Our Impact in Numbers</h2>
+            <h2 className="text-3xl font-bold text-gray-900">{t('impact.title')}</h2>
             <p className="text-gray-600 mt-2 max-w-2xl leading-relaxed">
-                Trusted by construction companies worldwide to deliver quality equipment and exceptional service.
+                {t('impact.subtitle')}
             </p>
 
             {/* Cards */}
@@ -26,7 +25,7 @@ const Impact = () => {
                     </div>
                     <h3 className="mt-4 text-lg font-semibold text-primaryBtn">1000+</h3>
                     <p className="text-gray-600 mt-2 text-sm max-w-xs">
-                        Machines Available
+                        {t('impact.machines_available')}
                     </p>
                 </div>
 
@@ -38,7 +37,7 @@ const Impact = () => {
                     </div>
                     <h3 className="mt-4 text-lg font-semibold text-yellow-500">500+</h3>
                     <p className="text-gray-600 mt-2 text-sm max-w-xs">
-                        Verified Companies
+                        {t('impact.verified_companies')}
                     </p>
                 </div>
 
@@ -50,7 +49,7 @@ const Impact = () => {
                     </div>
                     <h3 className="mt-4 text-lg font-semibold text-[#1B9C85]">30+</h3>
                     <p className="text-gray-600 mt-2 text-sm max-w-xs">
-                        Serving Regions
+                        {t('impact.serving_regions')}
                     </p>
                 </div>
 
@@ -62,12 +61,12 @@ const Impact = () => {
                     </div>
                     <h3 className="mt-4 text-lg font-semibold text-[#F5AE29]">R4.8/5</h3>
                     <p className="text-gray-600 mt-2 text-sm max-w-xs">
-                        Average Rating
+                        {t('impact.average_rating')}
                     </p>
                 </div>
             </div>
             <div className='py-10 text-[#2E3A4599] leading-relaxed '>
-                <p>Join thousands of satisfied customers who trust MachineRentals for their equipment needs</p>
+                <p>{t('impact.join_message')}</p>
             </div>
         </div>
     );

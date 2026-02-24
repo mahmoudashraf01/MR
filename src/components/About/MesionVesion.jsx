@@ -1,8 +1,10 @@
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaEye } from "react-icons/fa";
 import groupVector from '../../assets/groupVector.svg';
 
 const MesionVesion = () => {
+    const { t } = useTranslation('about');
     return (
         <div className="w-full flex flex-col lg:flex-row gap-6 items-center justify-center p-6">
 
@@ -15,17 +17,17 @@ const MesionVesion = () => {
 
                 <div className=''>
                     {/* Title */}
-                    <h2 className="text-2xl font-semibold text-gray-900 mb-2">Our Mission</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900 mb-2">{t('mission_vision.mission_title')}</h2>
 
                     {/* Subtitle */}
                     <p className="text-gray-600 mb-4">
-                        To simplify access to quality heavy equipment through innovation and trust.
+                        {t('mission_vision.mission_subtitle')}
                     </p>
 
                     <hr className="my-4 text-[#2E3A4533]" />
 
                     <p className="text-[#2E3A4599] text-sm">
-                        We believe every construction project deserves reliable equipment and seamless rental experiences.
+                        {t('mission_vision.mission_description')}
                     </p>
                 </div>
             </div>
@@ -37,16 +39,16 @@ const MesionVesion = () => {
                     <FaEye className="text-white text-xl" />
                 </div>
                 <div>
-                    <h2 className="text-2xl font-semibold text-gray-900 mb-2">Our Vision</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900 mb-2">{t('mission_vision.vision_title')}</h2>
 
                     <p className="text-gray-600 mb-4">
-                        To be the most reliable global marketplace for construction machinery.
+                        {t('mission_vision.vision_subtitle')}
                     </p>
 
                     <hr className="my-4 text-[#2E3A4533]" />
 
                     <p className="text-[#2E3A4599] text-sm">
-                        Building a future where equipment rental is transparent, efficient, and accessible worldwide.
+                        {t('mission_vision.vision_description')}
                     </p>
                 </div>
 

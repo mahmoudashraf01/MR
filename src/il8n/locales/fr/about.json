@@ -1,6 +1,42 @@
 {
-    "welcome": "Bienvenue sur notre plateforme de location de machines !",
-    "description": "Découvrez une large gamme de machines pour tous vos besoins de construction, d'agriculture et plus encore. Louez facilement en quelques clics et bénéficiez d'un service fiable et rapide.",
-    "exploreButton": "Explorer les Machines",
-    "contactUs": "Contactez-nous pour plus d'informations ou pour toute question concernant nos services de location."
+    "about_hero": {
+        "title_part1": "Construire la confiance grâce à des locations fiables",
+        "title_part2": "de machines.",
+        "subtitle": "Nous connectons les entreprises de construction avec l'équipement dont elles ont besoin — en toute sécurité, rapidement et efficacement.",
+        "find_equipment_button": "Trouver de l'équipement",
+        "list_machines_button": "Répertorier vos machines"
+    },
+    "impact": {
+        "title": "Notre impact en chiffres",
+        "subtitle": "Approuvé par les entreprises de construction du monde entier pour fournir des équipements de qualité et un service exceptionnel.",
+        "machines_available": "Machines disponibles",
+        "verified_companies": "Entreprises vérifiées",
+        "serving_regions": "Régions desservies",
+        "average_rating": "Note moyenne",
+        "join_message": "Rejoignez des milliers de clients satisfaits qui font confiance à MachineRentals pour leurs besoins en équipement"
+    },
+    "mission_vision": {
+        "mission_title": "Notre Mission",
+        "mission_subtitle": "Simplifier l'accès à des équipements lourds de qualité grâce à l'innovation et à la confiance.",
+        "mission_description": "Nous croyons que chaque projet de construction mérite un équipement fiable et une expérience de location fluide.",
+        "vision_title": "Notre Vision",
+        "vision_subtitle": "Être la plateforme mondiale la plus fiable pour les machines de construction.",
+        "vision_description": "Construire un avenir où la location d'équipement est transparente, efficace et accessible dans le monde entier."
+    },
+    "core_values": {
+        "title": "Nos valeurs fondamentales ?",
+        "subtitle": "Les principes qui guident tout ce que nous faisons et définissent qui nous sommes en tant qu'entreprise.",
+        "ease_title": "Facilité",
+        "ease_description": "La location d'équipement doit être simple et directe, avec un minimum d'étapes et sans complexité.",
+        "trust_title": "Confiance",
+        "trust_description": "Nous vérifions soigneusement les fournisseurs et les équipements afin que les clients puissent compter sur ce qu'ils obtiennent en toute confiance.",
+        "transparency_title": "Transparence",
+        "transparency_description": "Les prix et les détails sont clairs dès le départ, sans frais cachés ni charges inattendues.",
+        "reliable_support_title": "Support fiable",
+        "reliable_support_description": "Support client 24/7 pour vous aider avec toutes vos questions ou problèmes pendant votre location.",
+        "variety_title": "Variété",
+        "variety_description": "Une large gamme d'équipements de divers fournisseurs en un seul endroit, ce qui facilite la recherche de ce qui correspond à vos besoins.",
+        "support_title": "Support",
+        "support_description": "Nous vous accompagnons à chaque étape, en veillant à ce que l'équipement arrive et fonctionne sans problème."
+    }
 }

@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaShieldAlt, FaBolt, FaThLarge, FaHeadset } from "react-icons/fa";
 import Verify from '../../assets/verifyVector.svg';
 import Support from '../../assets/supportVector.svg';
@@ -7,12 +8,13 @@ import Efficiency from '../../assets/efficencyVector.svg';
 
 
 const CoreValues = () => {
+    const { t } = useTranslation('about');
     return (
         <div className="w-full py-16 px-6 bg-gray-50 flex flex-col items-center text-center">
             {/* Title */}
-            <h2 className="text-3xl font-bold text-gray-900">Our Core Values?</h2>
+            <h2 className="text-3xl font-bold text-gray-900">{t('core_values.title')}</h2>
             <p className="text-gray-600 mt-2 max-w-2xl leading-relaxed">
-                The principles that guide everything we do and define who we are as a company.
+                {t('core_values.subtitle')}
             </p>
 
 
@@ -23,9 +25,9 @@ const CoreValues = () => {
                     <div className="w-12 h-12 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-2xl">
                         <img src={Verify} alt="" />
                     </div>
-                    <h3 className="mt-4 text-lg font-semibold text-gray-900">Ease</h3>
+                    <h3 className="mt-4 text-lg font-semibold text-gray-900">{t('core_values.ease_title')}</h3>
                     <p className="text-gray-600 mt-2 text-sm max-w-xs">
-                        Renting equipment should be simple and straightforward, with minimal steps and no complexity.
+                        {t('core_values.ease_description')}
                     </p>
                 </div>
 
@@ -35,9 +37,9 @@ const CoreValues = () => {
                     <div className="w-12 h-12 rounded-lg bg-yellow-100 text-yellow-500 flex items-center justify-center text-2xl">
                         <FaBolt />
                     </div>
-                    <h3 className="mt-4 text-lg font-semibold text-gray-900">Trust</h3>
+                    <h3 className="mt-4 text-lg font-semibold text-gray-900">{t('core_values.trust_title')}</h3>
                     <p className="text-gray-600 mt-2 text-sm max-w-xs">
-                        We carefully verify suppliers and equipment so customers can rely on what they get with confidence.
+                        {t('core_values.trust_description')}
                     </p>
                 </div>
 
@@ -47,9 +49,9 @@ const CoreValues = () => {
                     <div className="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-2xl">
                          <img src={Transperancy} alt="" />
                     </div>
-                    <h3 className="mt-4 text-lg font-semibold text-gray-900">Transparencyy</h3>
+                    <h3 className="mt-4 text-lg font-semibold text-gray-900">{t('core_values.transparency_title')}</h3>
                     <p className="text-gray-600 mt-2 text-sm max-w-xs">
-                        Prices and details are clear from the start, with no hidden fees or unexpected charges.
+                        {t('core_values.transparency_description')}
                     </p>
                 </div>
 
@@ -59,9 +61,9 @@ const CoreValues = () => {
                     <div className="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-2xl">
                          <img src={Efficiency} alt="" />
                     </div>
-                    <h3 className="mt-4 text-lg font-semibold text-gray-900">Reliable Support</h3>
+                    <h3 className="mt-4 text-lg font-semibold text-gray-900">{t('core_values.reliable_support_title')}</h3>
                     <p className="text-gray-600 mt-2 text-sm max-w-xs">
-                        24/7 customer support to help you with any questions or issues during your rental.
+                        {t('core_values.reliable_support_description')}
                     </p>
                 </div>
 
@@ -70,9 +72,9 @@ const CoreValues = () => {
                     <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center text-2xl">
                          <img src={Verify} alt="" />
                     </div>
-                    <h3 className="mt-4 text-lg font-semibold text-gray-900">Variety</h3>
+                    <h3 className="mt-4 text-lg font-semibold text-gray-900">{t('core_values.variety_title')}</h3>
                     <p className="text-gray-600 mt-2 text-sm max-w-xs">
-                        A wide range of equipment from various suppliers in one place, making it easy to find what fits your needs.
+                        {t('core_values.variety_description')}
                     </p>
                 </div>
                 {/* Card 6 */}
@@ -80,9 +82,9 @@ const CoreValues = () => {
                     <div className="w-12 h-12 rounded-lg bg-[#F6C90E40] flex items-center justify-center text-2xl">
                         <img src={Support} alt="" />
                     </div>
-                    <h3 className="mt-4 text-lg font-semibold text-gray-900">Support</h3>
+                    <h3 className="mt-4 text-lg font-semibold text-gray-900">{t('core_values.support_title')}</h3>
                     <p className="text-gray-600 mt-2 text-sm max-w-xs">
-                        We support you every step of the way, ensuring the equipment arrives and works smoothly.
+                        {t('core_values.support_description')}
                     </p>
                 </div>
             </div>
