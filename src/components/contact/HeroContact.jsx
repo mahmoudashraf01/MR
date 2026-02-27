@@ -1,7 +1,9 @@
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import Contact from '../../assets/contact.jpeg'
 
 const HeroContact = () => {
+    const { t } = useTranslation('contact');
     return (<div className="relative h-[550px] w-full flex flex-col items-center justify-center overflow-hidden">
         <img
             src={Contact}
@@ -12,11 +14,11 @@ const HeroContact = () => {
         <div className=' flex flex-col justify-center items-center relative'>
             <div className='text-center flex flex-col justify-center items-center relative text-primary text-[50px] font-bold drop-shadow-lg max-sm:text-2xl my-10 leading-relaxed'>
                 <h1>
-                    Need Help? <span className='text-secondary'> We're Here for You.</span>
+                    {t('hero_contact.title')} <span className='text-secondary'> {t('hero_contact.title_span')}</span>
                 </h1>
             </div>
             <div className='w-full flex justify-center items-center '>
-                <p className=' text-center text-primary text-base text-[20px] leading-relaxed'>Our support team assists you with rentals, machine listings, delivery options, and account help.</p>
+                <p className=' text-center text-primary text-base text-[20px] leading-relaxed'>{t('hero_contact.subtitle')}</p>
             </div>
         </div>
     </div>

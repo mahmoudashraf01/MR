@@ -1,6 +1,26 @@
 {
-    "welcome": "Bienvenue sur notre plateforme de location de machines !",
-    "description": "Découvrez une large gamme de machines pour tous vos besoins de construction, d'agriculture et plus encore. Louez facilement en quelques clics et bénéficiez d'un service fiable et rapide.",
-    "exploreButton": "Explorer les Machines",
-    "contactUs": "Contactez-nous pour plus d'informations ou pour toute question concernant nos services de location."
+    "hero_contact": {
+        "title": "Need Help? ",
+        "title_span": "We're Here for You.",
+        "subtitle": "Our support team assists you with rentals, machine listings, delivery options, and account help."
+    },
+    "contact_section": {
+        "support_title": "Contact Support",
+        "support_subtitle": "We're here to help with anything related to rentals, machine listings, delivery arrangements, and account issues.",
+        "full_name": "Full Name",
+        "full_name_placeholder": "Enter your full name",
+        "email": "Email",
+        "email_placeholder": "Enter your email",
+        "company": "Your Company",
+        "company_optional": "(Optional)",
+        "company_placeholder": "Enter your company",
+        "message": "Message",
+        "message_placeholder": "Please describe your issue in details...",
+        "send_button": "Send to support",
+        "info_title": "Contact Information",
+        "phone_support": "Phone Support",
+        "email_support": "Email Support",
+        "working_hours": "Working Hours",
+        "working_hours_value": "24/7"
+    }
 }
